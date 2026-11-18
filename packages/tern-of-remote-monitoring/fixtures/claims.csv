@@ -1,0 +1,18 @@
+Patient ID,Patient Name,Date of Service,CPT,Units
+T1,Abel Quist,2026-10-31,99454,1
+T1,Abel Quist,2026-10-31,99457,1
+T2,Bea Saldana,2026-08-01,99453,1
+T2,Bea Saldana,2026-10-01,99453,1
+T2,Bea Saldana,2026-10-31,99454,1
+T2,Bea Saldana,2026-10-31,99457,1
+T3,Cal Ferro,2026-10-31,99454,1
+T3,Cal Ferro,2026-10-31,99457,1
+T4,Dina Moretti,2026-10-31,99454,1
+T4,Dina Moretti,2026-10-31,99457,1
+T4,Dina Moretti,2026-10-31,99458,2
+T5,Eli Brandt,2026-10-15,99454,1
+T5,Eli Brandt,2026-10-31,99454,1
+T5,Eli Brandt,2026-10-31,99457,1
+T6,Fay Okafor,2026-10-31,99454,1
+T6,Fay Okafor,2026-10-31,99457,1
+T6,Fay Okafor,2026-10-31,98980,1

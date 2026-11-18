@@ -1,0 +1,9 @@
+Patient ID,Patient Name,Date of Service,Minutes,Interactive
+T1,Abel Quist,2026-10-10,22,Yes
+T2,Bea Saldana,2026-10-12,21,Yes
+T3,Cal Ferro,2026-10-08,15,No
+T3,Cal Ferro,2026-10-22,10,No
+T4,Dina Moretti,2026-10-09,25,Yes
+T4,Dina Moretti,2026-10-23,20,No
+T5,Eli Brandt,2026-10-14,20,Yes
+T6,Fay Okafor,2026-10-15,22,Yes
