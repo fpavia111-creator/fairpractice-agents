@@ -1,0 +1,23 @@
+{
+  "name": "ibis-of-wound-products",
+  "version": "0.1.0",
+  "description": "Wound care product billing: skin substitute units against the product size used and wasted (JW/JZ), application codes against the product lines, products billed with no invoice and paid below what they cost.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/ibis-of-wound-products#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "wound-care",
+    "skin-substitutes",
+    "jw-jz",
+    "buy-and-bill"
+  ]
+}

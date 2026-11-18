@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "plover-of-risk-analysis": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "plover-of-risk-analysis@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

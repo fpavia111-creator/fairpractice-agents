@@ -1,0 +1,58 @@
+{
+  "name": "ibis-of-wound-products",
+  "version": "0.1.0",
+  "description": "Wound care product billing: skin substitute units against the product size used and wasted (JW/JZ), application codes against the product lines, products billed with no invoice and paid below what they cost.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "ibis-of-wound-products": "bin/ibis-of-wound-products.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/ibis-of-wound-products.js demo",
+    "eval": "node bin/ibis-of-wound-products.js eval"
+  },
+  "dependencies": {
+    "kestrel-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/kestrel-agents.git",
+    "directory": "packages/ibis-of-wound-products"
+  },
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/ibis-of-wound-products#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/kestrel-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "wound-care",
+    "skin-substitutes",
+    "jw-jz",
+    "buy-and-bill"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "heron-of-exclusions": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "heron-of-exclusions@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

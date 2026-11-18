@@ -1,0 +1,57 @@
+{
+  "name": "wren-of-reviews",
+  "version": "0.1.0",
+  "description": "Online review replies without a HIPAA fine: checks drafted replies for words that confirm someone is a patient (visit, treatment, chart, diagnosis, their name) and writes safe, generic reply drafts a person approves.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "wren-of-reviews": "bin/wren-of-reviews.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/wren-of-reviews.js demo",
+    "eval": "node bin/wren-of-reviews.js eval"
+  },
+  "dependencies": {
+    "kestrel-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/kestrel-agents.git",
+    "directory": "packages/wren-of-reviews"
+  },
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/wren-of-reviews#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/kestrel-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "online-reviews",
+    "hipaa",
+    "reputation"
+  ]
+}

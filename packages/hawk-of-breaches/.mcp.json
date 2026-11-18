@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "hawk-of-breaches": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "hawk-of-breaches@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

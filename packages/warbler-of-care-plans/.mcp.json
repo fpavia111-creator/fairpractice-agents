@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "warbler-of-care-plans": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "warbler-of-care-plans@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

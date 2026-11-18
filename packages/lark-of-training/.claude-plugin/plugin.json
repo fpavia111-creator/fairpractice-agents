@@ -1,0 +1,23 @@
+{
+  "name": "lark-of-training",
+  "version": "0.1.0",
+  "description": "Compliance training: required courses per role and state (HIPAA, fraud and abuse, Texas HB 300 and others), new hires not trained within the days your policy allows, annual refreshers overdue and courses missing for a role.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/lark-of-training#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "compliance-training",
+    "hipaa",
+    "hb300",
+    "lms"
+  ]
+}

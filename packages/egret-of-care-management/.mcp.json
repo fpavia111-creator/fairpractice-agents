@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "egret-of-care-management": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "egret-of-care-management@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

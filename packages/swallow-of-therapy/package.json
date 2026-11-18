@@ -1,0 +1,58 @@
+{
+  "name": "swallow-of-therapy",
+  "version": "0.1.0",
+  "description": "Outpatient therapy billing (PT, OT, speech): timed units against the 8-minute rule, the KX threshold per patient per year, CQ and CO assistant modifiers, GP/GO/GN discipline modifiers, and plan-of-care certifications and recertifications due.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "swallow-of-therapy": "bin/swallow-of-therapy.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/swallow-of-therapy.js demo",
+    "eval": "node bin/swallow-of-therapy.js eval"
+  },
+  "dependencies": {
+    "kestrel-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/kestrel-agents.git",
+    "directory": "packages/swallow-of-therapy"
+  },
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/swallow-of-therapy#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/kestrel-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "physical-therapy",
+    "occupational-therapy",
+    "8-minute-rule",
+    "kx"
+  ]
+}

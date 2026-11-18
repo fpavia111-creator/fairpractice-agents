@@ -1,0 +1,23 @@
+{
+  "name": "crane-of-physician-contracts",
+  "version": "0.1.0",
+  "description": "Payments to referral-source physicians against their contracts (Stark and anti-kickback admin checks): payments with no signed or current agreement, expired agreements still paid, payments above the contract or your fair-market-value range, and missing time logs.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/crane-of-physician-contracts#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "stark",
+    "anti-kickback",
+    "physician-contracts",
+    "compliance"
+  ]
+}

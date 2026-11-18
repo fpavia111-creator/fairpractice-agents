@@ -1,0 +1,58 @@
+{
+  "name": "hawk-of-breaches",
+  "version": "0.1.0",
+  "description": "Privacy incident and breach clocks: risk assessments not done, the 60-day notice deadline to patients, the media and HHS for large breaches, the annual HHS log for small ones, and notices sent late.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "hawk-of-breaches": "bin/hawk-of-breaches.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/hawk-of-breaches.js demo",
+    "eval": "node bin/hawk-of-breaches.js eval"
+  },
+  "dependencies": {
+    "kestrel-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/kestrel-agents.git",
+    "directory": "packages/hawk-of-breaches"
+  },
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/hawk-of-breaches#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/kestrel-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "hipaa",
+    "breach-notification",
+    "incident",
+    "compliance"
+  ]
+}

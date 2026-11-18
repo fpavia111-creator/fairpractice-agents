@@ -1,0 +1,23 @@
+{
+  "name": "sparrow-of-home-health",
+  "version": "0.1.0",
+  "description": "Home health 30-day periods: notices of admission filed late (with the payment cut per day), visits under the low-utilization threshold, periods that overlap another period, and visits outside any period.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/sparrow-of-home-health#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "home-health",
+    "pdgm",
+    "noa",
+    "lupa"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "plover-of-risk-analysis",
+  "version": "0.1.0",
+  "description": "Security risk analysis tracker: the annual risk analysis evidence checklist, open risks past their due date, high risks with no owner or plan, and systems with patient data missing from the asset list.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/plover-of-risk-analysis#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "hipaa",
+    "security-risk-analysis",
+    "risk-register"
+  ]
+}

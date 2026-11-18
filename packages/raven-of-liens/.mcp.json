@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "raven-of-liens": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "raven-of-liens@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

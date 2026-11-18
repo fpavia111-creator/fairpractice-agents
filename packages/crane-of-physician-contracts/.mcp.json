@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "crane-of-physician-contracts": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "crane-of-physician-contracts@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "thrush-of-caregiver-hours": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "thrush-of-caregiver-hours@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

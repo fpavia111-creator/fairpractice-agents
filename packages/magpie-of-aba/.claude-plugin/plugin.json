@@ -1,0 +1,23 @@
+{
+  "name": "magpie-of-aba",
+  "version": "0.1.0",
+  "description": "ABA therapy units against authorizations: units delivered vs authorized hours per week and in total, sessions outside the authorization dates, supervision below the share the payer requires, unit math against session minutes, and authorizations ending with hours unused.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/magpie-of-aba#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "aba",
+    "autism",
+    "behavior-analysis",
+    "authorizations"
+  ]
+}

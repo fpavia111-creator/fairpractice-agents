@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "swallow-of-therapy": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "swallow-of-therapy@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

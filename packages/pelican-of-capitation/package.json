@@ -1,0 +1,57 @@
+{
+  "name": "pelican-of-capitation",
+  "version": "0.1.0",
+  "description": "Capitation reconciliation: per-member payments against the roster month by month, members paid at the wrong rate, members on the roster not paid, retro adds and terms, and the net amount to dispute.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "pelican-of-capitation": "bin/pelican-of-capitation.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/pelican-of-capitation.js demo",
+    "eval": "node bin/pelican-of-capitation.js eval"
+  },
+  "dependencies": {
+    "kestrel-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/kestrel-agents.git",
+    "directory": "packages/pelican-of-capitation"
+  },
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/pelican-of-capitation#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/kestrel-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "capitation",
+    "pmpm",
+    "value-based-care"
+  ]
+}

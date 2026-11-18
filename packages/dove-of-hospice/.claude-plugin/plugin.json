@@ -1,0 +1,23 @@
+{
+  "name": "dove-of-hospice",
+  "version": "0.1.0",
+  "description": "Hospice billing deadlines and the cap: notices of election and termination filed late, benefit periods and face-to-face encounters before the third period, the aggregate cap per cap year and the live-discharge rate.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/dove-of-hospice#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "hospice",
+    "noe",
+    "hospice-cap",
+    "benefit-periods"
+  ]
+}

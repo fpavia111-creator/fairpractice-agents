@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "linnet-of-primary-care": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "linnet-of-primary-care@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "finch-of-licenses",
+  "version": "0.1.0",
+  "description": "Staff licenses and certifications: nursing and allied licenses, BLS, ACLS and other certificates expired or expiring, missing for the role, verification older than your policy, compact-state licenses used out of state, and staff working shifts on an expired license.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/finch-of-licenses#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "licenses",
+    "certifications",
+    "nursing",
+    "credentialing"
+  ]
+}

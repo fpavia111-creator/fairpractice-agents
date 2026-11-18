@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "jay-of-behavioral-health": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "jay-of-behavioral-health@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

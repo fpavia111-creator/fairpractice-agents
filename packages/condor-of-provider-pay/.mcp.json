@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "condor-of-provider-pay": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "condor-of-provider-pay@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

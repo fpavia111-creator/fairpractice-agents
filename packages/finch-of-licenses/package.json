@@ -1,0 +1,58 @@
+{
+  "name": "finch-of-licenses",
+  "version": "0.1.0",
+  "description": "Staff licenses and certifications: nursing and allied licenses, BLS, ACLS and other certificates expired or expiring, missing for the role, verification older than your policy, compact-state licenses used out of state, and staff working shifts on an expired license.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "finch-of-licenses": "bin/finch-of-licenses.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/finch-of-licenses.js demo",
+    "eval": "node bin/finch-of-licenses.js eval"
+  },
+  "dependencies": {
+    "kestrel-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/kestrel-agents.git",
+    "directory": "packages/finch-of-licenses"
+  },
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/finch-of-licenses#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/kestrel-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "licenses",
+    "certifications",
+    "nursing",
+    "credentialing"
+  ]
+}

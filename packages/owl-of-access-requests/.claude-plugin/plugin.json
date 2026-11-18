@@ -1,0 +1,23 @@
+{
+  "name": "owl-of-access-requests",
+  "version": "0.1.0",
+  "description": "Patient right-of-access requests: the 30-day clock and one 30-day extension, requests past due, extensions without a written notice, fees above your limit or the flat fee, and denials without a reason.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/owl-of-access-requests#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "hipaa",
+    "right-of-access",
+    "medical-records",
+    "ocr"
+  ]
+}

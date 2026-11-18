@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "ibis-of-wound-products": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "ibis-of-wound-products@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

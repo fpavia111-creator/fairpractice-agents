@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "pelican-of-capitation": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "pelican-of-capitation@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

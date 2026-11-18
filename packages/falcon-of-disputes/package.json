@@ -1,0 +1,58 @@
+{
+  "name": "falcon-of-disputes",
+  "version": "0.1.0",
+  "description": "No Surprises Act payment disputes: the 30-business-day open negotiation, the 4-business-day window to start IDR, offers below the QPA, batching groups, outcomes by payer and fees paid.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "falcon-of-disputes": "bin/falcon-of-disputes.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/falcon-of-disputes.js demo",
+    "eval": "node bin/falcon-of-disputes.js eval"
+  },
+  "dependencies": {
+    "kestrel-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/kestrel-agents.git",
+    "directory": "packages/falcon-of-disputes"
+  },
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/falcon-of-disputes#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/kestrel-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "no-surprises-act",
+    "idr",
+    "out-of-network",
+    "qpa"
+  ]
+}

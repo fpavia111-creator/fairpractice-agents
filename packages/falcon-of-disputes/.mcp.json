@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "falcon-of-disputes": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "falcon-of-disputes@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

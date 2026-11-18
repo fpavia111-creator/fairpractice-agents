@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "osprey-of-secondary-claims": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "osprey-of-secondary-claims@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

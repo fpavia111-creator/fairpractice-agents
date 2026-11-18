@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "stork-of-attribution": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "stork-of-attribution@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

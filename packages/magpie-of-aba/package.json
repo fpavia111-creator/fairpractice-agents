@@ -1,0 +1,58 @@
+{
+  "name": "magpie-of-aba",
+  "version": "0.1.0",
+  "description": "ABA therapy units against authorizations: units delivered vs authorized hours per week and in total, sessions outside the authorization dates, supervision below the share the payer requires, unit math against session minutes, and authorizations ending with hours unused.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "magpie-of-aba": "bin/magpie-of-aba.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/magpie-of-aba.js demo",
+    "eval": "node bin/magpie-of-aba.js eval"
+  },
+  "dependencies": {
+    "kestrel-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/kestrel-agents.git",
+    "directory": "packages/magpie-of-aba"
+  },
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/magpie-of-aba#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/kestrel-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "aba",
+    "autism",
+    "behavior-analysis",
+    "authorizations"
+  ]
+}

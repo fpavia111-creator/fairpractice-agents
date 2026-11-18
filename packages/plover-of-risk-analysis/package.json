@@ -1,0 +1,57 @@
+{
+  "name": "plover-of-risk-analysis",
+  "version": "0.1.0",
+  "description": "Security risk analysis tracker: the annual risk analysis evidence checklist, open risks past their due date, high risks with no owner or plan, and systems with patient data missing from the asset list.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "plover-of-risk-analysis": "bin/plover-of-risk-analysis.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/plover-of-risk-analysis.js demo",
+    "eval": "node bin/plover-of-risk-analysis.js eval"
+  },
+  "dependencies": {
+    "kestrel-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/kestrel-agents.git",
+    "directory": "packages/plover-of-risk-analysis"
+  },
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/plover-of-risk-analysis#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/kestrel-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "hipaa",
+    "security-risk-analysis",
+    "risk-register"
+  ]
+}

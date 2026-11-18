@@ -1,0 +1,22 @@
+{
+  "name": "osprey-of-secondary-claims",
+  "version": "0.1.0",
+  "description": "Secondary and tertiary claims: primary paid with a balance left and no secondary claim sent, secondaries sent without the primary's payment, wrong payer order, and secondary timely filing windows closing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/osprey-of-secondary-claims#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "coordination-of-benefits",
+    "secondary-claims",
+    "cob"
+  ]
+}

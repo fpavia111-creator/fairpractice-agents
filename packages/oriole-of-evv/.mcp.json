@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "oriole-of-evv": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "oriole-of-evv@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

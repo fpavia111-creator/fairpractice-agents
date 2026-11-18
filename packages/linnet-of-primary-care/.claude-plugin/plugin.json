@@ -1,0 +1,22 @@
+{
+  "name": "linnet-of-primary-care",
+  "version": "0.1.0",
+  "description": "Advanced primary care management: monthly codes against patient tiers, consent, care management codes billed in the same month that the rules do not allow, and enrolled patients not billed.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/linnet-of-primary-care#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "apcm",
+    "primary-care",
+    "care-management"
+  ]
+}

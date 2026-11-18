@@ -1,0 +1,22 @@
+{
+  "name": "condor-of-provider-pay",
+  "version": "0.1.0",
+  "description": "Provider pay by work RVU: wRVUs per provider from charges and the RVU file, tiered pay, bonuses and quarterly draws trued up, plus codes with no RVU and charges missing a provider.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/kestrel-agents/tree/main/packages/condor-of-provider-pay#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "wrvu",
+    "provider-compensation",
+    "physician-pay"
+  ]
+}
