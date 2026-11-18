@@ -1,0 +1,12 @@
+Patient ID,Patient Name,Date of Service,CPT,Modifiers,Units,Paid
+W1,Zane Corbett,2026-10-07,Q4101,JZ,16,1400
+W1,Zane Corbett,2026-10-07,15271,,1,180
+W2,Amara Ellison,2026-10-14,Q4186,JZ,30,1900
+W2,Amara Ellison,2026-10-14,15271,,1,180
+W3,Boris Kettering,2026-10-21,Q4205,JZ,49,2300
+W3,Boris Kettering,2026-10-21,15271,,1,180
+W4,Clara Nwosu,2026-10-28,Q4102,JZ,9,800
+W4,Clara Nwosu,2026-10-28,15271,,1,180
+W5,Dmitri Halvorsen,2026-11-04,Q4101,,12,700
+W5,Dmitri Halvorsen,2026-11-04,Q4101,JW,4,200
+W5,Dmitri Halvorsen,2026-11-04,15271,,1,180
