@@ -1,0 +1,1 @@
+{ "statute_years": { "default": 2, "NY": 3 }, "warn_days": 60, "pay_days": 30, "stale_days": 90, "max_reduction_pct": 33 }
