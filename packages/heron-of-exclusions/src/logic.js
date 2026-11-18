@@ -1,5 +1,5 @@
 // Heron logic: everyone you pay against exclusion lists. No I/O.
-import { str, isoDate, daysBetween, personKey, personSimilarity, normalizeName, npiValid, sortByStatus, countBy } from 'kestrel-core';
+import { str, isoDate, daysBetween, personKey, jaroWinkler, round2, nearNameIndex, normalizeName, npiValid, sortByStatus, countBy } from 'kestrel-core';
 
 const ORDER = { npi_match: 0, confirmed_match: 1, possible_match: 2, near_name: 3, dob_differs: 4, reinstated: 5, never_screened: 6, screening_overdue: 7 };
 const ENTITY_TYPES = /vendor|business|company|entity|supplier|org/i;
@@ -21,9 +21,19 @@ export function screen(people, entries, { asOf, nearThreshold = 0.92, intervalDa
   for (const e of entries) {
     if (e.npi) { if (!byNpi.has(e.npi)) byNpi.set(e.npi, []); byNpi.get(e.npi).push(e); }
     if (e.name) { const k = personKey(e.name); if (k) { if (!byName.has(k)) byName.set(k, []); byName.get(k).push(e); } }
-    if (e.business) { const k = normalizeName(e.business); if (k) { if (!byBiz.has(k)) byBiz.set(k, []); byBiz.get(k).push(e); } }
+    // A business is matched on the list's business name, or on its plain name when the list has one name column
+    // for people and companies alike (most state Medicaid lists; a German or French export names it as a person's name).
+    const biz = e.business || e.name; if (biz) { const k = normalizeName(biz); if (k) { if (!byBiz.has(k)) byBiz.set(k, []); byBiz.get(k).push(e); } }
   }
-  const nameKeys = [...byName.keys()];
+  // Near names: only listed names sharing a word, or a word one typo away (kestrel-core nearNameIndex), are
+  // compared, not every listed name for every person (minutes at 10,000 rows; the OIG list has about 80,000).
+  const candidates = nearNameIndex(byName.keys(), { maxLenDiff: 4 });
+  const nearCache = new Map();
+  const nearOf = (pk) => {
+    if (nearCache.has(pk)) return nearCache.get(pk);
+    const out = []; for (const k of candidates(pk)) { const sim = round2(jaroWinkler(k, pk)); if (sim >= nearThreshold) out.push([k, sim]); }
+    nearCache.set(pk, out); return out;
+  };
   const active = (e) => !(e.reinstated_on && (!asOf || e.reinstated_on <= asOf));
   const items = [];
   for (const [i, p] of people.entries()) {
@@ -39,7 +49,7 @@ export function screen(people, entries, { asOf, nearThreshold = 0.92, intervalDa
     if (isEntity) { for (const e of byBiz.get(normalizeName(name)) || []) hits.push(['name', e]); }
     else if (pk) {
       for (const e of byName.get(pk) || []) hits.push(['name', e]);
-      if (!(byName.get(pk) || []).length) for (const k of nameKeys) { if (Math.abs(k.length - pk.length) > 4) continue; const s = personSimilarity(k, pk); if (s >= nearThreshold) for (const e of byName.get(k)) hits.push(['near', e, s]); }
+      if (!(byName.get(pk) || []).length) for (const [k, sim] of nearOf(pk)) for (const e of byName.get(k)) hits.push(['near', e, sim]);
     }
     const npiHit = new Set(hits.filter((h) => h[0] === 'npi').map((h) => h[1]));
     for (const [how, e, sim] of hits) {

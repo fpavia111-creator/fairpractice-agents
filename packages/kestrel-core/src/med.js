@@ -154,6 +154,27 @@ export function personKey(v) {
 }
 /** Similarity 0..1 of two person names (word order and case ignored). */
 export function personSimilarity(a, b) { const x = personKey(a), y = personKey(b); if (!x || !y) return 0; if (x === y) return 1; return round2(jaroWinkler(x, y)); }
+/**
+ * The words of a name key, each word of three letters or more with one letter left out, and the first four
+ * letters of longer words. Two names with a word one typo apart (a letter changed, added, dropped or two
+ * swapped), or with a word starting the same way (Michael / Michelle), share one of these.
+ */
+export function wordVariants(key) {
+  const out = new Set();
+  for (const w of String(key ?? '').split(' ')) { if (!w) continue; out.add(w); if (w.length >= 3) for (let i = 0; i < w.length; i++) out.add(w.slice(0, i) + w.slice(i + 1)); if (w.length >= 5) out.add('^' + w.slice(0, 4)); }
+  return out;
+}
+/**
+ * Index of name keys for near-name search. The returned function gives the indexed keys that share a word
+ * variant with a key (and are within maxLenDiff letters of its length), in the order they were indexed.
+ * Comparing every name with every other took minutes at 10,000 names; this compares only likely ones.
+ * Missed by design: names where every word is two or more typos away from the other name's words.
+ */
+export function nearNameIndex(keys, { maxLenDiff = Infinity } = {}) {
+  const at = new Map(); const by = new Map();
+  for (const k of keys) { if (!k || at.has(k)) continue; at.set(k, at.size); for (const v of wordVariants(k)) { let b = by.get(v); if (!b) by.set(v, (b = [])); b.push(k); } }
+  return (key) => { const c = new Set(); for (const v of wordVariants(key)) for (const k of by.get(v) || []) if (Math.abs(k.length - key.length) <= maxLenDiff) c.add(k); return [...c].sort((a, b) => at.get(a) - at.get(b)); };
+}
 /** Code normalised for comparing: upper case, no spaces or dots. */
 export const codeKey = (v) => str(v).toUpperCase().replace(/[\s.]/g, '');
 export { payerKey };

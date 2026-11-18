@@ -31,3 +31,15 @@ test('payments: matched by name without legal forms, summed per vendor, with a f
   const r = checkAssociates([V('Acme Billing')], pays, { asOf, minPaid: 50, notBa: ['power co'] });
   assert.deepEqual(st(r), [['Zeta Scribes', 'paid_not_on_list']]); assert.equal(r.items[0].amount, 110);
 });
+
+test('a paid vendor spelled a little differently from the list still counts as listed', () => {
+  const r = checkAssociates([V('Northwind Billing Services')], [{ vendor: 'Northwind Biling Services', date: '2026-10-01', amount: 90 }, { vendor: 'Harbor Shredding', date: '2026-10-02', amount: 40 }], { asOf });
+  assert.deepEqual(st(r), [['Harbor Shredding', 'paid_not_on_list']]);
+});
+
+test('5,000 vendors and 5,000 payments finish in seconds, not minutes', () => {
+  const vendors = Array.from({ length: 5000 }, (_, i) => V(`Vendor ${i} ${['Billing', 'Coding', 'Cloud', 'Shred'][i % 4]} Group ${i * 7}`));
+  const payments = Array.from({ length: 5000 }, (_, i) => ({ vendor: `Payee ${i} Supply ${i * 3}`, date: '2026-10-01', amount: 10 }));
+  const t = Date.now(); const r = checkAssociates(vendors, payments, { asOf });
+  assert.ok(Date.now() - t < 10000, `took ${Date.now() - t} ms`); assert.equal(r.items.filter((i) => i.status === 'paid_not_on_list').length, 5000);
+});

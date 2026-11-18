@@ -1,244 +1,279 @@
 {
- "suite": "stork-of-attribution",
- "root": "..",
- "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
- "cases": [
-  {
-   "id": "totals",
-   "tool": "stork_check",
-   "args": {
-    "roster": "fixtures/roster-2026-11.csv",
-    "prior": "fixtures/roster-2026-10.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "executed",
-    "equals": {
-     "result.attributed": 5,
-     "result.prior_attributed": 5,
-     "result.active_patients": 5,
-     "result.dollars_at_risk": 80
-    }
-   }
-  },
-  {
-   "id": "every-planted-status-in-order",
-   "tool": "stork_check",
-   "args": {
-    "roster": "fixtures/roster-2026-11.csv",
-    "prior": "fixtures/roster-2026-10.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.status": "left_out",
-     "result.items.1.status": "dropped",
-     "result.items.2.status": "wrong_provider",
-     "result.items.3.status": "not_seen",
-     "result.items.4.status": "not_seen",
-     "result.items.5.status": "added"
-    }
-   }
-  },
-  {
-   "id": "status-filter",
-   "tool": "stork_check",
-   "args": {
-    "roster": "fixtures/roster-2026-11.csv",
-    "prior": "fixtures/roster-2026-10.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "left_out"
-   },
-   "expect": {
-    "status": "executed",
-    "equals": {
-     "result.items.0.status": "left_out"
-    }
-   }
-  },
-  {
-   "id": "limit-one",
-   "tool": "stork_check",
-   "args": {
-    "roster": "fixtures/roster-2026-11.csv",
-    "prior": "fixtures/roster-2026-10.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "limit": 1
-   },
-   "expect": {
-    "status": "executed",
-    "length": {
-     "result.items": 1
-    }
-   }
-  },
-  {
-   "id": "report",
-   "tool": "stork_write_report",
-   "args": {
-    "roster": "fixtures/roster-2026-11.csv",
-    "prior": "fixtures/roster-2026-10.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "executed",
-    "matches": [
-     "\\.csv",
-     "\\.html"
-    ]
-   }
-  },
-  {
-   "id": "report-spanish",
-   "tool": "stork_write_report",
-   "args": {
-    "roster": "fixtures/roster-2026-11.csv",
-    "prior": "fixtures/roster-2026-10.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "language": "es"
-   },
-   "expect": {
-    "status": "executed"
-   }
-  },
-  {
-   "id": "typo-setting-refused",
-   "tool": "stork_check",
-   "args": {
-    "roster": "fixtures/roster-2026-11.csv",
-    "prior": "fixtures/roster-2026-10.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings-typo.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "error"
-   }
-  },
-  {
-   "id": "missing-file",
-   "tool": "stork_check",
-   "args": {
-    "roster": "fixtures/does-not-exist.csv",
-    "prior": "fixtures/roster-2026-10.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "error"
-   }
-  },
-  {
-   "id": "refuses-roster_dispute_submit",
-   "tool": "roster_dispute_submit",
-   "args": {},
-   "expect": {
-    "status": "blocked"
-   }
-  },
-  {
-   "id": "refuses-patient_outreach_send",
-   "tool": "patient_outreach_send",
-   "args": {},
-   "expect": {
-    "status": "blocked"
-   }
-  },
-  {
-   "id": "recall-empty-memory",
-   "tool": "stork_recall",
-   "args": {},
-   "expect": {
-    "status": "executed",
-    "contains": [
-     "memory is empty"
-    ]
-   }
-  },
-  {
-   "id": "dropped-still-active",
-   "tool": "stork_check",
-   "args": {
-    "roster": "fixtures/roster-2026-11.csv",
-    "prior": "fixtures/roster-2026-10.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "dropped"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.still_active": true,
-     "result.items.0.last_visit": "2026-09-22"
-    }
-   }
-  },
-  {
-   "id": "wrong-provider-detail",
-   "tool": "stork_check",
-   "args": {
-    "roster": "fixtures/roster-2026-11.csv",
-    "prior": "fixtures/roster-2026-10.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "wrong_provider"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.seen_by": "Rhea Lin MD",
-     "result.items.0.visits": 3
-    }
-   }
-  },
-  {
-   "id": "no-prior-no-adds",
-   "tool": "stork_check",
-   "args": {
-    "roster": "fixtures/roster-2026-11.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "equals": {
-     "result.prior_attributed": 0,
-     "result.by_status.left_out": 2
+  "suite": "stork-of-attribution",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "stork_check",
+      "args": {
+        "roster": "fixtures/roster-2026-11.csv",
+        "prior": "fixtures/roster-2026-10.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.attributed": 5,
+          "result.prior_attributed": 5,
+          "result.active_patients": 5,
+          "result.dollars_at_risk": 80
+        }
+      }
     },
-    "not_contains": [
-     "\"added\""
-    ]
-   }
-  },
-  {
-   "id": "member-ids-masked",
-   "tool": "stork_check",
-   "args": {
-    "roster": "fixtures/roster-2026-11.csv",
-    "prior": "fixtures/roster-2026-10.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "not_contains": [
-     "BP100006",
-     "1953-05-21"
-    ]
-   }
-  }
- ]
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "stork_check",
+      "args": {
+        "roster": "fixtures/roster-2026-11.csv",
+        "prior": "fixtures/roster-2026-10.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "left_out",
+          "result.items.1.status": "dropped",
+          "result.items.2.status": "wrong_provider",
+          "result.items.3.status": "not_seen",
+          "result.items.4.status": "not_seen",
+          "result.items.5.status": "added"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "stork_check",
+      "args": {
+        "roster": "fixtures/roster-2026-11.csv",
+        "prior": "fixtures/roster-2026-10.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "left_out"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "left_out"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "stork_check",
+      "args": {
+        "roster": "fixtures/roster-2026-11.csv",
+        "prior": "fixtures/roster-2026-10.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "stork_write_report",
+      "args": {
+        "roster": "fixtures/roster-2026-11.csv",
+        "prior": "fixtures/roster-2026-10.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "stork_write_report",
+      "args": {
+        "roster": "fixtures/roster-2026-11.csv",
+        "prior": "fixtures/roster-2026-10.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "typo-setting-refused",
+      "tool": "stork_check",
+      "args": {
+        "roster": "fixtures/roster-2026-11.csv",
+        "prior": "fixtures/roster-2026-10.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings-typo.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "stork_check",
+      "args": {
+        "roster": "fixtures/does-not-exist.csv",
+        "prior": "fixtures/roster-2026-10.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-roster_dispute_submit",
+      "tool": "roster_dispute_submit",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-patient_outreach_send",
+      "tool": "patient_outreach_send",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "stork_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "dropped-still-active",
+      "tool": "stork_check",
+      "args": {
+        "roster": "fixtures/roster-2026-11.csv",
+        "prior": "fixtures/roster-2026-10.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "dropped"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.still_active": true,
+          "result.items.0.last_visit": "2026-09-22"
+        }
+      }
+    },
+    {
+      "id": "wrong-provider-detail",
+      "tool": "stork_check",
+      "args": {
+        "roster": "fixtures/roster-2026-11.csv",
+        "prior": "fixtures/roster-2026-10.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "wrong_provider"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.seen_by": "Rhea Lin MD",
+          "result.items.0.visits": 3
+        }
+      }
+    },
+    {
+      "id": "no-prior-no-adds",
+      "tool": "stork_check",
+      "args": {
+        "roster": "fixtures/roster-2026-11.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.prior_attributed": 0,
+          "result.by_status.left_out": 2
+        },
+        "not_contains": [
+          "\"added\""
+        ]
+      }
+    },
+    {
+      "id": "member-ids-masked",
+      "tool": "stork_check",
+      "args": {
+        "roster": "fixtures/roster-2026-11.csv",
+        "prior": "fixtures/roster-2026-10.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "not_contains": [
+          "BP100006",
+          "1953-05-21"
+        ]
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "stork_check",
+      "args": {
+        "roster": "../../outside-root.csv",
+        "prior": "fixtures/roster-2026-10.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "stork_check",
+      "args": {
+        "roster": "fixtures/missing-export.csv",
+        "prior": "fixtures/roster-2026-10.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
+    }
+  ]
 }

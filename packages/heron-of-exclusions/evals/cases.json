@@ -1,275 +1,310 @@
 {
- "suite": "heron-of-exclusions",
- "root": "..",
- "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
- "cases": [
-  {
-   "id": "totals",
-   "tool": "heron_check",
-   "args": {
-    "people": "fixtures/people.csv",
-    "exclusions": "fixtures/leie-2026-11.csv",
-    "state_list": "fixtures/state-medicaid-2026-11.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "executed",
-    "equals": {
-     "result.people": 11,
-     "result.list_entries": 9,
-     "result.needs_action": 4
+  "suite": "heron-of-exclusions",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "heron_check",
+      "args": {
+        "people": "fixtures/people.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.people": 11,
+          "result.list_entries": 9,
+          "result.needs_action": 4
+        }
+      }
+    },
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "heron_check",
+      "args": {
+        "people": "fixtures/people.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "npi_match",
+          "result.items.1.status": "confirmed_match",
+          "result.items.2.status": "possible_match",
+          "result.items.3.status": "possible_match",
+          "result.items.4.status": "near_name",
+          "result.items.5.status": "dob_differs",
+          "result.items.6.status": "reinstated",
+          "result.items.7.status": "never_screened",
+          "result.items.8.status": "screening_overdue"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "heron_check",
+      "args": {
+        "people": "fixtures/people.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "npi_match"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "npi_match"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "heron_check",
+      "args": {
+        "people": "fixtures/people.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "heron_write_report",
+      "args": {
+        "people": "fixtures/people.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "heron_write_report",
+      "args": {
+        "people": "fixtures/people.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "typo-setting-refused",
+      "tool": "heron_check",
+      "args": {
+        "people": "fixtures/people.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "settings": "fixtures/settings-typo.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "heron_check",
+      "args": {
+        "people": "fixtures/people.csv",
+        "exclusions": "fixtures/does-not-exist.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-employment_terminate",
+      "tool": "employment_terminate",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-self_disclosure_submit",
+      "tool": "self_disclosure_submit",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "heron_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "learn-waits",
+      "tool": "heron_learn",
+      "args": {
+        "kind": "cleared_match",
+        "value": {
+          "person_id": "E105",
+          "excluded_on": "2021-09-09"
+        }
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "waiting"
+        ]
+      }
+    },
+    {
+      "id": "vendor-on-state-list",
+      "tool": "heron_check",
+      "args": {
+        "people": "fixtures/people.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "possible_match"
+      },
+      "expect": {
+        "equals": {
+          "result.items.1.list": "state list",
+          "result.items.1.type": "vendor"
+        }
+      }
+    },
+    {
+      "id": "npi-match-has-exclusion-date",
+      "tool": "heron_check",
+      "args": {
+        "people": "fixtures/people.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "npi_match"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.excluded_on": "2024-03-15",
+          "result.items.0.listed_npi": "1234567893"
+        }
+      }
+    },
+    {
+      "id": "overdue-days",
+      "tool": "heron_check",
+      "args": {
+        "people": "fixtures/people.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "screening_overdue"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.days_since": 87
+        }
+      }
+    },
+    {
+      "id": "default-threshold-still-finds-near-name",
+      "tool": "heron_check",
+      "args": {
+        "people": "fixtures/people.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.near_name": 1
+        }
+      }
+    },
+    {
+      "id": "no-state-list",
+      "tool": "heron_check",
+      "args": {
+        "people": "fixtures/people.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.possible_match": 1,
+          "result.list_entries": 7
+        }
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "heron_check",
+      "args": {
+        "people": "../../outside-root.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "heron_check",
+      "args": {
+        "people": "fixtures/missing-export.csv",
+        "exclusions": "fixtures/leie-2026-11.csv",
+        "state_list": "fixtures/state-medicaid-2026-11.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
     }
-   }
-  },
-  {
-   "id": "every-planted-status-in-order",
-   "tool": "heron_check",
-   "args": {
-    "people": "fixtures/people.csv",
-    "exclusions": "fixtures/leie-2026-11.csv",
-    "state_list": "fixtures/state-medicaid-2026-11.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.status": "npi_match",
-     "result.items.1.status": "confirmed_match",
-     "result.items.2.status": "possible_match",
-     "result.items.3.status": "possible_match",
-     "result.items.4.status": "near_name",
-     "result.items.5.status": "dob_differs",
-     "result.items.6.status": "reinstated",
-     "result.items.7.status": "never_screened",
-     "result.items.8.status": "screening_overdue"
-    }
-   }
-  },
-  {
-   "id": "status-filter",
-   "tool": "heron_check",
-   "args": {
-    "people": "fixtures/people.csv",
-    "exclusions": "fixtures/leie-2026-11.csv",
-    "state_list": "fixtures/state-medicaid-2026-11.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "npi_match"
-   },
-   "expect": {
-    "status": "executed",
-    "equals": {
-     "result.items.0.status": "npi_match"
-    }
-   }
-  },
-  {
-   "id": "limit-one",
-   "tool": "heron_check",
-   "args": {
-    "people": "fixtures/people.csv",
-    "exclusions": "fixtures/leie-2026-11.csv",
-    "state_list": "fixtures/state-medicaid-2026-11.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "limit": 1
-   },
-   "expect": {
-    "status": "executed",
-    "length": {
-     "result.items": 1
-    }
-   }
-  },
-  {
-   "id": "report",
-   "tool": "heron_write_report",
-   "args": {
-    "people": "fixtures/people.csv",
-    "exclusions": "fixtures/leie-2026-11.csv",
-    "state_list": "fixtures/state-medicaid-2026-11.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "executed",
-    "matches": [
-     "\\.csv",
-     "\\.html"
-    ]
-   }
-  },
-  {
-   "id": "report-spanish",
-   "tool": "heron_write_report",
-   "args": {
-    "people": "fixtures/people.csv",
-    "exclusions": "fixtures/leie-2026-11.csv",
-    "state_list": "fixtures/state-medicaid-2026-11.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "language": "es"
-   },
-   "expect": {
-    "status": "executed"
-   }
-  },
-  {
-   "id": "typo-setting-refused",
-   "tool": "heron_check",
-   "args": {
-    "people": "fixtures/people.csv",
-    "exclusions": "fixtures/leie-2026-11.csv",
-    "state_list": "fixtures/state-medicaid-2026-11.csv",
-    "settings": "fixtures/settings-typo.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "error"
-   }
-  },
-  {
-   "id": "missing-file",
-   "tool": "heron_check",
-   "args": {
-    "people": "fixtures/people.csv",
-    "exclusions": "fixtures/does-not-exist.csv",
-    "state_list": "fixtures/state-medicaid-2026-11.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "error"
-   }
-  },
-  {
-   "id": "refuses-employment_terminate",
-   "tool": "employment_terminate",
-   "args": {},
-   "expect": {
-    "status": "blocked"
-   }
-  },
-  {
-   "id": "refuses-self_disclosure_submit",
-   "tool": "self_disclosure_submit",
-   "args": {},
-   "expect": {
-    "status": "blocked"
-   }
-  },
-  {
-   "id": "recall-empty-memory",
-   "tool": "heron_recall",
-   "args": {},
-   "expect": {
-    "status": "executed",
-    "contains": [
-     "memory is empty"
-    ]
-   }
-  },
-  {
-   "id": "learn-waits",
-   "tool": "heron_learn",
-   "args": {
-    "kind": "cleared_match",
-    "value": {
-     "person_id": "E105",
-     "excluded_on": "2021-09-09"
-    }
-   },
-   "expect": {
-    "status": "executed",
-    "matches": [
-     "waiting"
-    ]
-   }
-  },
-  {
-   "id": "vendor-on-state-list",
-   "tool": "heron_check",
-   "args": {
-    "people": "fixtures/people.csv",
-    "exclusions": "fixtures/leie-2026-11.csv",
-    "state_list": "fixtures/state-medicaid-2026-11.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "possible_match"
-   },
-   "expect": {
-    "equals": {
-     "result.items.1.list": "state list",
-     "result.items.1.type": "vendor"
-    }
-   }
-  },
-  {
-   "id": "npi-match-has-exclusion-date",
-   "tool": "heron_check",
-   "args": {
-    "people": "fixtures/people.csv",
-    "exclusions": "fixtures/leie-2026-11.csv",
-    "state_list": "fixtures/state-medicaid-2026-11.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "npi_match"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.excluded_on": "2024-03-15",
-     "result.items.0.listed_npi": "1234567893"
-    }
-   }
-  },
-  {
-   "id": "overdue-days",
-   "tool": "heron_check",
-   "args": {
-    "people": "fixtures/people.csv",
-    "exclusions": "fixtures/leie-2026-11.csv",
-    "state_list": "fixtures/state-medicaid-2026-11.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "screening_overdue"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.days_since": 87
-    }
-   }
-  },
-  {
-   "id": "default-threshold-still-finds-near-name",
-   "tool": "heron_check",
-   "args": {
-    "people": "fixtures/people.csv",
-    "exclusions": "fixtures/leie-2026-11.csv",
-    "state_list": "fixtures/state-medicaid-2026-11.csv",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "equals": {
-     "result.by_status.near_name": 1
-    }
-   }
-  },
-  {
-   "id": "no-state-list",
-   "tool": "heron_check",
-   "args": {
-    "people": "fixtures/people.csv",
-    "exclusions": "fixtures/leie-2026-11.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "equals": {
-     "result.by_status.possible_match": 1,
-     "result.list_entries": 7
-    }
-   }
-  }
- ]
+  ]
 }

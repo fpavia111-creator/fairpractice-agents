@@ -1,5 +1,5 @@
 // Swift logic: business associate inventory, BAAs and reviews, and vendors paid but not listed. No I/O.
-import { str, num, isoDate, daysBetween, yes, round2, normalizeName, nameSimilarity, sortByStatus, countBy } from 'kestrel-core';
+import { str, num, isoDate, daysBetween, yes, round2, normalizeName, nameSimilarity, nearNameIndex, sortByStatus, countBy } from 'kestrel-core';
 
 const ORDER = { baa_missing: 0, baa_expired: 1, paid_not_on_list: 2, phi_unknown: 3, never_reviewed: 4, review_overdue: 5, baa_expiring: 6 };
 export const PHI_SERVICE_WORDS = Object.freeze(['billing', 'coding', 'clearinghouse', 'transcription', 'scribe', 'ehr', 'emr', 'practice management', 'cloud', 'hosting', 'backup', 'it services', 'managed services', 'msp', 'shred', 'records', 'release of information', 'answering', 'call center', 'collections', 'collection agency', 'lab', 'imaging', 'reminder', 'patient portal', 'consult', 'audit', 'legal', 'accounting', 'telehealth', 'fax', 'email', 'courier', 'storage', 'analytics', 'ai ']);
@@ -30,9 +30,21 @@ export function checkAssociates(vendors, payments = [], { asOf, reviewDays = 365
   // Vendors paid but missing from the inventory.
   const skip = new Set(notBa.map((n) => normalizeName(n)));
   const paid = new Map();
+  // Is a paid vendor on the list? Exact name first, then listed names sharing a word, or a word one typo away
+  // ("Northwind Billing" / "Northwind Biling"; kestrel-core nearNameIndex). Scanning the whole list for every
+  // payment took minutes at 10,000 rows. One answer per vendor name, since payments repeat the same vendors.
+  const listedKeys = new Set(listed.map((x) => x.key)); const firstOf = new Map();
+  for (const x of listed) if (!firstOf.has(x.key)) firstOf.set(x.key, x);
+  const candidates = nearNameIndex(firstOf.keys());
+  const onListCache = new Map();
+  const isListed = (key, vendor) => {
+    if (listedKeys.has(key)) return true; if (onListCache.has(key)) return onListCache.get(key);
+    let hit = false; for (const k of candidates(key)) if (nameSimilarity(firstOf.get(k).name, vendor) >= 0.9) { hit = true; break; }
+    onListCache.set(key, hit); return hit;
+  };
   for (const p of payments) {
     const key = normalizeName(p.vendor); if (!key || skip.has(key)) continue;
-    const onList = listed.some((x) => x.key === key || nameSimilarity(x.name, p.vendor) >= 0.9);
+    const onList = isListed(key, p.vendor);
     if (onList) continue;
     const cur = paid.get(key) || { vendor: str(p.vendor), amount: 0, payments: 0, last: null, service: str(p.category) || null };
     cur.amount = round2(cur.amount + (num(p.amount) || 0)); cur.payments++; const d = isoDate(p.date); if (d && (!cur.last || d > cur.last)) cur.last = d; paid.set(key, cur);

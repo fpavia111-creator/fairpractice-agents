@@ -63,3 +63,17 @@ test('screening interval: never screened, overdue after the interval, fine insid
   const r = screen([P('A One', { last: '' }), P('B Two', { last: '2026-10-14' }), P('C Three', { last: '2026-10-15' })], [], { asOf, intervalDays: 31 });
   assert.deepEqual(st(r), [['A One', 'never_screened'], ['B Two', 'screening_overdue']]);
 });
+
+test('near names through word blocks: a typo in either word is found, and 5,000 by 5,000 names finish in seconds', () => {
+  assert.equal(screen([P('Katherine Morales')], [E('CATHERINE', 'MORALES')], { asOf }).items[0].status, 'near_name');
+  assert.equal(screen([P('Gregory Hughs')], [E('GREGORY', 'HUGHES')], { asOf }).items[0].status, 'near_name');
+  const people = Array.from({ length: 5000 }, (_, i) => P(`Person${i} Family${i * 13}`));
+  const entries = Array.from({ length: 5000 }, (_, i) => E(`LISTED${i}`, `SURNAME${i * 7}`));
+  const t = Date.now(); screen(people, entries, { asOf }); assert.ok(Date.now() - t < 10000, `took ${Date.now() - t} ms`);
+});
+
+test('a vendor is matched on a list that has one name column for people and companies', () => {
+  const list = [exclusionEntry({ name: 'GULFLINE MEDICAL SUPPLY', excluded_on: '2025-10-01' }, 'state list')];
+  const r = screen([P('Gulfline Medical Supply', { type: 'vendor' })], list, { asOf });
+  assert.deepEqual(r.items.map((i) => [i.status, i.list]), [['possible_match', 'state list']]);
+});

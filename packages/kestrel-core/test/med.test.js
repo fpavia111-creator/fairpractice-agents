@@ -1,7 +1,7 @@
 // kestrel-core helpers: dates, business days, minutes, names and sorting.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { monthBounds, monthOf, federalHolidays, isBusinessDay, addBusinessDays, businessDaysBetween, weekOf, dueStatus, clockMinutes, spanMinutes, durationMinutes, personKey, personSimilarity, codeKey, idKey, yes, listOf, sortByStatus, countBy, dateRange, dayRuns, agingBucket } from '../src/index.js';
+import { monthBounds, monthOf, federalHolidays, isBusinessDay, addBusinessDays, businessDaysBetween, weekOf, dueStatus, clockMinutes, spanMinutes, durationMinutes, personKey, personSimilarity, codeKey, idKey, yes, listOf, sortByStatus, countBy, dateRange, dayRuns, agingBucket , wordVariants, nearNameIndex } from '../src/index.js';
 
 test('month bounds, including leap years', () => {
   assert.deepEqual(monthBounds('2028-02'), { start: '2028-02-01', end: '2028-02-29', days: 29 });
@@ -76,4 +76,19 @@ test('sortByStatus orders by status, then amount, then id; countBy skips missing
   sortByStatus(items, { a: 0, b: 1 });
   assert.deepEqual(items.map((i) => i.id ?? '-'), ['9', '3', '1', '2', '-']);
   assert.deepEqual(countBy([{ s: 'x' }, { s: 'x' }, { s: null }, {}], 's'), { x: 2 });
+});
+
+test('word variants: each word, each word of three letters or more with one letter left out, and the start of long words', () => {
+  const v = wordVariants('jon smith');
+  for (const x of ['jon', 'on', 'jn', 'jo', 'smith', 'mith', 'sith', 'smth', 'smih', 'smit', '^smit']) assert.ok(v.has(x), x);
+  assert.ok(!v.has('^jon'));
+});
+
+test('near-name index: one typo in any word finds the name, in indexing order, within the length limit', () => {
+  const near = nearNameIndex(['john smith', 'catherine jones', 'ana lee', 'zed quill'], { maxLenDiff: 4 });
+  assert.deepEqual(near('jon smyth'), ['john smith']);
+  assert.deepEqual(near('jones katherine'), ['catherine jones']);
+  assert.deepEqual(near('anna lee'), ['ana lee']);
+  assert.deepEqual(near('mary brown'), []);
+  assert.deepEqual(nearNameIndex(['al bo', 'albert bo long name here'], { maxLenDiff: 4 })('al bo'), ['al bo']);
 });

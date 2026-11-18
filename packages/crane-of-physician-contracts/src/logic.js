@@ -20,7 +20,15 @@ export function checkPhysicianPayments(contracts, payments, { asOf, warnDays = 6
   const items = [];
   const C = contracts.map((c, i) => ({ id: str(c.contract_id) || `contract ${i + 1}`, physician: str(c.physician), key: personKey(c.physician), npi: str(c.npi) || null, type: str(c.type) || null, signed: isoDate(c.signed), start: isoDate(c.start), end: isoDate(c.end), rate: num(c.hourly_rate), cap: num(c.annual_cap), log: yes(c.time_log_required) }));
   const fmvT = Object.fromEntries(Object.entries(fmv).map(([k, v]) => [typeKey(k), v]));
-  const forPayee = (p) => C.filter((c) => (p.npi && c.npi && c.npi === p.npi) || (c.key && c.key === personKey(p.physician)));
+  // Contracts by NPI and by name, so each payment finds its physician's contracts without reading them all.
+  const byNpi = new Map(); const byKey = new Map(); const add = (m, k, i) => { if (!m.has(k)) m.set(k, []); m.get(k).push(i); };
+  for (const [i, c] of C.entries()) { if (c.npi) add(byNpi, c.npi, i); if (c.key) add(byKey, c.key, i); }
+  const payeeCache = new Map();
+  const forPayee = (p) => {
+    const key = personKey(p.physician); const ck = `${p.npi || ''}|${key}`; if (payeeCache.has(ck)) return payeeCache.get(ck);
+    const idx = new Set([...(p.npi ? byNpi.get(p.npi) || [] : []), ...(key ? byKey.get(key) || [] : [])]);
+    const out = [...idx].sort((a, b) => a - b).map((i) => C[i]); payeeCache.set(ck, out); return out;
+  };
   const capSum = new Map(); let total = 0;
   for (const [i, p] of payments.entries()) {
     const date = isoDate(p.date); const amt = num(p.amount); if (!date || amt === null) continue; total += amt;

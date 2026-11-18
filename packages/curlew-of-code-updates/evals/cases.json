@@ -1,232 +1,267 @@
 {
- "suite": "curlew-of-code-updates",
- "root": "..",
- "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
- "cases": [
-  {
-   "id": "totals",
-   "tool": "curlew_check",
-   "args": {
-    "changes": "fixtures/code-changes.csv",
-    "chargemaster": "fixtures/chargemaster.csv",
-    "fee_schedule": "fixtures/fee-schedule.csv",
-    "order_sets": "fixtures/order-sets.csv",
-    "open_claims": "fixtures/open-claims.csv"
-   },
-   "expect": {
-    "status": "executed",
-    "equals": {
-     "result.changes": 10,
-     "result.deleted": 4,
-     "result.added": 5,
-     "result.revised": 1,
-     "result.chargemaster_codes": 6
-    }
-   }
-  },
-  {
-   "id": "every-planted-status-in-order",
-   "tool": "curlew_check",
-   "args": {
-    "changes": "fixtures/code-changes.csv",
-    "chargemaster": "fixtures/chargemaster.csv",
-    "fee_schedule": "fixtures/fee-schedule.csv",
-    "order_sets": "fixtures/order-sets.csv",
-    "open_claims": "fixtures/open-claims.csv"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.status": "deleted_on_open_claim",
-     "result.items.1.status": "deleted_in_chargemaster",
-     "result.items.2.status": "deleted_in_chargemaster",
-     "result.items.3.status": "deleted_in_order_set",
-     "result.items.4.status": "deleted_in_order_set",
-     "result.items.5.status": "deleted_in_fee_schedule",
-     "result.items.6.status": "new_code_no_fee",
-     "result.items.7.status": "new_code_no_fee",
-     "result.items.8.status": "new_code_no_fee",
-     "result.items.9.status": "revised_code"
-    }
-   }
-  },
-  {
-   "id": "status-filter",
-   "tool": "curlew_check",
-   "args": {
-    "changes": "fixtures/code-changes.csv",
-    "chargemaster": "fixtures/chargemaster.csv",
-    "fee_schedule": "fixtures/fee-schedule.csv",
-    "order_sets": "fixtures/order-sets.csv",
-    "open_claims": "fixtures/open-claims.csv",
-    "status": "deleted_on_open_claim"
-   },
-   "expect": {
-    "status": "executed",
-    "equals": {
-     "result.items.0.status": "deleted_on_open_claim"
-    }
-   }
-  },
-  {
-   "id": "limit-one",
-   "tool": "curlew_check",
-   "args": {
-    "changes": "fixtures/code-changes.csv",
-    "chargemaster": "fixtures/chargemaster.csv",
-    "fee_schedule": "fixtures/fee-schedule.csv",
-    "order_sets": "fixtures/order-sets.csv",
-    "open_claims": "fixtures/open-claims.csv",
-    "limit": 1
-   },
-   "expect": {
-    "status": "executed",
-    "length": {
-     "result.items": 1
-    }
-   }
-  },
-  {
-   "id": "report",
-   "tool": "curlew_write_report",
-   "args": {
-    "changes": "fixtures/code-changes.csv",
-    "chargemaster": "fixtures/chargemaster.csv",
-    "fee_schedule": "fixtures/fee-schedule.csv",
-    "order_sets": "fixtures/order-sets.csv",
-    "open_claims": "fixtures/open-claims.csv"
-   },
-   "expect": {
-    "status": "executed",
-    "matches": [
-     "\\.csv",
-     "\\.html"
-    ]
-   }
-  },
-  {
-   "id": "report-spanish",
-   "tool": "curlew_write_report",
-   "args": {
-    "changes": "fixtures/code-changes.csv",
-    "chargemaster": "fixtures/chargemaster.csv",
-    "fee_schedule": "fixtures/fee-schedule.csv",
-    "order_sets": "fixtures/order-sets.csv",
-    "open_claims": "fixtures/open-claims.csv",
-    "language": "es"
-   },
-   "expect": {
-    "status": "executed"
-   }
-  },
-  {
-   "id": "missing-file",
-   "tool": "curlew_check",
-   "args": {
-    "changes": "fixtures/code-changes.csv",
-    "chargemaster": "fixtures/does-not-exist.csv",
-    "fee_schedule": "fixtures/fee-schedule.csv",
-    "order_sets": "fixtures/order-sets.csv",
-    "open_claims": "fixtures/open-claims.csv"
-   },
-   "expect": {
-    "status": "error"
-   }
-  },
-  {
-   "id": "refuses-chargemaster_update",
-   "tool": "chargemaster_update",
-   "args": {},
-   "expect": {
-    "status": "blocked"
-   }
-  },
-  {
-   "id": "refuses-claim_recode",
-   "tool": "claim_recode",
-   "args": {},
-   "expect": {
-    "status": "blocked"
-   }
-  },
-  {
-   "id": "recall-empty-memory",
-   "tool": "curlew_recall",
-   "args": {},
-   "expect": {
-    "status": "executed",
-    "contains": [
-     "memory is empty"
-    ]
-   }
-  },
-  {
-   "id": "open-claim-detail",
-   "tool": "curlew_check",
-   "args": {
-    "changes": "fixtures/code-changes.csv",
-    "chargemaster": "fixtures/chargemaster.csv",
-    "fee_schedule": "fixtures/fee-schedule.csv",
-    "order_sets": "fixtures/order-sets.csv",
-    "open_claims": "fixtures/open-claims.csv",
-    "status": "deleted_on_open_claim"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.claim_id": "OC-1",
-     "result.items.0.code": "ZZ9.01",
-     "result.items.0.replacement": "ZZ9.011"
-    }
-   }
-  },
-  {
-   "id": "fee-payers",
-   "tool": "curlew_check",
-   "args": {
-    "changes": "fixtures/code-changes.csv",
-    "chargemaster": "fixtures/chargemaster.csv",
-    "fee_schedule": "fixtures/fee-schedule.csv",
-    "order_sets": "fixtures/order-sets.csv",
-    "open_claims": "fixtures/open-claims.csv",
-    "status": "deleted_in_fee_schedule"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.payers": "Bluepeak Health, Cedar Mutual"
-    }
-   }
-  },
-  {
-   "id": "chargemaster-only",
-   "tool": "curlew_check",
-   "args": {
-    "changes": "fixtures/code-changes.csv",
-    "chargemaster": "fixtures/chargemaster.csv"
-   },
-   "expect": {
-    "equals": {
-     "result.by_status.deleted_in_chargemaster": 2,
-     "result.by_status.new_code_no_fee": 3
+  "suite": "curlew-of-code-updates",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "curlew_check",
+      "args": {
+        "changes": "fixtures/code-changes.csv",
+        "chargemaster": "fixtures/chargemaster.csv",
+        "fee_schedule": "fixtures/fee-schedule.csv",
+        "order_sets": "fixtures/order-sets.csv",
+        "open_claims": "fixtures/open-claims.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.changes": 10,
+          "result.deleted": 4,
+          "result.added": 5,
+          "result.revised": 1,
+          "result.chargemaster_codes": 6
+        }
+      }
     },
-    "not_contains": [
-     "\"deleted_on_open_claim\""
-    ]
-   }
-  },
-  {
-   "id": "patient-masked",
-   "tool": "curlew_check",
-   "args": {
-    "changes": "fixtures/code-changes.csv",
-    "chargemaster": "fixtures/chargemaster.csv",
-    "fee_schedule": "fixtures/fee-schedule.csv",
-    "order_sets": "fixtures/order-sets.csv",
-    "open_claims": "fixtures/open-claims.csv"
-   },
-   "expect": {
-    "not_contains": [
-     "Rhoda Kemp"
-    ]
-   }
-  }
- ]
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "curlew_check",
+      "args": {
+        "changes": "fixtures/code-changes.csv",
+        "chargemaster": "fixtures/chargemaster.csv",
+        "fee_schedule": "fixtures/fee-schedule.csv",
+        "order_sets": "fixtures/order-sets.csv",
+        "open_claims": "fixtures/open-claims.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "deleted_on_open_claim",
+          "result.items.1.status": "deleted_in_chargemaster",
+          "result.items.2.status": "deleted_in_chargemaster",
+          "result.items.3.status": "deleted_in_order_set",
+          "result.items.4.status": "deleted_in_order_set",
+          "result.items.5.status": "deleted_in_fee_schedule",
+          "result.items.6.status": "new_code_no_fee",
+          "result.items.7.status": "new_code_no_fee",
+          "result.items.8.status": "new_code_no_fee",
+          "result.items.9.status": "revised_code"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "curlew_check",
+      "args": {
+        "changes": "fixtures/code-changes.csv",
+        "chargemaster": "fixtures/chargemaster.csv",
+        "fee_schedule": "fixtures/fee-schedule.csv",
+        "order_sets": "fixtures/order-sets.csv",
+        "open_claims": "fixtures/open-claims.csv",
+        "status": "deleted_on_open_claim"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "deleted_on_open_claim"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "curlew_check",
+      "args": {
+        "changes": "fixtures/code-changes.csv",
+        "chargemaster": "fixtures/chargemaster.csv",
+        "fee_schedule": "fixtures/fee-schedule.csv",
+        "order_sets": "fixtures/order-sets.csv",
+        "open_claims": "fixtures/open-claims.csv",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "curlew_write_report",
+      "args": {
+        "changes": "fixtures/code-changes.csv",
+        "chargemaster": "fixtures/chargemaster.csv",
+        "fee_schedule": "fixtures/fee-schedule.csv",
+        "order_sets": "fixtures/order-sets.csv",
+        "open_claims": "fixtures/open-claims.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "curlew_write_report",
+      "args": {
+        "changes": "fixtures/code-changes.csv",
+        "chargemaster": "fixtures/chargemaster.csv",
+        "fee_schedule": "fixtures/fee-schedule.csv",
+        "order_sets": "fixtures/order-sets.csv",
+        "open_claims": "fixtures/open-claims.csv",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "curlew_check",
+      "args": {
+        "changes": "fixtures/code-changes.csv",
+        "chargemaster": "fixtures/does-not-exist.csv",
+        "fee_schedule": "fixtures/fee-schedule.csv",
+        "order_sets": "fixtures/order-sets.csv",
+        "open_claims": "fixtures/open-claims.csv"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-chargemaster_update",
+      "tool": "chargemaster_update",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-claim_recode",
+      "tool": "claim_recode",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "curlew_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "open-claim-detail",
+      "tool": "curlew_check",
+      "args": {
+        "changes": "fixtures/code-changes.csv",
+        "chargemaster": "fixtures/chargemaster.csv",
+        "fee_schedule": "fixtures/fee-schedule.csv",
+        "order_sets": "fixtures/order-sets.csv",
+        "open_claims": "fixtures/open-claims.csv",
+        "status": "deleted_on_open_claim"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.claim_id": "OC-1",
+          "result.items.0.code": "ZZ9.01",
+          "result.items.0.replacement": "ZZ9.011"
+        }
+      }
+    },
+    {
+      "id": "fee-payers",
+      "tool": "curlew_check",
+      "args": {
+        "changes": "fixtures/code-changes.csv",
+        "chargemaster": "fixtures/chargemaster.csv",
+        "fee_schedule": "fixtures/fee-schedule.csv",
+        "order_sets": "fixtures/order-sets.csv",
+        "open_claims": "fixtures/open-claims.csv",
+        "status": "deleted_in_fee_schedule"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.payers": "Bluepeak Health, Cedar Mutual"
+        }
+      }
+    },
+    {
+      "id": "chargemaster-only",
+      "tool": "curlew_check",
+      "args": {
+        "changes": "fixtures/code-changes.csv",
+        "chargemaster": "fixtures/chargemaster.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.deleted_in_chargemaster": 2,
+          "result.by_status.new_code_no_fee": 3
+        },
+        "not_contains": [
+          "\"deleted_on_open_claim\""
+        ]
+      }
+    },
+    {
+      "id": "patient-masked",
+      "tool": "curlew_check",
+      "args": {
+        "changes": "fixtures/code-changes.csv",
+        "chargemaster": "fixtures/chargemaster.csv",
+        "fee_schedule": "fixtures/fee-schedule.csv",
+        "order_sets": "fixtures/order-sets.csv",
+        "open_claims": "fixtures/open-claims.csv"
+      },
+      "expect": {
+        "not_contains": [
+          "Rhoda Kemp"
+        ]
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "curlew_check",
+      "args": {
+        "changes": "../../outside-root.csv",
+        "chargemaster": "fixtures/chargemaster.csv",
+        "fee_schedule": "fixtures/fee-schedule.csv",
+        "order_sets": "fixtures/order-sets.csv",
+        "open_claims": "fixtures/open-claims.csv"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "curlew_check",
+      "args": {
+        "changes": "fixtures/missing-export.csv",
+        "chargemaster": "fixtures/chargemaster.csv",
+        "fee_schedule": "fixtures/fee-schedule.csv",
+        "order_sets": "fixtures/order-sets.csv",
+        "open_claims": "fixtures/open-claims.csv"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
+    }
+  ]
 }

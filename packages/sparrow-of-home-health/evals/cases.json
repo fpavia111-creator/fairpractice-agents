@@ -1,242 +1,275 @@
 {
- "suite": "sparrow-of-home-health",
- "root": "..",
- "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
- "cases": [
-  {
-   "id": "totals",
-   "tool": "sparrow_check",
-   "args": {
-    "periods": "fixtures/periods.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "executed",
-    "equals": {
-     "result.periods": 7,
-     "result.visits": 22,
-     "result.patients": 5,
-     "result.dollars_at_risk": 2900
+  "suite": "sparrow-of-home-health",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "sparrow_check",
+      "args": {
+        "periods": "fixtures/periods.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.periods": 7,
+          "result.visits": 22,
+          "result.patients": 5,
+          "result.dollars_at_risk": 2900
+        }
+      }
+    },
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "sparrow_check",
+      "args": {
+        "periods": "fixtures/periods.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "noa_missing",
+          "result.items.1.status": "noa_late",
+          "result.items.2.status": "period_overlap",
+          "result.items.3.status": "visit_outside_period",
+          "result.items.4.status": "lupa",
+          "result.items.5.status": "lupa_risk"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "sparrow_check",
+      "args": {
+        "periods": "fixtures/periods.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "noa_missing"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "noa_missing"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "sparrow_check",
+      "args": {
+        "periods": "fixtures/periods.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "sparrow_write_report",
+      "args": {
+        "periods": "fixtures/periods.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "sparrow_write_report",
+      "args": {
+        "periods": "fixtures/periods.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "typo-setting-refused",
+      "tool": "sparrow_check",
+      "args": {
+        "periods": "fixtures/periods.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings-typo.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "sparrow_check",
+      "args": {
+        "periods": "fixtures/periods.csv",
+        "visits": "fixtures/does-not-exist.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-noa_submit",
+      "tool": "noa_submit",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-claim_submit",
+      "tool": "claim_submit",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "sparrow_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "late-noa-cut",
+      "tool": "sparrow_check",
+      "args": {
+        "periods": "fixtures/periods.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "noa_late"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.late_days": 8,
+          "result.items.0.amount": 560
+        }
+      }
+    },
+    {
+      "id": "overlap-days",
+      "tool": "sparrow_check",
+      "args": {
+        "periods": "fixtures/periods.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "period_overlap"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.overlap_days": 3,
+          "result.items.0.other_end": "2026-11-03"
+        }
+      }
+    },
+    {
+      "id": "lupa-estimate",
+      "tool": "sparrow_check",
+      "args": {
+        "periods": "fixtures/periods.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "lupa"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.visits": 2,
+          "result.items.0.threshold": 4,
+          "result.items.0.amount": 1540
+        }
+      }
+    },
+    {
+      "id": "no-rate-no-lupa-dollars",
+      "tool": "sparrow_check",
+      "args": {
+        "periods": "fixtures/periods.csv",
+        "visits": "fixtures/visits.csv",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.dollars_at_risk": 1360,
+          "result.by_status.lupa": 1
+        }
+      }
+    },
+    {
+      "id": "visits-required",
+      "tool": "sparrow_check",
+      "args": {
+        "periods": "fixtures/periods.csv",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "sparrow_check",
+      "args": {
+        "periods": "../../outside-root.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "sparrow_check",
+      "args": {
+        "periods": "fixtures/missing-export.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
     }
-   }
-  },
-  {
-   "id": "every-planted-status-in-order",
-   "tool": "sparrow_check",
-   "args": {
-    "periods": "fixtures/periods.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.status": "noa_missing",
-     "result.items.1.status": "noa_late",
-     "result.items.2.status": "period_overlap",
-     "result.items.3.status": "visit_outside_period",
-     "result.items.4.status": "lupa",
-     "result.items.5.status": "lupa_risk"
-    }
-   }
-  },
-  {
-   "id": "status-filter",
-   "tool": "sparrow_check",
-   "args": {
-    "periods": "fixtures/periods.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "noa_missing"
-   },
-   "expect": {
-    "status": "executed",
-    "equals": {
-     "result.items.0.status": "noa_missing"
-    }
-   }
-  },
-  {
-   "id": "limit-one",
-   "tool": "sparrow_check",
-   "args": {
-    "periods": "fixtures/periods.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "limit": 1
-   },
-   "expect": {
-    "status": "executed",
-    "length": {
-     "result.items": 1
-    }
-   }
-  },
-  {
-   "id": "report",
-   "tool": "sparrow_write_report",
-   "args": {
-    "periods": "fixtures/periods.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "executed",
-    "matches": [
-     "\\.csv",
-     "\\.html"
-    ]
-   }
-  },
-  {
-   "id": "report-spanish",
-   "tool": "sparrow_write_report",
-   "args": {
-    "periods": "fixtures/periods.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "language": "es"
-   },
-   "expect": {
-    "status": "executed"
-   }
-  },
-  {
-   "id": "typo-setting-refused",
-   "tool": "sparrow_check",
-   "args": {
-    "periods": "fixtures/periods.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings-typo.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "error"
-   }
-  },
-  {
-   "id": "missing-file",
-   "tool": "sparrow_check",
-   "args": {
-    "periods": "fixtures/periods.csv",
-    "visits": "fixtures/does-not-exist.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "error"
-   }
-  },
-  {
-   "id": "refuses-noa_submit",
-   "tool": "noa_submit",
-   "args": {},
-   "expect": {
-    "status": "blocked"
-   }
-  },
-  {
-   "id": "refuses-claim_submit",
-   "tool": "claim_submit",
-   "args": {},
-   "expect": {
-    "status": "blocked"
-   }
-  },
-  {
-   "id": "recall-empty-memory",
-   "tool": "sparrow_recall",
-   "args": {},
-   "expect": {
-    "status": "executed",
-    "contains": [
-     "memory is empty"
-    ]
-   }
-  },
-  {
-   "id": "late-noa-cut",
-   "tool": "sparrow_check",
-   "args": {
-    "periods": "fixtures/periods.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "noa_late"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.late_days": 8,
-     "result.items.0.amount": 560
-    }
-   }
-  },
-  {
-   "id": "overlap-days",
-   "tool": "sparrow_check",
-   "args": {
-    "periods": "fixtures/periods.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "period_overlap"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.overlap_days": 3,
-     "result.items.0.other_end": "2026-11-03"
-    }
-   }
-  },
-  {
-   "id": "lupa-estimate",
-   "tool": "sparrow_check",
-   "args": {
-    "periods": "fixtures/periods.csv",
-    "visits": "fixtures/visits.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "lupa"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.visits": 2,
-     "result.items.0.threshold": 4,
-     "result.items.0.amount": 1540
-    }
-   }
-  },
-  {
-   "id": "no-rate-no-lupa-dollars",
-   "tool": "sparrow_check",
-   "args": {
-    "periods": "fixtures/periods.csv",
-    "visits": "fixtures/visits.csv",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "equals": {
-     "result.dollars_at_risk": 1360,
-     "result.by_status.lupa": 1
-    }
-   }
-  },
-  {
-   "id": "visits-required",
-   "tool": "sparrow_check",
-   "args": {
-    "periods": "fixtures/periods.csv",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "error"
-   }
-  }
- ]
+  ]
 }

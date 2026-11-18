@@ -1,242 +1,277 @@
 {
- "suite": "gull-of-recoupments",
- "root": "..",
- "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
- "cases": [
-  {
-   "id": "totals",
-   "tool": "gull_check",
-   "args": {
-    "recoupments": "fixtures/recoupments.csv",
-    "claims": "fixtures/paid-claims.csv",
-    "notices": "fixtures/notices.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "executed",
-    "equals": {
-     "result.recoupments": 8,
-     "result.total_recouped": 2160,
-     "result.matched": 7,
-     "result.dollars_disputable": 930,
-     "result.dollars_appealable": 1050
+  "suite": "gull-of-recoupments",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "gull_check",
+      "args": {
+        "recoupments": "fixtures/recoupments.csv",
+        "claims": "fixtures/paid-claims.csv",
+        "notices": "fixtures/notices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.recoupments": 8,
+          "result.total_recouped": 2160,
+          "result.matched": 7,
+          "result.dollars_disputable": 930,
+          "result.dollars_appealable": 1050
+        }
+      }
+    },
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "gull_check",
+      "args": {
+        "recoupments": "fixtures/recoupments.csv",
+        "claims": "fixtures/paid-claims.csv",
+        "notices": "fixtures/notices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "taken_twice",
+          "result.items.1.status": "over_original",
+          "result.items.2.status": "beyond_lookback",
+          "result.items.3.status": "no_notice",
+          "result.items.4.status": "unmatched",
+          "result.items.5.status": "appeal_closing",
+          "result.items.6.status": "appeal_closing",
+          "result.items.7.status": "appeal_open"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "gull_check",
+      "args": {
+        "recoupments": "fixtures/recoupments.csv",
+        "claims": "fixtures/paid-claims.csv",
+        "notices": "fixtures/notices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "taken_twice"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "taken_twice"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "gull_check",
+      "args": {
+        "recoupments": "fixtures/recoupments.csv",
+        "claims": "fixtures/paid-claims.csv",
+        "notices": "fixtures/notices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "gull_write_report",
+      "args": {
+        "recoupments": "fixtures/recoupments.csv",
+        "claims": "fixtures/paid-claims.csv",
+        "notices": "fixtures/notices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "gull_write_report",
+      "args": {
+        "recoupments": "fixtures/recoupments.csv",
+        "claims": "fixtures/paid-claims.csv",
+        "notices": "fixtures/notices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "typo-setting-refused",
+      "tool": "gull_check",
+      "args": {
+        "recoupments": "fixtures/recoupments.csv",
+        "claims": "fixtures/paid-claims.csv",
+        "notices": "fixtures/notices.csv",
+        "settings": "fixtures/settings-typo.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "gull_check",
+      "args": {
+        "recoupments": "fixtures/recoupments.csv",
+        "claims": "fixtures/does-not-exist.csv",
+        "notices": "fixtures/notices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-appeal_submit",
+      "tool": "appeal_submit",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-refund_send",
+      "tool": "refund_send",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "gull_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "twice-detail",
+      "tool": "gull_check",
+      "args": {
+        "recoupments": "fixtures/recoupments.csv",
+        "claims": "fixtures/paid-claims.csv",
+        "notices": "fixtures/notices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "taken_twice"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.total_taken": 500,
+          "result.items.0.earlier": "2026-09-01"
+        }
+      }
+    },
+    {
+      "id": "closing-first",
+      "tool": "gull_check",
+      "args": {
+        "recoupments": "fixtures/recoupments.csv",
+        "claims": "fixtures/paid-claims.csv",
+        "notices": "fixtures/notices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "appeal_closing"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.claim_id": "CL-207",
+          "result.items.0.days_left": 2
+        }
+      }
+    },
+    {
+      "id": "no-notices-file",
+      "tool": "gull_check",
+      "args": {
+        "recoupments": "fixtures/recoupments.csv",
+        "claims": "fixtures/paid-claims.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.no_notice": 7
+        }
+      }
+    },
+    {
+      "id": "no-lookback-setting",
+      "tool": "gull_check",
+      "args": {
+        "recoupments": "fixtures/recoupments.csv",
+        "claims": "fixtures/paid-claims.csv",
+        "notices": "fixtures/notices.csv",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {},
+        "not_contains": [
+          "\"beyond_lookback\""
+        ]
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "gull_check",
+      "args": {
+        "recoupments": "../../outside-root.csv",
+        "claims": "fixtures/paid-claims.csv",
+        "notices": "fixtures/notices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "gull_check",
+      "args": {
+        "recoupments": "fixtures/missing-export.csv",
+        "claims": "fixtures/paid-claims.csv",
+        "notices": "fixtures/notices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
     }
-   }
-  },
-  {
-   "id": "every-planted-status-in-order",
-   "tool": "gull_check",
-   "args": {
-    "recoupments": "fixtures/recoupments.csv",
-    "claims": "fixtures/paid-claims.csv",
-    "notices": "fixtures/notices.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.status": "taken_twice",
-     "result.items.1.status": "over_original",
-     "result.items.2.status": "beyond_lookback",
-     "result.items.3.status": "no_notice",
-     "result.items.4.status": "unmatched",
-     "result.items.5.status": "appeal_closing",
-     "result.items.6.status": "appeal_closing",
-     "result.items.7.status": "appeal_open"
-    }
-   }
-  },
-  {
-   "id": "status-filter",
-   "tool": "gull_check",
-   "args": {
-    "recoupments": "fixtures/recoupments.csv",
-    "claims": "fixtures/paid-claims.csv",
-    "notices": "fixtures/notices.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "taken_twice"
-   },
-   "expect": {
-    "status": "executed",
-    "equals": {
-     "result.items.0.status": "taken_twice"
-    }
-   }
-  },
-  {
-   "id": "limit-one",
-   "tool": "gull_check",
-   "args": {
-    "recoupments": "fixtures/recoupments.csv",
-    "claims": "fixtures/paid-claims.csv",
-    "notices": "fixtures/notices.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "limit": 1
-   },
-   "expect": {
-    "status": "executed",
-    "length": {
-     "result.items": 1
-    }
-   }
-  },
-  {
-   "id": "report",
-   "tool": "gull_write_report",
-   "args": {
-    "recoupments": "fixtures/recoupments.csv",
-    "claims": "fixtures/paid-claims.csv",
-    "notices": "fixtures/notices.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "executed",
-    "matches": [
-     "\\.csv",
-     "\\.html"
-    ]
-   }
-  },
-  {
-   "id": "report-spanish",
-   "tool": "gull_write_report",
-   "args": {
-    "recoupments": "fixtures/recoupments.csv",
-    "claims": "fixtures/paid-claims.csv",
-    "notices": "fixtures/notices.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "language": "es"
-   },
-   "expect": {
-    "status": "executed"
-   }
-  },
-  {
-   "id": "typo-setting-refused",
-   "tool": "gull_check",
-   "args": {
-    "recoupments": "fixtures/recoupments.csv",
-    "claims": "fixtures/paid-claims.csv",
-    "notices": "fixtures/notices.csv",
-    "settings": "fixtures/settings-typo.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "error"
-   }
-  },
-  {
-   "id": "missing-file",
-   "tool": "gull_check",
-   "args": {
-    "recoupments": "fixtures/recoupments.csv",
-    "claims": "fixtures/does-not-exist.csv",
-    "notices": "fixtures/notices.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "status": "error"
-   }
-  },
-  {
-   "id": "refuses-appeal_submit",
-   "tool": "appeal_submit",
-   "args": {},
-   "expect": {
-    "status": "blocked"
-   }
-  },
-  {
-   "id": "refuses-refund_send",
-   "tool": "refund_send",
-   "args": {},
-   "expect": {
-    "status": "blocked"
-   }
-  },
-  {
-   "id": "recall-empty-memory",
-   "tool": "gull_recall",
-   "args": {},
-   "expect": {
-    "status": "executed",
-    "contains": [
-     "memory is empty"
-    ]
-   }
-  },
-  {
-   "id": "twice-detail",
-   "tool": "gull_check",
-   "args": {
-    "recoupments": "fixtures/recoupments.csv",
-    "claims": "fixtures/paid-claims.csv",
-    "notices": "fixtures/notices.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "taken_twice"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.total_taken": 500,
-     "result.items.0.earlier": "2026-09-01"
-    }
-   }
-  },
-  {
-   "id": "closing-first",
-   "tool": "gull_check",
-   "args": {
-    "recoupments": "fixtures/recoupments.csv",
-    "claims": "fixtures/paid-claims.csv",
-    "notices": "fixtures/notices.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15",
-    "status": "appeal_closing"
-   },
-   "expect": {
-    "equals": {
-     "result.items.0.claim_id": "CL-207",
-     "result.items.0.days_left": 2
-    }
-   }
-  },
-  {
-   "id": "no-notices-file",
-   "tool": "gull_check",
-   "args": {
-    "recoupments": "fixtures/recoupments.csv",
-    "claims": "fixtures/paid-claims.csv",
-    "settings": "fixtures/settings.json",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "equals": {
-     "result.by_status.no_notice": 7
-    }
-   }
-  },
-  {
-   "id": "no-lookback-setting",
-   "tool": "gull_check",
-   "args": {
-    "recoupments": "fixtures/recoupments.csv",
-    "claims": "fixtures/paid-claims.csv",
-    "notices": "fixtures/notices.csv",
-    "as_of": "2026-11-15"
-   },
-   "expect": {
-    "equals": {},
-    "not_contains": [
-     "\"beyond_lookback\""
-    ]
-   }
-  }
- ]
+  ]
 }
