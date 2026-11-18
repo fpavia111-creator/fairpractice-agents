@@ -1,0 +1,8 @@
+{
+  "tiers": [{ "up_to": 1000, "rate": 45 }, { "rate": 52 }],
+  "providers": {
+    "Rhea Lin MD": { "draws": 50000 },
+    "Sam Otto DO": { "draws": 33000 },
+    "June Park NP": { "tiers": [{ "up_to": 600, "rate": 40 }, { "rate": 46 }], "draws": 27000 }
+  }
+}
