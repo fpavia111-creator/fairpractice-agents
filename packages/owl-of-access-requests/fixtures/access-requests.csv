@@ -1,0 +1,9 @@
+Request #,Patient #,Patient Name,Date Received,Requested By,Format,Pages,Extended,Extension Notice,Date Sent,Denied,Denial Reason,Fee Charged,Postage
+AR-1001,P5001,Opal Hendricks,2026-09-01,patient,portal,,no,,2026-09-12,,,0,
+AR-1002,P5002,Wesley Carver,2026-09-20,patient,paper,40,no,,2026-10-28,,,25.00,
+AR-1003,P5003,Imani Rhodes,2026-10-01,patient,electronic,,no,,,,,,
+AR-1004,P5004,Gustav Lindqvist,2026-09-15,personal representative,paper,10,yes,2026-10-25,2026-11-10,,,8.00,
+AR-1005,P5005,Rosa Delgado,2026-10-20,patient,electronic,,no,,,,,,
+AR-1006,P5006,Elliot Shaw,2026-08-10,patient,paper,,no,,,yes,,,
+AR-1007,P5007,Mina Kaur,2026-10-02,patient,email,,no,,2026-10-09,,,15.00,
+AR-1008,P5008,Abel Ferreira,2026-11-10,patient,portal,,no,,,,,,

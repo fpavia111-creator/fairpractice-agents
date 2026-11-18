@@ -1,0 +1,1 @@
+{ "response_days": 30, "extension_days": 30, "warn_days": 7, "flat_fee": 6.5, "per_page": 0.25, "base_fee": 5, "fee_cap": 50 }
