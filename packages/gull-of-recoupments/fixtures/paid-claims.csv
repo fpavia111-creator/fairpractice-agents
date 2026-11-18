@@ -1,0 +1,7 @@
+Claim #,Patient ID,Patient Name,Payer,Date of Service,Paid,Paid Date
+CL-201,R1,Iris Vale,Bluepeak Health,2026-02-20,300,2026-03-10
+CL-202,R2,Jude Marr,Bluepeak Health,2026-04-02,250,2026-04-20
+CL-203,R3,Kofi Bain,Cedar Mutual,2026-05-11,180,2026-06-01
+CL-204,R4,Lise Odum,Cedar Mutual,2024-11-14,400,2024-12-01
+CL-205,R5,Max Ueda,Bluepeak Health,2026-06-08,150,2026-06-25
+CL-207,R7,Nell Price,Bluepeak Health,2026-03-03,500,2026-03-20
