@@ -1,0 +1,59 @@
+{
+  "name": "fairpractice-provider-pay",
+  "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairpractice-provider-pay",
+  "description": "Provider pay by work RVU: wRVUs per provider from charges and the RVU file, tiered pay, bonuses and quarterly draws trued up, plus codes with no RVU and charges missing a provider.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairpractice-provider-pay": "bin/fairpractice-provider-pay.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairpractice-provider-pay.js demo",
+    "eval": "node bin/fairpractice-provider-pay.js eval"
+  },
+  "dependencies": {
+    "fairpractice-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairpractice-agents.git",
+    "directory": "packages/fairpractice-provider-pay"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-provider-pay#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairpractice-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "wrvu",
+    "provider-compensation",
+    "physician-pay"
+  ]
+}

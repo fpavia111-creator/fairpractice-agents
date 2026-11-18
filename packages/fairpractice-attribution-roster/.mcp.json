@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-attribution-roster": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-attribution-roster@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

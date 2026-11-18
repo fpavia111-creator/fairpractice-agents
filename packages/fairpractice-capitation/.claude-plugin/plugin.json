@@ -1,0 +1,22 @@
+{
+  "name": "fairpractice-capitation",
+  "version": "0.1.0",
+  "description": "Capitation reconciliation: per-member payments against the roster month by month, members paid at the wrong rate, members on the roster not paid, retro adds and terms, and the net amount to dispute.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-capitation#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "capitation",
+    "pmpm",
+    "value-based-care"
+  ]
+}

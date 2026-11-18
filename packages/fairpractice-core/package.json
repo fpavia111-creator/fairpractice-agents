@@ -1,0 +1,38 @@
+{
+  "name": "fairpractice-core",
+  "version": "0.1.0",
+  "description": "Shared helpers for the Fairpractice healthcare admin agents: business days and federal holidays, minutes and clock times, person-name matching, aging, medical export column names and the agent builder. Re-exports fairclaim-core (PHI masking, approvals, audit log, MCP server, evals).",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./testkit": "./src/testkit.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs"
+  },
+  "dependencies": {
+    "fairclaim-core": "^0.2.0"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel"
+  ]
+}

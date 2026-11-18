@@ -1,0 +1,274 @@
+{
+  "suite": "fairpractice-provider-pay",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "providerpay_check",
+      "args": {
+        "charges": "fixtures/charges-2026-q3.csv",
+        "rvus": "fixtures/rvus.csv",
+        "settings": "fixtures/comp-plan.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total_wrvu": 2544,
+          "result.total_earned": 112710
+        }
+      }
+    },
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "providerpay_check",
+      "args": {
+        "charges": "fixtures/charges-2026-q3.csv",
+        "rvus": "fixtures/rvus.csv",
+        "settings": "fixtures/comp-plan.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "no_provider",
+          "result.items.1.status": "no_rvu",
+          "result.items.2.status": "draw_over_earned",
+          "result.items.3.status": "true_up_owed",
+          "result.items.4.status": "true_up_owed"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "providerpay_check",
+      "args": {
+        "charges": "fixtures/charges-2026-q3.csv",
+        "rvus": "fixtures/rvus.csv",
+        "settings": "fixtures/comp-plan.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30",
+        "status": "no_provider"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "no_provider"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "providerpay_check",
+      "args": {
+        "charges": "fixtures/charges-2026-q3.csv",
+        "rvus": "fixtures/rvus.csv",
+        "settings": "fixtures/comp-plan.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "providerpay_write_report",
+      "args": {
+        "charges": "fixtures/charges-2026-q3.csv",
+        "rvus": "fixtures/rvus.csv",
+        "settings": "fixtures/comp-plan.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "providerpay_write_report",
+      "args": {
+        "charges": "fixtures/charges-2026-q3.csv",
+        "rvus": "fixtures/rvus.csv",
+        "settings": "fixtures/comp-plan.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "typo-setting-refused",
+      "tool": "providerpay_check",
+      "args": {
+        "charges": "fixtures/charges-2026-q3.csv",
+        "rvus": "fixtures/rvus.csv",
+        "settings": "fixtures/settings-typo.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "providerpay_check",
+      "args": {
+        "charges": "fixtures/charges-2026-q3.csv",
+        "rvus": "fixtures/does-not-exist.csv",
+        "settings": "fixtures/comp-plan.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-payroll_submit",
+      "tool": "payroll_submit",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-comp_plan_change",
+      "tool": "comp_plan_change",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "providerpay_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "no-rvu-code",
+      "tool": "providerpay_check",
+      "args": {
+        "charges": "fixtures/charges-2026-q3.csv",
+        "rvus": "fixtures/rvus.csv",
+        "settings": "fixtures/comp-plan.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30",
+        "status": "no_rvu"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.code": "99417",
+          "result.items.0.lines": 10
+        }
+      }
+    },
+    {
+      "id": "over-draw",
+      "tool": "providerpay_check",
+      "args": {
+        "charges": "fixtures/charges-2026-q3.csv",
+        "rvus": "fixtures/rvus.csv",
+        "settings": "fixtures/comp-plan.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30",
+        "status": "draw_over_earned"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.provider": "Sam Otto DO",
+          "result.items.0.amount": 2670
+        }
+      }
+    },
+    {
+      "id": "smallest-producer",
+      "tool": "providerpay_check",
+      "args": {
+        "charges": "fixtures/charges-2026-q3.csv",
+        "rvus": "fixtures/rvus.csv",
+        "settings": "fixtures/comp-plan.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30"
+      },
+      "expect": {
+        "equals": {
+          "result.providers.2.provider": "Sam Otto DO"
+        }
+      }
+    },
+    {
+      "id": "patient-masked",
+      "tool": "providerpay_check",
+      "args": {
+        "charges": "fixtures/charges-2026-q3.csv",
+        "rvus": "fixtures/rvus.csv",
+        "settings": "fixtures/comp-plan.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30"
+      },
+      "expect": {
+        "not_contains": [
+          "Alma Rhee",
+          "Bram Kovac"
+        ]
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "providerpay_check",
+      "args": {
+        "charges": "../../outside-root.csv",
+        "rvus": "fixtures/rvus.csv",
+        "settings": "fixtures/comp-plan.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "providerpay_check",
+      "args": {
+        "charges": "fixtures/missing-export.csv",
+        "rvus": "fixtures/rvus.csv",
+        "settings": "fixtures/comp-plan.json",
+        "from": "2026-07-01",
+        "to": "2026-09-30"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
+    }
+  ],
+  "no_names_in_report": true
+}

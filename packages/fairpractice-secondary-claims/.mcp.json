@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-secondary-claims": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-secondary-claims@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

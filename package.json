@@ -1,11 +1,11 @@
 {
-  "name": "kestrel-agents",
+  "name": "fairpractice-agents",
   "private": true,
-  "description": "Kestrel: healthcare admin, billing and compliance agents monorepo (30 agents), built on remedy-core.",
+  "description": "Fairpractice: healthcare admin, billing and compliance agents monorepo (30 agents), built on fairclaim-core.",
   "license": "MIT",
   "workspaces": [
-    "packages/remedy-core",
-    "packages/kestrel-core",
+    "packages/fairclaim-core",
+    "packages/fairpractice-core",
     "packages/*"
   ],
   "scripts": {

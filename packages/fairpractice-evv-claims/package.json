@@ -1,0 +1,60 @@
+{
+  "name": "fairpractice-evv-claims",
+  "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairpractice-evv-claims",
+  "description": "Electronic visit verification against Medicaid claims: claim lines with no matching EVV visit, units billed above the verified time, visits verified at the wrong place or by another caregiver, and manual edits above your limit.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairpractice-evv-claims": "bin/fairpractice-evv-claims.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairpractice-evv-claims.js demo",
+    "eval": "node bin/fairpractice-evv-claims.js eval"
+  },
+  "dependencies": {
+    "fairpractice-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairpractice-agents.git",
+    "directory": "packages/fairpractice-evv-claims"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-evv-claims#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairpractice-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "evv",
+    "home-care",
+    "medicaid",
+    "personal-care"
+  ]
+}

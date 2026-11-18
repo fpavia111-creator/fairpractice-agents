@@ -1,0 +1,257 @@
+{
+  "suite": "fairpractice-secondary-claims",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "secondary_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "coverage": "fixtures/coverage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.claims": 8,
+          "result.patients": 6,
+          "result.dollars_at_risk": 1250
+        }
+      }
+    },
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "secondary_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "coverage": "fixtures/coverage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "filing_missed",
+          "result.items.1.status": "filing_closing",
+          "result.items.2.status": "wrong_payer_order",
+          "result.items.3.status": "secondary_not_sent",
+          "result.items.4.status": "sent_without_primary_eob"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "secondary_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "coverage": "fixtures/coverage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "filing_missed"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "filing_missed"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "secondary_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "coverage": "fixtures/coverage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "secondary_write_report",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "coverage": "fixtures/coverage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "secondary_write_report",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "coverage": "fixtures/coverage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "typo-setting-refused",
+      "tool": "secondary_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "coverage": "fixtures/coverage.csv",
+        "settings": "fixtures/settings-typo.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "secondary_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "coverage": "fixtures/does-not-exist.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-claim_submit",
+      "tool": "claim_submit",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-patient_statement_send",
+      "tool": "patient_statement_send",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "secondary_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "closing-due",
+      "tool": "secondary_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "coverage": "fixtures/coverage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "filing_closing"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.due": "2026-11-30",
+          "result.items.0.days_left": 15,
+          "result.items.0.payer": "Cedar Supplement"
+        }
+      }
+    },
+    {
+      "id": "medicaid-window",
+      "tool": "secondary_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "coverage": "fixtures/coverage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "secondary_not_sent"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.due": "2027-11-01"
+        }
+      }
+    },
+    {
+      "id": "default-90-days",
+      "tool": "secondary_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "coverage": "fixtures/coverage.csv",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.filing_missed": 1
+        },
+        "not_contains": [
+          "\"filing_closing\""
+        ]
+      }
+    },
+    {
+      "id": "coverage-required",
+      "tool": "secondary_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "secondary_check",
+      "args": {
+        "claims": "../../outside-root.csv",
+        "coverage": "fixtures/coverage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "secondary_check",
+      "args": {
+        "claims": "fixtures/missing-export.csv",
+        "coverage": "fixtures/coverage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "fairpractice-behavioral-health",
+  "version": "0.1.0",
+  "description": "Behavioral health billing: psychotherapy codes against session minutes, add-on codes without their base code, crisis time, sessions over the payer's yearly limit, and providers billing codes their license type cannot bill.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-behavioral-health#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "behavioral-health",
+    "psychotherapy",
+    "mental-health"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-care-plan-hours": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-care-plan-hours@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

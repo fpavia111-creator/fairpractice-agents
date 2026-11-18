@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-compliance-training": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-compliance-training@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

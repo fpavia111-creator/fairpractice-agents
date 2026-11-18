@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-security-risk-analysis": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-security-risk-analysis@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

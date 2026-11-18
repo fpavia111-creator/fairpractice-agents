@@ -1,0 +1,60 @@
+{
+  "name": "fairpractice-home-health",
+  "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairpractice-home-health",
+  "description": "Home health 30-day periods: notices of admission filed late (with the payment cut per day), visits under the low-utilization threshold, periods that overlap another period, and visits outside any period.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairpractice-home-health": "bin/fairpractice-home-health.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairpractice-home-health.js demo",
+    "eval": "node bin/fairpractice-home-health.js eval"
+  },
+  "dependencies": {
+    "fairpractice-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairpractice-agents.git",
+    "directory": "packages/fairpractice-home-health"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-home-health#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairpractice-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "home-health",
+    "pdgm",
+    "noa",
+    "lupa"
+  ]
+}

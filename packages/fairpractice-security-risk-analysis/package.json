@@ -1,0 +1,59 @@
+{
+  "name": "fairpractice-security-risk-analysis",
+  "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairpractice-security-risk-analysis",
+  "description": "Security risk analysis tracker: the annual risk analysis evidence checklist, open risks past their due date, high risks with no owner or plan, and systems with patient data missing from the asset list.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairpractice-security-risk-analysis": "bin/fairpractice-security-risk-analysis.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairpractice-security-risk-analysis.js demo",
+    "eval": "node bin/fairpractice-security-risk-analysis.js eval"
+  },
+  "dependencies": {
+    "fairpractice-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairpractice-agents.git",
+    "directory": "packages/fairpractice-security-risk-analysis"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-security-risk-analysis#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairpractice-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "hipaa",
+    "security-risk-analysis",
+    "risk-register"
+  ]
+}

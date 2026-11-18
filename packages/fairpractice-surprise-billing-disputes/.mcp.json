@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-surprise-billing-disputes": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-surprise-billing-disputes@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

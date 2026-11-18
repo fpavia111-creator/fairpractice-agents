@@ -1,0 +1,60 @@
+{
+  "name": "fairpractice-recoupments",
+  "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairpractice-recoupments",
+  "description": "Payer recoupments and offsets: takebacks matched to the original claim, recoupments with no notice on file, the same claim taken back twice, and appeal windows still open.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairpractice-recoupments": "bin/fairpractice-recoupments.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairpractice-recoupments.js demo",
+    "eval": "node bin/fairpractice-recoupments.js eval"
+  },
+  "dependencies": {
+    "fairpractice-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairpractice-agents.git",
+    "directory": "packages/fairpractice-recoupments"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-recoupments#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairpractice-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "recoupment",
+    "offsets",
+    "835",
+    "overpayments"
+  ]
+}

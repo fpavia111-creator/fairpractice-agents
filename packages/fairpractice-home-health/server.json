@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fpavia111-creator/fairpractice-home-health",
+  "title": "Fairpractice Home Health",
+  "description": "Home health 30-day periods: notices of admission filed late (with the payment cut per day), visits…",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/fpavia111-creator/fairpractice-agents",
+    "source": "github",
+    "subfolder": "packages/fairpractice-home-health"
+  },
+  "websiteUrl": "https://fair-agents.com/fairpractice.html",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "fairpractice-home-health",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        },
+        {
+          "type": "named",
+          "name": "--root",
+          "description": "Folder holding the exports this agent may read and write (it cannot reach outside it)",
+          "isRequired": true,
+          "format": "filepath",
+          "valueHint": "exports_folder"
+        }
+      ]
+    }
+  ]
+}

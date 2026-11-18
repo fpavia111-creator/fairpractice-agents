@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-review-replies": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-review-replies@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

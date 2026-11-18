@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-breach-deadlines": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-breach-deadlines@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

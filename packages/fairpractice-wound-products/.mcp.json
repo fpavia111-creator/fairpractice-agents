@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-wound-products": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-wound-products@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

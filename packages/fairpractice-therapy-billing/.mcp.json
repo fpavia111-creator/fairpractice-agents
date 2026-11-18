@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-therapy-billing": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-therapy-billing@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

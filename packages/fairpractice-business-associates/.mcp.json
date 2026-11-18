@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-business-associates": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-business-associates@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

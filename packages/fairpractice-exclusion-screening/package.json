@@ -1,0 +1,61 @@
+{
+  "name": "fairpractice-exclusion-screening",
+  "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairpractice-exclusion-screening",
+  "description": "Exclusion screening for everyone a practice pays: staff, providers, contractors and vendors checked against the OIG exclusion list, SAM and state Medicaid exclusion files you download, with NPI and birth-date matches, near-name matches to clear, reinstatements and people not screened this month.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairpractice-exclusion-screening": "bin/fairpractice-exclusion-screening.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairpractice-exclusion-screening.js demo",
+    "eval": "node bin/fairpractice-exclusion-screening.js eval"
+  },
+  "dependencies": {
+    "fairpractice-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairpractice-agents.git",
+    "directory": "packages/fairpractice-exclusion-screening"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-exclusion-screening#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairpractice-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "exclusion-screening",
+    "oig",
+    "leie",
+    "sam",
+    "compliance"
+  ]
+}

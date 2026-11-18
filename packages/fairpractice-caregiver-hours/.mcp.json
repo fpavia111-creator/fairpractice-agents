@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-caregiver-hours": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-caregiver-hours@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "name": "fairpractice-hospice-billing",
+  "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairpractice-hospice-billing",
+  "description": "Hospice billing deadlines and the cap: notices of election and termination filed late, benefit periods and face-to-face encounters before the third period, the aggregate cap per cap year and the live-discharge rate.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairpractice-hospice-billing": "bin/fairpractice-hospice-billing.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairpractice-hospice-billing.js demo",
+    "eval": "node bin/fairpractice-hospice-billing.js eval"
+  },
+  "dependencies": {
+    "fairpractice-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairpractice-agents.git",
+    "directory": "packages/fairpractice-hospice-billing"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-hospice-billing#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairpractice-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "hospice",
+    "noe",
+    "hospice-cap",
+    "benefit-periods"
+  ]
+}

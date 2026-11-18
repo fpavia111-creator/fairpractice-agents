@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-hospice-billing": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-hospice-billing@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

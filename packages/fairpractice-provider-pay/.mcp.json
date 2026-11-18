@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-provider-pay": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-provider-pay@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

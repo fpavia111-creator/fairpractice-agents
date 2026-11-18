@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-injury-liens": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-injury-liens@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "suite": "fairpractice-injury-liens",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "liens_check",
+      "args": {
+        "cases": "fixtures/lien-cases.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.cases": 7,
+          "result.open_cases": 4,
+          "result.open_balance": 23600,
+          "result.dollars_at_risk": 21600
+        }
+      }
+    },
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "liens_check",
+      "args": {
+        "cases": "fixtures/lien-cases.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "settled_not_paid",
+          "result.items.1.status": "case_dropped",
+          "result.items.2.status": "statute_passed",
+          "result.items.3.status": "no_lop",
+          "result.items.4.status": "reduction_over_limit",
+          "result.items.5.status": "statute_near",
+          "result.items.6.status": "stale_case"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "liens_check",
+      "args": {
+        "cases": "fixtures/lien-cases.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "settled_not_paid"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "settled_not_paid"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "liens_check",
+      "args": {
+        "cases": "fixtures/lien-cases.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "liens_write_report",
+      "args": {
+        "cases": "fixtures/lien-cases.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "liens_write_report",
+      "args": {
+        "cases": "fixtures/lien-cases.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "typo-setting-refused",
+      "tool": "liens_check",
+      "args": {
+        "cases": "fixtures/lien-cases.csv",
+        "settings": "fixtures/settings-typo.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "liens_check",
+      "args": {
+        "cases": "fixtures/does-not-exist.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-attorney_email_send",
+      "tool": "attorney_email_send",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-reduction_accept",
+      "tool": "reduction_accept",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "liens_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "top-attorney",
+      "tool": "liens_check",
+      "args": {
+        "cases": "fixtures/lien-cases.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.attorneys.0.attorney": "Harbor Law Group",
+          "result.attorneys.0.balance": 11700,
+          "result.attorneys.0.cases": 2
+        }
+      }
+    },
+    {
+      "id": "ny-window",
+      "tool": "liens_check",
+      "args": {
+        "cases": "fixtures/lien-cases.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "statute_passed"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.date": "2026-05-01",
+          "result.items.0.case_id": "PI-207"
+        }
+      }
+    },
+    {
+      "id": "reduction-detail",
+      "tool": "liens_check",
+      "args": {
+        "cases": "fixtures/lien-cases.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "reduction_over_limit"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.reduction": 4000,
+          "result.items.0.amount": 700
+        }
+      }
+    },
+    {
+      "id": "default-window-only",
+      "tool": "liens_check",
+      "args": {
+        "cases": "fixtures/lien-cases.csv",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.statute_passed": 1,
+          "result.items.2.case_id": "PI-207"
+        }
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "liens_check",
+      "args": {
+        "cases": "../../outside-root.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "liens_check",
+      "args": {
+        "cases": "fixtures/missing-export.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
+    }
+  ]
+}

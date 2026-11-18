@@ -1,0 +1,60 @@
+{
+  "name": "fairpractice-care-plan-hours",
+  "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairpractice-care-plan-hours",
+  "description": "Home care hours against the plan of care: hours delivered vs authorized per week, under-delivery, over-delivery that will not be paid, services not on the plan and plans or authorizations ending.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairpractice-care-plan-hours": "bin/fairpractice-care-plan-hours.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairpractice-care-plan-hours.js demo",
+    "eval": "node bin/fairpractice-care-plan-hours.js eval"
+  },
+  "dependencies": {
+    "fairpractice-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairpractice-agents.git",
+    "directory": "packages/fairpractice-care-plan-hours"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-care-plan-hours#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairpractice-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "home-care",
+    "plan-of-care",
+    "authorizations",
+    "waiver"
+  ]
+}

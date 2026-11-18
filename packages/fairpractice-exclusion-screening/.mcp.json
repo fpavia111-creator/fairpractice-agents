@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-exclusion-screening": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-exclusion-screening@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

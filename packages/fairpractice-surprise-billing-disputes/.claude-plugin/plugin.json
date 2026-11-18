@@ -1,0 +1,23 @@
+{
+  "name": "fairpractice-surprise-billing-disputes",
+  "version": "0.1.0",
+  "description": "No Surprises Act payment disputes: the 30-business-day open negotiation, the 4-business-day window to start IDR, offers below the QPA, batching groups, outcomes by payer and fees paid.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-surprise-billing-disputes#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "no-surprises-act",
+    "idr",
+    "out-of-network",
+    "qpa"
+  ]
+}

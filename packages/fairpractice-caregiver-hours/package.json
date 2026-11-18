@@ -1,0 +1,60 @@
+{
+  "name": "fairpractice-caregiver-hours",
+  "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairpractice-caregiver-hours",
+  "description": "Caregiver hours and pay: weekly hours across clients, overtime owed above 40 hours, travel time between clients, split shifts, missed meal breaks under your state settings, and live-in shifts.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairpractice-caregiver-hours": "bin/fairpractice-caregiver-hours.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairpractice-caregiver-hours.js demo",
+    "eval": "node bin/fairpractice-caregiver-hours.js eval"
+  },
+  "dependencies": {
+    "fairpractice-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairpractice-agents.git",
+    "directory": "packages/fairpractice-caregiver-hours"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-caregiver-hours#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairpractice-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "home-care",
+    "overtime",
+    "caregiver-pay",
+    "flsa"
+  ]
+}

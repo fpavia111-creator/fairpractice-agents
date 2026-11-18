@@ -1,0 +1,272 @@
+{
+  "suite": "fairpractice-compliance-training",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "training_check",
+      "args": {
+        "completions": "fixtures/lms-completions.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.staff": 5,
+          "result.assignments": 14,
+          "result.completion_rate": 85.7
+        }
+      }
+    },
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "training_check",
+      "args": {
+        "completions": "fixtures/lms-completions.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "new_hire_overdue",
+          "result.items.1.status": "refresher_overdue",
+          "result.items.2.status": "due_soon",
+          "result.items.3.status": "due_soon",
+          "result.items.4.status": "due_soon"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "training_check",
+      "args": {
+        "completions": "fixtures/lms-completions.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "new_hire_overdue"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "new_hire_overdue"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "training_check",
+      "args": {
+        "completions": "fixtures/lms-completions.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "training_write_report",
+      "args": {
+        "completions": "fixtures/lms-completions.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "training_write_report",
+      "args": {
+        "completions": "fixtures/lms-completions.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "typo-setting-refused",
+      "tool": "training_check",
+      "args": {
+        "completions": "fixtures/lms-completions.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings-typo.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "training_check",
+      "args": {
+        "completions": "fixtures/does-not-exist.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-lms_assign",
+      "tool": "lms_assign",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-manager_email_send",
+      "tool": "manager_email_send",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "training_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "oklahoma-no-hb300",
+      "tool": "training_check",
+      "args": {
+        "completions": "fixtures/lms-completions.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.assignments": 14,
+          "result.by_course.HIPAA Privacy and Security": 2
+        }
+      }
+    },
+    {
+      "id": "ampersand-course-name-matches",
+      "tool": "training_check",
+      "args": {
+        "completions": "fixtures/lms-completions.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "due_soon"
+      },
+      "expect": {
+        "length": {
+          "result.items": 3
+        }
+      }
+    },
+    {
+      "id": "new-hire-due-date",
+      "tool": "training_check",
+      "args": {
+        "completions": "fixtures/lms-completions.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "new_hire_overdue"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.due": "2026-10-31",
+          "result.items.0.days": 15
+        }
+      }
+    },
+    {
+      "id": "by-department",
+      "tool": "training_check",
+      "args": {
+        "completions": "fixtures/lms-completions.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.by_department.Billing": 1,
+          "result.by_department.Front Office": 1
+        }
+      }
+    },
+    {
+      "id": "roster-required",
+      "tool": "training_check",
+      "args": {
+        "completions": "fixtures/lms-completions.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "training_check",
+      "args": {
+        "completions": "../../outside-root.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "training_check",
+      "args": {
+        "completions": "fixtures/missing-export.csv",
+        "roster": "fixtures/roster.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
+    }
+  ]
+}

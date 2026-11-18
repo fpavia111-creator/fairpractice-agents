@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-physician-contracts": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-physician-contracts@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

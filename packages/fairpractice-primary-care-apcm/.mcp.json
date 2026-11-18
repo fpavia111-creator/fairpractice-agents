@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-primary-care-apcm": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-primary-care-apcm@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

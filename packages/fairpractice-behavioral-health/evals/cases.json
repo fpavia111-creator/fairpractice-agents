@@ -1,0 +1,235 @@
+{
+  "suite": "fairpractice-behavioral-health",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "bh_check",
+      "args": {
+        "sessions": "fixtures/sessions-2026.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.sessions": 15,
+          "result.patients": 5,
+          "result.dollars_at_risk": 480
+        }
+      }
+    },
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "bh_check",
+      "args": {
+        "sessions": "fixtures/sessions-2026.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "license_cannot_bill",
+          "result.items.1.status": "addon_without_base",
+          "result.items.2.status": "wrong_time_code",
+          "result.items.3.status": "crisis_time",
+          "result.items.4.status": "over_yearly_limit"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "bh_check",
+      "args": {
+        "sessions": "fixtures/sessions-2026.csv",
+        "settings": "fixtures/settings.json",
+        "status": "license_cannot_bill"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "license_cannot_bill"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "bh_check",
+      "args": {
+        "sessions": "fixtures/sessions-2026.csv",
+        "settings": "fixtures/settings.json",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "bh_write_report",
+      "args": {
+        "sessions": "fixtures/sessions-2026.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "bh_write_report",
+      "args": {
+        "sessions": "fixtures/sessions-2026.csv",
+        "settings": "fixtures/settings.json",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "typo-setting-refused",
+      "tool": "bh_check",
+      "args": {
+        "sessions": "fixtures/sessions-2026.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "bh_check",
+      "args": {
+        "sessions": "fixtures/does-not-exist.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-claim_submit",
+      "tool": "claim_submit",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-note_read",
+      "tool": "note_read",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "bh_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "time-code-expected",
+      "tool": "bh_check",
+      "args": {
+        "sessions": "fixtures/sessions-2026.csv",
+        "settings": "fixtures/settings.json",
+        "status": "wrong_time_code"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.expected": "90834",
+          "result.items.0.minutes": 45,
+          "result.items.0.amount": 40
+        }
+      }
+    },
+    {
+      "id": "crisis-units",
+      "tool": "bh_check",
+      "args": {
+        "sessions": "fixtures/sessions-2026.csv",
+        "settings": "fixtures/settings.json",
+        "status": "crisis_time"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.add_on_units": 2
+        }
+      }
+    },
+    {
+      "id": "fifth-session",
+      "tool": "bh_check",
+      "args": {
+        "sessions": "fixtures/sessions-2026.csv",
+        "settings": "fixtures/settings.json",
+        "status": "over_yearly_limit"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.session_number": 5,
+          "result.items.0.limit": 4
+        }
+      }
+    },
+    {
+      "id": "no-settings-no-limit",
+      "tool": "bh_check",
+      "args": {
+        "sessions": "fixtures/sessions-2026.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.license_cannot_bill": 1
+        },
+        "not_contains": [
+          "\"over_yearly_limit\""
+        ]
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "bh_check",
+      "args": {
+        "sessions": "../../outside-root.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "bh_check",
+      "args": {
+        "sessions": "fixtures/missing-export.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
+    }
+  ]
+}

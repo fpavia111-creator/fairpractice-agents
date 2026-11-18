@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-records-requests": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-records-requests@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

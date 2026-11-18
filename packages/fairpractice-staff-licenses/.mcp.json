@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-staff-licenses": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-staff-licenses@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

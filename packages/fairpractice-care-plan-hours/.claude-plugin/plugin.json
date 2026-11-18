@@ -1,0 +1,23 @@
+{
+  "name": "fairpractice-care-plan-hours",
+  "version": "0.1.0",
+  "description": "Home care hours against the plan of care: hours delivered vs authorized per week, under-delivery, over-delivery that will not be paid, services not on the plan and plans or authorizations ending.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-care-plan-hours#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "home-care",
+    "plan-of-care",
+    "authorizations",
+    "waiver"
+  ]
+}

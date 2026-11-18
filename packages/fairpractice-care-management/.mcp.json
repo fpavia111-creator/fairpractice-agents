@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-care-management": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-care-management@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

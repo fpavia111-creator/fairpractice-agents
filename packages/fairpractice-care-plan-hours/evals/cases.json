@@ -1,0 +1,256 @@
+{
+  "suite": "fairpractice-care-plan-hours",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "careplan_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.plans": 4,
+          "result.clients": 4,
+          "result.weeks_checked.from": "2026-11-02",
+          "result.dollars_at_risk": 168,
+          "result.dollars_missed": 240
+        }
+      }
+    },
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "careplan_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "not_on_plan",
+          "result.items.1.status": "over_delivered",
+          "result.items.2.status": "under_delivered",
+          "result.items.3.status": "plan_ending"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "careplan_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "not_on_plan"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "not_on_plan"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "careplan_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "careplan_write_report",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "careplan_write_report",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "typo-setting-refused",
+      "tool": "careplan_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings-typo.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "careplan_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "visits": "fixtures/does-not-exist.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-plan_change_submit",
+      "tool": "plan_change_submit",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-claim_submit",
+      "tool": "claim_submit",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "careplan_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "over-detail",
+      "tool": "careplan_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "over_delivered"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.delivered": 14,
+          "result.items.0.authorized": 10,
+          "result.items.0.over_hours": 4
+        }
+      }
+    },
+    {
+      "id": "under-detail",
+      "tool": "careplan_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "under_delivered"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.short_pct": 40,
+          "result.items.0.week_of": "2026-11-09"
+        }
+      }
+    },
+    {
+      "id": "default-four-weeks",
+      "tool": "careplan_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "visits": "fixtures/visits.csv",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.weeks_checked.from": "2026-10-19"
+        }
+      }
+    },
+    {
+      "id": "plans-required",
+      "tool": "careplan_check",
+      "args": {
+        "visits": "fixtures/visits.csv",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "careplan_check",
+      "args": {
+        "plans": "../../outside-root.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "careplan_check",
+      "args": {
+        "plans": "fixtures/missing-export.csv",
+        "visits": "fixtures/visits.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
+    }
+  ]
+}

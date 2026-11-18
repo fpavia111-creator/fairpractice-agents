@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-evv-claims": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-evv-claims@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

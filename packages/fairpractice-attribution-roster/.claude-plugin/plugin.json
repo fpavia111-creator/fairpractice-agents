@@ -1,0 +1,22 @@
+{
+  "name": "fairpractice-attribution-roster",
+  "version": "0.1.0",
+  "description": "Attribution reconciliation for value-based contracts: patients the payer attributes to you that you never saw, your active patients the payer left out, patients attributed to the wrong provider, and changes since last month.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-attribution-roster#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "attribution",
+    "value-based-care",
+    "aco"
+  ]
+}

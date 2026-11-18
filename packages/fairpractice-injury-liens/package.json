@@ -1,0 +1,59 @@
+{
+  "name": "fairpractice-injury-liens",
+  "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairpractice-injury-liens",
+  "description": "Personal injury liens and letters of protection: open balances by attorney and case, cases with no update, settled cases not paid, reductions accepted and balances past the statute window you set.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairpractice-injury-liens": "bin/fairpractice-injury-liens.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairpractice-injury-liens.js demo",
+    "eval": "node bin/fairpractice-injury-liens.js eval"
+  },
+  "dependencies": {
+    "fairpractice-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairpractice-agents.git",
+    "directory": "packages/fairpractice-injury-liens"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-injury-liens#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairpractice-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "personal-injury",
+    "liens",
+    "letter-of-protection"
+  ]
+}

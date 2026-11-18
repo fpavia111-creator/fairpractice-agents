@@ -1,0 +1,24 @@
+{
+  "name": "fairpractice-code-updates",
+  "version": "0.1.0",
+  "description": "Code-set update impact: deleted and changed CPT, HCPCS and ICD-10 codes found in your chargemaster, fee schedule, order sets and open claims, with new codes that need a fee.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-code-updates#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "cpt",
+    "hcpcs",
+    "icd-10",
+    "code-updates",
+    "chargemaster"
+  ]
+}

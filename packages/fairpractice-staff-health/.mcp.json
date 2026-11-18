@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-staff-health": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-staff-health@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-recoupments": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-recoupments@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

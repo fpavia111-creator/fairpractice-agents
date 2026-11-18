@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-remote-monitoring": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-remote-monitoring@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

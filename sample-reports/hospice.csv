@@ -1,0 +1,8 @@
+status,patient_id,patient_name,date,amount,message,fix,owner,decision
+noe_missing,H2,Bernard Quill,2026-11-06,1980,No notice of election on file for the election of 2026-11-06; it was due 2026-11-11. 9 day(s) are at risk so far.,File the NOE today; days before it is accepted are not covered unless an exception applies.,,
+noe_late,H1,Agnes Whitlock,2026-11-02,1760,"The notice of election for 2026-11-02 was filed 2026-11-10, after the 2026-11-07 due date; 8 day(s) are not covered.","Bill those days as provider liability, or request an exception if one applies.",,
+notr_missing,H3,Cora Valdez,2026-11-03,0,Live discharge or revocation on 2026-11-03 has no notice of termination or revocation; it was due 2026-11-08.,"File the NOTR, or the final claim, now so the patient's benefit is released.",,
+f2f_missing,H4,Desmond Achebe,2026-09-07,0,Benefit period 4 started 2026-09-07 with no face-to-face encounter recorded between 2026-08-08 and 2026-09-07.,Check the chart for the encounter; without one the recertification is not valid and the period cannot be billed.,,
+cap_over,,,2026-09-30,28192.8,Cap year 2025-10-01 to 2026-09-30: Medicare paid 205000 against an estimated cap of 176807.2 (5 beneficiaries); 28192.8 over.,"Confirm the beneficiary count and payments, then plan the self-determined cap report and repayment.",,
+f2f_due,H5,Elsie Fairbanks,2026-12-24,0,Benefit period 4 starts 2026-12-24 (in 39 days); a face-to-face encounter is needed from 2026-11-24.,Schedule the encounter inside the window.,,
+live_discharge_high,,,2026-11-15,0,"2 of 4 discharges in the last 12 months were live (50%), above your 20% flag.",Review admission and discharge reasons; a high rate draws audits.,,

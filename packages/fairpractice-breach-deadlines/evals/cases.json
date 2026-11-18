@@ -1,0 +1,269 @@
+{
+  "suite": "fairpractice-breach-deadlines",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "breach_check",
+      "args": {
+        "incidents": "fixtures/incidents.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.incidents": 7,
+          "result.breaches": 4,
+          "result.people_affected": 3052
+        }
+      }
+    },
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "breach_check",
+      "args": {
+        "incidents": "fixtures/incidents.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "notice_past_due",
+          "result.items.1.status": "hhs_notice_missing",
+          "result.items.2.status": "state_ag_notice_missing",
+          "result.items.3.status": "state_ag_notice_missing",
+          "result.items.4.status": "undetermined_past_deadline",
+          "result.items.5.status": "assessment_overdue",
+          "result.items.6.status": "assessment_overdue",
+          "result.items.7.status": "notice_late",
+          "result.items.8.status": "notice_due_soon",
+          "result.items.9.status": "hhs_annual_due",
+          "result.items.10.status": "hhs_annual_due"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "breach_check",
+      "args": {
+        "incidents": "fixtures/incidents.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "notice_past_due"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "notice_past_due"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "breach_check",
+      "args": {
+        "incidents": "fixtures/incidents.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "breach_write_report",
+      "args": {
+        "incidents": "fixtures/incidents.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "breach_write_report",
+      "args": {
+        "incidents": "fixtures/incidents.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "typo-setting-refused",
+      "tool": "breach_check",
+      "args": {
+        "incidents": "fixtures/incidents.csv",
+        "settings": "fixtures/settings-typo.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "breach_check",
+      "args": {
+        "incidents": "fixtures/does-not-exist.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-breach_notice_send",
+      "tool": "breach_notice_send",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-hhs_portal_submit",
+      "tool": "hhs_portal_submit",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "breach_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "past-due-27-days",
+      "tool": "breach_check",
+      "args": {
+        "incidents": "fixtures/incidents.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "notice_past_due"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.incident_id": "INC-2026-03",
+          "result.items.0.days": 27,
+          "result.items.0.due": "2026-10-19"
+        }
+      }
+    },
+    {
+      "id": "annual-log-date",
+      "tool": "breach_check",
+      "args": {
+        "incidents": "fixtures/incidents.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "hhs_annual_due"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.due": "2027-03-01"
+        }
+      }
+    },
+    {
+      "id": "not-a-breach-ignored",
+      "tool": "breach_check",
+      "args": {
+        "incidents": "fixtures/incidents.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "not_contains": [
+          "INC-2026-05"
+        ]
+      }
+    },
+    {
+      "id": "no-state-rules-no-ag-findings",
+      "tool": "breach_check",
+      "args": {
+        "incidents": "fixtures/incidents.csv",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.notice_past_due": 1
+        },
+        "not_contains": [
+          "\"state_ag_notice_missing\""
+        ]
+      }
+    },
+    {
+      "id": "media-sent-not-flagged",
+      "tool": "breach_check",
+      "args": {
+        "incidents": "fixtures/incidents.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {},
+        "not_contains": [
+          "\"media_notice_missing\""
+        ]
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "breach_check",
+      "args": {
+        "incidents": "../../outside-root.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "breach_check",
+      "args": {
+        "incidents": "fixtures/missing-export.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
+    }
+  ],
+  "no_names_in_report": true
+}

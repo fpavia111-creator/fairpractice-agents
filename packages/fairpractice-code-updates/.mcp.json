@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-code-updates": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-code-updates@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

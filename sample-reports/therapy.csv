@@ -1,0 +1,8 @@
+status,patient_id,patient_name,date,discipline,cpt,units,amount,message,fix,owner,decision
+no_plan_of_care,P4,Remy Sandoval,2026-11-10,PT,,,100,PT on 2026-11-10 (2 line(s)) is not covered by a plan of care for this patient.,"Get the plan of care certified for these dates before billing, or hold the visit.",,
+cert_unsigned,P2,Hal Duquesne,2026-10-01,OT,,,0,"The OT plan of care from 2026-10-01 is still unsigned, 15 day(s) past 2026-10-31.",Chase the physician or NPP signature; keep a record of each request.,,
+eight_minute_over,P1,Nora Pettigrew,2026-11-03,,97110 97140 97112,4,26.25,2026-11-03: 4 timed units billed for 40 timed minutes; the 8-minute rule allows 3.,Reduce the timed units by 1 before the claim goes out.,,
+assistant_modifier_missing,P2,Hal Duquesne,2026-11-04,,97530,2,0,97530 on 2026-11-04 was furnished by an assistant (OTA) without the CO modifier.,Add CO; Medicare pays assistant services at a reduced rate and expects the modifier.,,
+discipline_modifier_wrong,P2,Hal Duquesne,2026-11-04,,97530,2,70,97530 on 2026-11-04 needs GO for this provider's discipline; found GP.,Set the therapy modifier to GO.,,
+kx_missing,P1,Nora Pettigrew,2026-11-03,,,,105,"2026-11-03: PT and speech spending this year reached 2485, above the 2410 KX threshold, and 3 line(s) lack KX.",Add KX only when the record supports that therapy is still medically necessary; otherwise hold the lines.,,
+recert_due,P3,Ivy Okonkwo,2026-11-29,SLP,,,0,The SLP plan of care ends 2026-11-29 (in 14 days) and the patient was seen 2026-11-06.,Send the recertification to the physician or NPP before the plan ends.,,

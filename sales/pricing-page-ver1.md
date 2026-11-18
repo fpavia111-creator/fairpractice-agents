@@ -1,4 +1,4 @@
-# Kestrel pricing (ver 1, proposals)
+# Fairpractice pricing (ver 1, proposals)
 
 The software is free (MIT). You pay for the setup: we install the checks on your machine, map your exports, set your rules and thresholds, and walk your team through the first run. Prices in [brackets] are proposals for Francisco to set.
 

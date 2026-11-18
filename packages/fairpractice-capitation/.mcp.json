@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairpractice-capitation": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairpractice-capitation@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

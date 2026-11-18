@@ -1,0 +1,9 @@
+import { runDemo } from 'fairpractice-core';
+import { manifest } from './manifest.js';
+
+const f = { recoupments: 'recoupments.csv', claims: 'paid-claims.csv', notices: 'notices.csv', settings: 'settings.json', as_of: '2026-11-15' };
+export const demo = () => runDemo(manifest, new URL('../fixtures', import.meta.url), 'Fairpractice Recoupments', [
+  { label: 'Match takebacks to claims and notices', tool: 'recoup_check', args: f, list: (i) => `${i.status.padEnd(16)} ${String(i.amount).padStart(6)}  ${i.message}` },
+  { label: 'Write the recovery list', tool: 'recoup_write_report', args: f },
+  { label: 'Agent tries to file an appeal', tool: 'appeal_submit', args: {} },
+]);

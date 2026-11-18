@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fpavia111-creator/fairpractice-care-management",
+  "title": "Fairpractice Care Management",
+  "description": "Care management time billing: minutes per patient per month against the thresholds for chronic…",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/fpavia111-creator/fairpractice-agents",
+    "source": "github",
+    "subfolder": "packages/fairpractice-care-management"
+  },
+  "websiteUrl": "https://fair-agents.com/fairpractice.html",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "fairpractice-care-management",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        },
+        {
+          "type": "named",
+          "name": "--root",
+          "description": "Folder holding the exports this agent may read and write (it cannot reach outside it)",
+          "isRequired": true,
+          "format": "filepath",
+          "valueHint": "exports_folder"
+        }
+      ]
+    }
+  ]
+}

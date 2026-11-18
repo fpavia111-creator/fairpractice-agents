@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Therapy billing check</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Therapy billing check</h1>
+<p class="mut">13 line(s) for 4 patient(s), 4 plan(s) of care. 301.25 at risk. 7 finding(s): no_plan_of_care 1, cert_unsigned 1, eight_minute_over 1, assistant_modifier_missing 1, discipline_modifier_wrong 1, kx_missing 1, recert_due 1.</p>
+
+<h2>Findings by type</h2><div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Count</th></tr></thead><tbody>
+<tr><td>no_plan_of_care</td><td>1</td></tr>
+<tr><td>cert_unsigned</td><td>1</td></tr>
+<tr><td>eight_minute_over</td><td>1</td></tr>
+<tr><td>assistant_modifier_missing</td><td>1</td></tr>
+<tr><td>discipline_modifier_wrong</td><td>1</td></tr>
+<tr><td>kx_missing</td><td>1</td></tr>
+<tr><td>recert_due</td><td>1</td></tr>
+</tbody></table></div>
+<h2>All rows (7)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Patient</th><th scope="col">Date</th><th scope="col">cpt</th><th scope="col">Units</th><th scope="col">Amount</th><th scope="col">Finding</th><th scope="col">How to fix</th></tr></thead><tbody>
+<tr><td>no_plan_of_care</td><td>Remy Sandoval</td><td>2026-11-10</td><td></td><td></td><td>100</td><td>PT on 2026-11-10 (2 line(s)) is not covered by a plan of care for this patient.</td><td>Get the plan of care certified for these dates before billing, or hold the visit.</td></tr>
+<tr><td>cert_unsigned</td><td>Hal Duquesne</td><td>2026-10-01</td><td></td><td></td><td>0</td><td>The OT plan of care from 2026-10-01 is still unsigned, 15 day(s) past 2026-10-31.</td><td>Chase the physician or NPP signature; keep a record of each request.</td></tr>
+<tr><td>eight_minute_over</td><td>Nora Pettigrew</td><td>2026-11-03</td><td>97110 97140 97112</td><td>4</td><td>26.25</td><td>2026-11-03: 4 timed units billed for 40 timed minutes; the 8-minute rule allows 3.</td><td>Reduce the timed units by 1 before the claim goes out.</td></tr>
+<tr><td>assistant_modifier_missing</td><td>Hal Duquesne</td><td>2026-11-04</td><td>97530</td><td>2</td><td>0</td><td>97530 on 2026-11-04 was furnished by an assistant (OTA) without the CO modifier.</td><td>Add CO; Medicare pays assistant services at a reduced rate and expects the modifier.</td></tr>
+<tr><td>discipline_modifier_wrong</td><td>Hal Duquesne</td><td>2026-11-04</td><td>97530</td><td>2</td><td>70</td><td>97530 on 2026-11-04 needs GO for this provider&#39;s discipline; found GP.</td><td>Set the therapy modifier to GO.</td></tr>
+<tr><td>kx_missing</td><td>Nora Pettigrew</td><td>2026-11-03</td><td></td><td></td><td>105</td><td>2026-11-03: PT and speech spending this year reached 2485, above the 2410 KX threshold, and 3 line(s) lack KX.</td><td>Add KX only when the record supports that therapy is still medically necessary; otherwise hold the lines.</td></tr>
+<tr><td>recert_due</td><td>Ivy Okonkwo</td><td>2026-11-29</td><td></td><td></td><td>0</td><td>The SLP plan of care ends 2026-11-29 (in 14 days) and the patient was seen 2026-11-06.</td><td>Send the recertification to the physician or NPP before the plan ends.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to an EHR, practice-management system, payer portal, clearinghouse, state system, HR or payroll system, or bank.</li><li>The KX threshold changes each year and the 8-minute rule here is the Medicare method (total timed minutes per day); some commercial payers count per code. Set both in settings.</li><li>Fairpractice Therapy Billing never decides whether therapy is medically necessary; KX is added only on your clinician&#39;s record.</li><li>Not legal, billing, coding, tax, clinical or HIPAA advice. It does not diagnose or recommend care. A person decides what to bill, pay, report, file or send.</li><li>Results returned to the AI model have patient and staff names, record numbers, member ids and other direct identifiers masked. The files written here keep the real values: keep them in a secure folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairclaim agent from your files on this computer. Nothing was sent, submitted or paid. This page contains patient information: keep it in your secure folder and do not e-mail it.</p>
+</main></body></html>

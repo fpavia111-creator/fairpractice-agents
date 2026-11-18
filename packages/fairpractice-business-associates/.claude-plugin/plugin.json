@@ -1,0 +1,23 @@
+{
+  "name": "fairpractice-business-associates",
+  "version": "0.1.0",
+  "description": "Business associate inventory: every vendor that touches patient data with a BAA on file or missing, BAAs expired or ending, security reviews overdue, and vendors paid with no contract on the list.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/fairpractice-business-associates#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel",
+    "hipaa",
+    "business-associate",
+    "baa",
+    "vendors"
+  ]
+}

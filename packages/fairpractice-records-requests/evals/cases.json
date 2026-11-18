@@ -1,0 +1,269 @@
+{
+  "suite": "fairpractice-records-requests",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "access_check",
+      "args": {
+        "requests": "fixtures/access-requests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.requests": 8,
+          "result.open": 3,
+          "result.closed": 5,
+          "result.overcharged": 19
+        }
+      }
+    },
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "access_check",
+      "args": {
+        "requests": "fixtures/access-requests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "past_due",
+          "result.items.1.status": "fulfilled_late",
+          "result.items.2.status": "extension_no_notice",
+          "result.items.3.status": "denial_no_reason",
+          "result.items.4.status": "fee_over_limit",
+          "result.items.5.status": "fee_over_limit",
+          "result.items.6.status": "fee_over_limit",
+          "result.items.7.status": "due_soon"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "access_check",
+      "args": {
+        "requests": "fixtures/access-requests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "past_due"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "past_due"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "access_check",
+      "args": {
+        "requests": "fixtures/access-requests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "access_write_report",
+      "args": {
+        "requests": "fixtures/access-requests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "access_write_report",
+      "args": {
+        "requests": "fixtures/access-requests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "typo-setting-refused",
+      "tool": "access_check",
+      "args": {
+        "requests": "fixtures/access-requests.csv",
+        "settings": "fixtures/settings-typo.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "access_check",
+      "args": {
+        "requests": "fixtures/does-not-exist.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-records_release",
+      "tool": "records_release",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-refund_issue",
+      "tool": "refund_issue",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "access_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "past-due-days",
+      "tool": "access_check",
+      "args": {
+        "requests": "fixtures/access-requests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "past_due"
+      },
+      "expect": {
+        "length": {
+          "result.items": 1
+        },
+        "equals": {
+          "result.items.0.request_id": "AR-1003",
+          "result.items.0.days": 15
+        }
+      }
+    },
+    {
+      "id": "flat-fee-electronic",
+      "tool": "access_check",
+      "args": {
+        "requests": "fixtures/access-requests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "fee_over_limit"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.fee_allowed": 15,
+          "result.items.2.fee_allowed": 6.5,
+          "result.items.2.amount": 8.5
+        }
+      }
+    },
+    {
+      "id": "null-settings-refused",
+      "tool": "access_check",
+      "args": {
+        "requests": "fixtures/access-requests.csv",
+        "settings": null,
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "no-settings-defaults",
+      "tool": "access_check",
+      "args": {
+        "requests": "fixtures/access-requests.csv",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.past_due": 1
+        },
+        "not_contains": [
+          "\"fee_over_limit\""
+        ]
+      }
+    },
+    {
+      "id": "extension-moves-deadline",
+      "tool": "access_check",
+      "args": {
+        "requests": "fixtures/access-requests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "extension_no_notice"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.due": "2026-11-14",
+          "result.items.0.days": 10
+        }
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "access_check",
+      "args": {
+        "requests": "../../outside-root.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "access_check",
+      "args": {
+        "requests": "fixtures/missing-export.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
+    }
+  ]
+}

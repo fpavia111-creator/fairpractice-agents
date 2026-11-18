@@ -1,0 +1,251 @@
+{
+  "suite": "fairpractice-surprise-billing-disputes",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "disputes_check",
+      "args": {
+        "disputes": "fixtures/disputes.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.disputes": 10,
+          "result.fees_paid": 930,
+          "result.awarded_over_paid": 650,
+          "result.dollars_at_risk": 1170
+        }
+      }
+    },
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "disputes_check",
+      "args": {
+        "disputes": "fixtures/disputes.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "idr_window_missed",
+          "result.items.1.status": "negotiation_window_missed",
+          "result.items.2.status": "idr_due",
+          "result.items.3.status": "negotiation_due_soon",
+          "result.items.4.status": "paid_below_qpa",
+          "result.items.5.status": "low_value",
+          "result.items.6.status": "batchable"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "disputes_check",
+      "args": {
+        "disputes": "fixtures/disputes.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "idr_window_missed"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "idr_window_missed"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "disputes_check",
+      "args": {
+        "disputes": "fixtures/disputes.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "disputes_write_report",
+      "args": {
+        "disputes": "fixtures/disputes.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "disputes_write_report",
+      "args": {
+        "disputes": "fixtures/disputes.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "typo-setting-refused",
+      "tool": "disputes_check",
+      "args": {
+        "disputes": "fixtures/disputes.csv",
+        "settings": "fixtures/settings-typo.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "disputes_check",
+      "args": {
+        "disputes": "fixtures/does-not-exist.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-idr_initiate",
+      "tool": "idr_initiate",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-settlement_accept",
+      "tool": "settlement_accept",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "disputes_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "idr-due-date",
+      "tool": "disputes_check",
+      "args": {
+        "disputes": "fixtures/disputes.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "idr_due"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.due": "2026-11-17",
+          "result.items.0.negotiation_ended": "2026-11-10",
+          "result.items.0.business_days_left": 2
+        }
+      }
+    },
+    {
+      "id": "payer-outcomes",
+      "tool": "disputes_check",
+      "args": {
+        "disputes": "fixtures/disputes.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "equals": {
+          "result.by_payer.0.payer": "Bluepeak Health",
+          "result.by_payer.0.won": 1,
+          "result.by_payer.1.lost": 1
+        }
+      }
+    },
+    {
+      "id": "batch-group",
+      "tool": "disputes_check",
+      "args": {
+        "disputes": "fixtures/disputes.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15",
+        "status": "batchable"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.claim_id": "ER-1007, ER-1008",
+          "result.items.0.count": 2
+        }
+      }
+    },
+    {
+      "id": "later-date-more-missed",
+      "tool": "disputes_check",
+      "args": {
+        "disputes": "fixtures/disputes.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-20"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.idr_window_missed": 2
+        }
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "disputes_check",
+      "args": {
+        "disputes": "../../outside-root.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "disputes_check",
+      "args": {
+        "disputes": "fixtures/missing-export.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-15"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
+    }
+  ]
+}

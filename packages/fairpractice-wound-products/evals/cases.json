@@ -1,0 +1,265 @@
+{
+  "suite": "fairpractice-wound-products",
+  "root": "..",
+  "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "wound_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/invoices.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.claim_lines": 11,
+          "result.product_lines": 6,
+          "result.patients": 5,
+          "result.dollars_at_risk": 1416.67
+        }
+      }
+    },
+    {
+      "id": "every-planted-status-in-order",
+      "tool": "wound_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/invoices.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "no_invoice",
+          "result.items.1.status": "units_over_opened",
+          "result.items.2.status": "waste_modifier_wrong",
+          "result.items.3.status": "application_mismatch",
+          "result.items.4.status": "paid_below_cost"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "wound_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/invoices.csv",
+        "status": "no_invoice"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "no_invoice"
+        }
+      }
+    },
+    {
+      "id": "limit-one",
+      "tool": "wound_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/invoices.csv",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "report",
+      "tool": "wound_write_report",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/invoices.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "matches": [
+          "\\.csv",
+          "\\.html"
+        ]
+      }
+    },
+    {
+      "id": "report-spanish",
+      "tool": "wound_write_report",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/invoices.csv",
+        "language": "es"
+      },
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "missing-file",
+      "tool": "wound_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/does-not-exist.csv"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "refuses-claim_submit",
+      "tool": "claim_submit",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "refuses-product_order",
+      "tool": "product_order",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "wound_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "memory is empty"
+        ]
+      }
+    },
+    {
+      "id": "no-invoice-lot",
+      "tool": "wound_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/invoices.csv",
+        "status": "no_invoice"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.lots": "L-777",
+          "result.items.0.cpt": "Q4102"
+        }
+      }
+    },
+    {
+      "id": "over-opened",
+      "tool": "wound_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/invoices.csv",
+        "status": "units_over_opened"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.over_units": 5,
+          "result.items.0.opened": 25
+        }
+      }
+    },
+    {
+      "id": "waste-detail",
+      "tool": "wound_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/invoices.csv",
+        "status": "waste_modifier_wrong"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.waste": 4,
+          "result.items.0.jw_units": 0
+        }
+      }
+    },
+    {
+      "id": "application-expected",
+      "tool": "wound_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/invoices.csv",
+        "status": "application_mismatch"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.expected": "15271×1 15272×1",
+          "result.items.0.area": 49
+        }
+      }
+    },
+    {
+      "id": "cost-gap",
+      "tool": "wound_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/invoices.csv",
+        "status": "paid_below_cost"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.cost": 1200,
+          "result.items.0.paid": 900
+        }
+      }
+    },
+    {
+      "id": "usage-required",
+      "tool": "wound_check",
+      "args": {
+        "claims": "fixtures/claims.csv",
+        "invoices": "fixtures/invoices.csv"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "wound_check",
+      "args": {
+        "claims": "../../outside-root.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/invoices.csv"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside the allowed root"
+        ]
+      }
+    },
+    {
+      "id": "missing-file-named",
+      "tool": "wound_check",
+      "args": {
+        "claims": "fixtures/missing-export.csv",
+        "usage": "fixtures/product-usage.csv",
+        "invoices": "fixtures/invoices.csv"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found",
+          "missing-export.csv"
+        ]
+      }
+    }
+  ]
+}
