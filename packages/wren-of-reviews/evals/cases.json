@@ -1,0 +1,229 @@
+{
+ "suite": "wren-of-reviews",
+ "root": "..",
+ "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+ "cases": [
+  {
+   "id": "totals",
+   "tool": "wren_check",
+   "args": {
+    "reviews": "fixtures/reviews.csv",
+    "settings": "fixtures/settings.json"
+   },
+   "expect": {
+    "status": "executed",
+    "equals": {
+     "result.reviews": 6,
+     "result.replies_checked": 5,
+     "result.risky_replies": 3
+    }
+   }
+  },
+  {
+   "id": "every-planted-status-in-order",
+   "tool": "wren_check",
+   "args": {
+    "reviews": "fixtures/reviews.csv",
+    "settings": "fixtures/settings.json"
+   },
+   "expect": {
+    "equals": {
+     "result.items.0.status": "confirms_patient",
+     "result.items.1.status": "confirms_patient",
+     "result.items.2.status": "health_detail",
+     "result.items.3.status": "uses_reviewer_name",
+     "result.items.4.status": "visit_detail",
+     "result.items.5.status": "needs_reply"
+    }
+   }
+  },
+  {
+   "id": "status-filter",
+   "tool": "wren_check",
+   "args": {
+    "reviews": "fixtures/reviews.csv",
+    "settings": "fixtures/settings.json",
+    "status": "confirms_patient"
+   },
+   "expect": {
+    "status": "executed",
+    "equals": {
+     "result.items.0.status": "confirms_patient"
+    }
+   }
+  },
+  {
+   "id": "limit-one",
+   "tool": "wren_check",
+   "args": {
+    "reviews": "fixtures/reviews.csv",
+    "settings": "fixtures/settings.json",
+    "limit": 1
+   },
+   "expect": {
+    "status": "executed",
+    "length": {
+     "result.items": 1
+    }
+   }
+  },
+  {
+   "id": "report",
+   "tool": "wren_write_report",
+   "args": {
+    "reviews": "fixtures/reviews.csv",
+    "settings": "fixtures/settings.json"
+   },
+   "expect": {
+    "status": "executed",
+    "matches": [
+     "\\.csv",
+     "\\.html"
+    ]
+   }
+  },
+  {
+   "id": "report-spanish",
+   "tool": "wren_write_report",
+   "args": {
+    "reviews": "fixtures/reviews.csv",
+    "settings": "fixtures/settings.json",
+    "language": "es"
+   },
+   "expect": {
+    "status": "executed"
+   }
+  },
+  {
+   "id": "typo-setting-refused",
+   "tool": "wren_check",
+   "args": {
+    "reviews": "fixtures/reviews.csv",
+    "settings": "fixtures/settings-typo.json"
+   },
+   "expect": {
+    "status": "error"
+   }
+  },
+  {
+   "id": "missing-file",
+   "tool": "wren_check",
+   "args": {
+    "reviews": "fixtures/does-not-exist.csv",
+    "settings": "fixtures/settings.json"
+   },
+   "expect": {
+    "status": "error"
+   }
+  },
+  {
+   "id": "refuses-review_reply_publish",
+   "tool": "review_reply_publish",
+   "args": {},
+   "expect": {
+    "status": "blocked"
+   }
+  },
+  {
+   "id": "refuses-reviewer_contact",
+   "tool": "reviewer_contact",
+   "args": {},
+   "expect": {
+    "status": "blocked"
+   }
+  },
+  {
+   "id": "recall-empty-memory",
+   "tool": "wren_recall",
+   "args": {},
+   "expect": {
+    "status": "executed",
+    "contains": [
+     "memory is empty"
+    ]
+   }
+  },
+  {
+   "id": "draft-asks-first",
+   "tool": "wren_draft_review_reply",
+   "args": {
+    "reviews": "fixtures/reviews.csv",
+    "settings": "fixtures/settings.json",
+    "review_id": "G-104"
+   },
+   "expect": {
+    "status": "needs_approval"
+   }
+  },
+  {
+   "id": "draft-safe-reply",
+   "tool": "wren_draft_review_reply",
+   "args": {
+    "reviews": "fixtures/reviews.csv",
+    "settings": "fixtures/settings.json",
+    "review_id": "G-104"
+   },
+   "approve": "Mia Manager (fictional)",
+   "expect": {
+    "status": "executed",
+    "equals": {
+     "result.open_markers": 0
+    }
+   }
+  },
+  {
+   "id": "draft-without-settings-has-markers",
+   "tool": "wren_draft_review_reply",
+   "args": {
+    "reviews": "fixtures/reviews.csv",
+    "review_id": "G-104"
+   },
+   "approve": "Mia Manager (fictional)",
+   "expect": {
+    "status": "executed",
+    "equals": {
+     "result.open_markers": 2
+    }
+   }
+  },
+  {
+   "id": "draft-unknown-review",
+   "tool": "wren_draft_review_reply",
+   "args": {
+    "reviews": "fixtures/reviews.csv",
+    "settings": "fixtures/settings.json",
+    "review_id": "NOPE"
+   },
+   "approve": "Mia Manager (fictional)",
+   "expect": {
+    "status": "error"
+   }
+  },
+  {
+   "id": "post-needs-a-click",
+   "tool": "wren_request_post",
+   "args": {
+    "draft": "kestrel-out/wren/drafts/x.md",
+    "draft_sha256": "0"
+   },
+   "expect": {
+    "status": "needs_approval"
+   }
+  },
+  {
+   "id": "g102-hits",
+   "tool": "wren_check",
+   "args": {
+    "reviews": "fixtures/reviews.csv",
+    "settings": "fixtures/settings.json",
+    "status": "confirms_patient"
+   },
+   "expect": {
+    "contains": [
+     "our records show",
+     "your lab"
+    ]
+   }
+  }
+ ]
+}
