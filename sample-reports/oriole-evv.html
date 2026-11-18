@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EVV and claims check</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>EVV and claims check</h1>
+<p class="mut">7 EVV visit(s), 8 claim line(s), 4 client(s); 0 verified visit(s) not billed. 144 at risk. 5 finding(s): no_evv 1, units_over_verified 1, caregiver_mismatch 1, location_mismatch 1, manual_edits_high 1.</p>
+
+<h2>Findings by type</h2><div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Count</th></tr></thead><tbody>
+<tr><td>no_evv</td><td>1</td></tr>
+<tr><td>units_over_verified</td><td>1</td></tr>
+<tr><td>caregiver_mismatch</td><td>1</td></tr>
+<tr><td>location_mismatch</td><td>1</td></tr>
+<tr><td>manual_edits_high</td><td>1</td></tr>
+</tbody></table></div>
+<h2>All rows (5)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">client name</th><th scope="col">caregiver</th><th scope="col">Date</th><th scope="col">Service</th><th scope="col">Units</th><th scope="col">Amount</th><th scope="col">Finding</th><th scope="col">How to fix</th></tr></thead><tbody>
+<tr><td>no_evv</td><td>Bruno Sato</td><td></td><td>2026-11-04</td><td>T1019</td><td>6</td><td>36</td><td>T1019 on 2026-11-04 (6 units) has no EVV visit.</td><td>Hold the claim; find the visit or record it through your state&#39;s exception process before billing.</td></tr>
+<tr><td>units_over_verified</td><td>Abby Lund</td><td></td><td>2026-11-03</td><td>T1019</td><td>8</td><td>12</td><td>T1019 on 2026-11-03: 8 units billed, 90 verified minutes support 6.</td><td>Bill 6 units, or correct the visit through the exception process if the time was really worked.</td></tr>
+<tr><td>caregiver_mismatch</td><td>Celia Ward</td><td>Omar Feld</td><td>2026-11-02</td><td>T1019</td><td>8</td><td>48</td><td>T1019 on 2026-11-02 was billed under Omar Feld but verified by Tom Baptiste.</td><td>Bill under the caregiver who did the visit.</td></tr>
+<tr><td>location_mismatch</td><td>Dane Ivers</td><td></td><td>2026-11-05</td><td>T1019</td><td>8</td><td>48</td><td>The visit on 2026-11-05 was verified away from the client&#39;s address.</td><td>Check the reason (community outing, wrong address on file) and record it before billing.</td></tr>
+<tr><td>manual_edits_high</td><td></td><td>Lia Gruber</td><td></td><td></td><td></td><td>0</td><td>Lia Gruber: 2 of 3 visits (66.67%) were entered or edited by hand, above your 20% limit.</td><td>Check the caregiver&#39;s phone or app, retrain on clocking in, and review the edits.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to an EHR, practice-management system, payer portal, clearinghouse, state system, HR or payroll system, or bank.</li><li>Each state runs EVV its own way (aggregator, rounding, exception codes); set unit_minutes and rounding to your state&#39;s rules.</li><li>Not legal, billing, coding, tax, clinical or HIPAA advice. It does not diagnose or recommend care. A person decides what to bill, pay, report, file or send.</li><li>Results returned to the AI model have patient and staff names, record numbers, member ids and other direct identifiers masked. The files written here keep the real values: keep them in a secure folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Remedy agent from your files on this computer. Nothing was sent, submitted or paid. This page contains patient information: keep it in your secure folder and do not e-mail it.</p>
+</main></body></html>

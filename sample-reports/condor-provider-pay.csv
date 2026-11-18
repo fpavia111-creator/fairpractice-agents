@@ -1,0 +1,6 @@
+status,provider,code,wrvu,earned,draws,amount,message,fix,owner,decision
+no_provider,,,6.5,,,0,5 charge line(s) (6.5 wRVUs) have no rendering provider.,Assign the provider in the billing system so the work is credited.,,
+no_rvu,,99417,,,,0,Code 99417 (10 unit(s) on 10 line(s)) has no work RVU in your RVU file.,"Add the code to the RVU file, or confirm it carries no work RVU under your plan.",,
+draw_over_earned,Sam Otto DO,,674,30330,33000,2670,"Sam Otto DO: 674 wRVUs earn 30330; draws paid 33000, so 2670 was paid ahead of production.",Apply the plan's rule for draws above production (carry forward or recover).,,
+true_up_owed,Rhea Lin MD,,1160,53320,50000,3320,"Rhea Lin MD: 1160 wRVUs earn 53320; draws paid 50000, so 3320 is owed at true-up.",Include the true-up in the next payroll after the medical director signs off.,,
+true_up_owed,June Park NP,,710,29060,27000,2060,"June Park NP: 710 wRVUs earn 29060; draws paid 27000, so 2060 is owed at true-up.",Include the true-up in the next payroll after the medical director signs off.,,

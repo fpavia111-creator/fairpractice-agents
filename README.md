@@ -1,118 +1,105 @@
-# Evergreen: nursing-home back-office agents (ver 1)
+# Kestrel: medical practice admin, billing and compliance agents (ver 1)
 
-32 MCP agents for skilled nursing facilities (SNFs), one for every service on the back-office brochure from ECAP West 26: revenue cycle, collections, case management, managed care, financial services, payroll, change of ownership and licensing, and acquisitions. Each one reads the files a nursing home already exports (census, claims, aging, bank, payroll, contracts), flags what a biller, AP clerk or controller would catch by hand, and writes a CSV worklist and an HTML report for staff.
+30 MCP agents for medical practices, home care agencies, hospices and therapy clinics: the recommended first 30 from the medical agents catalog. Each one reads files a practice already exports (claims, remits, schedules, rosters, EVV visits, payroll, staff lists, vendor lists), flags what a biller, compliance officer or practice manager would catch by hand, and writes a CSV worklist and an HTML report for staff.
 
-Built on `remedy-core` (masking, policy, approvals, audit log, MCP server, memory, nine-language reports) plus `evergreen-core` (census-day expansion, payer types, per-diem rates, aging buckets, nursing-home column names).
+Built on `remedy-core` (masking, policy, approvals, audit log, MCP server, memory, nine-language reports) plus `kestrel-core` (business days with federal holidays, month and week helpers, clock and duration minutes, name and code matching, and common practice column names).
 
-- **Local files only.** No logins to PointClickCare, MatrixCare, a payer portal, a bank or a state system. No network calls, no telemetry.
-- **Masked before the model sees it.** Resident and staff names become pseudonyms (`PT-3f9a1c2e`), record and account numbers become `MRN-…` and `ACCT-…`, e-mails and phones are removed. The report files on disk keep real names for staff.
-- **People send.** Every agent refuses the live action next to its job (submitting claims or appeals, paying vendors, filing with CMS or a state, sending notices or offers). Drafts that could go out wait for one named click, even in Auto, tied to the sha256 of the draft.
-- **Settings, not hard-coded rules.** Rates, limits, thresholds and lead times are JSON settings you pass. A misspelled setting is refused by name.
-- **Fictional data only.** Cedar Hollow, Bluebonnet Manor and every resident, plan and vendor in the fixtures are made up.
+- **Administrative and financial only.** No diagnosis, no treatment advice, and no agent reads clinical notes to suggest codes. They check what was billed, paid, filed, signed or scheduled against rules and settings you give them.
+- **Local files only.** No logins to an EHR, a clearinghouse, a payer portal, a state EVV system or the OIG site. No network calls, no telemetry. You download the lists (for example the OIG exclusion file) and point the agent at them.
+- **Masked before the model sees it.** Patient and staff names become pseudonyms (`PT-3f9a1c2e`), record and account numbers become `MRN-…` and `ACCT-…`, e-mails and phones are removed. Names with junk in front of them (spaces, quotes, formula characters) are masked too. Report files on disk keep real names for staff.
+- **People send.** Every agent refuses the live action next to its job (submitting claims or disputes, filing breach notices, posting review replies, running payroll, changing comp plans). Drafts that could go out wait for one named click, even in Auto, tied to the sha256 of the draft.
+- **Settings, not hard-coded rules.** Thresholds, limits, windows and state rules are JSON settings you pass. A misspelled setting is refused by name. Where a rule depends on a state or a payer, the sample settings say so and ask for your own check.
+- **Fictional data only.** Every patient, provider, payer, attorney and vendor in the fixtures is made up. Code-update fixtures use invented ZZ codes.
 
-This is **not** a HIPAA compliance determination, and not billing, legal, tax, accounting or clinical advice. The PointClickCare, MatrixCare and American HealthTech column names were written from public help pages and general knowledge and **have not been checked against real exports**.
+This keeps PHI away from the model; it is **not** a HIPAA compliance determination, and not billing, coding, legal, tax, accounting or clinical advice. Column names were written from general knowledge of common exports and **have not been checked against real exports** from any EHR or billing system.
 
-## The 32 agents
+## The 30 agents
 
-### Billing and revenue cycle
-
-| Agent | What it checks |
-|---|---|
-| [oak-of-census](packages/oak-of-census) | Census against billing for nursing homes: days billed to the wrong payer, unbilled or over-billed days, leave days billed to a payer that does not pay bed holds, days after discharge, overlapping census rows and per-diem rates that differ from your rate table. |
-| [birch-of-eligibility](packages/birch-of-eligibility) | Eligibility for nursing-home residents: stale or missing checks, inactive or ending coverage, Medicare Part A benefit days running out, missing or short qualifying hospital stays, late admissions after the hospital stay and Medicaid renewals coming due. |
-| [cedar-of-payer-source](packages/cedar-of-payer-source) | Payer source for every resident day: days with no payer, two payers on the same day, payers missing from your payer list, Medicare Part A past day 100, coinsurance days with no secondary payer, hospice residents on the wrong payer and private pay with no responsible party. |
-| [pine-of-part-a](packages/pine-of-part-a) | Medicare Part A SNF claim checks (UB-04 / 837I lines): HIPPS codes on revenue code 0022, default ZZZZZ rates, covered days against the census, coinsurance days after day 20, the qualifying-stay span, claims that cross a month and through dates in the future. |
-| [maple-of-medicaid-pending](packages/maple-of-medicaid-pending) | Medicaid pending oversight: applications past the decision deadline, document requests due, no follow-up, approvals not yet billed, approvals with no patient liability set, denials with no appeal and pending residents with no application on file. |
-| [spruce-of-liability](packages/spruce-of-liability) | Patient liability (Medicaid share of cost) and private pay: liability not billed, billed short or over, unpaid balances, credit balances to refund and new liability notices not applied. |
-| [aspen-of-part-b](packages/aspen-of-part-b) | Medicare Part B therapy for long-term residents: units over the 8-minute rule, missing GP/GO/GN modifiers, the KX threshold, therapy billed on days the resident was in a Part A stay, and duplicate lines. |
-| [hemlock-of-next-payer](packages/hemlock-of-next-payer) | Next payer planning for long stays: residents whose Medicare days, managed care authorizations or private funds run out with no next payer planned, and when to start a Medicaid application. |
-| [elm-of-hospice](packages/elm-of-hospice) | Hospice room and board for nursing-home residents: days not invoiced to the hospice, invoiced days that differ from the census, rates below the hospice contract, unpaid invoices, hospices with no contract and Medicaid billed directly for hospice days. |
-| [rowan-of-crossovers](packages/rowan-of-crossovers) | Medicare-to-Medicaid crossovers for dual-eligible residents: Medicare coinsurance never crossed over, crossovers billed for the wrong amount, zero-paid crossovers to check against the state's lesser-of rule, and unpaid coinsurance to keep for the bad debt log. |
-
-### Collections and appeals
+### Compliance pack
 
 | Agent | What it checks |
 |---|---|
-| [alder-of-collections](packages/alder-of-collections) | Nursing-home collections: aging by payer type with the reason each account is stuck, no follow-up, timely filing at risk, credit balances and Medicaid pending balances, as a monthly status report. |
-| [larch-of-appeals](packages/larch-of-appeals) | Denial appeals for nursing homes: deadlines by payer and level, appeals past due, decisions overdue, the next appeal level, and appeal letter drafts a person approves and sends. |
+| [heron-of-exclusions](packages/heron-of-exclusions) | Exclusion screening for everyone a practice pays: staff, providers, contractors and vendors checked against the OIG exclusion list, SAM and state Medicaid exclusion files you download, with NPI and birth-date matches, near-name matches to clear, reinstatements and people not screened this month. |
+| [finch-of-licenses](packages/finch-of-licenses) | Staff licenses and certifications: nursing and allied licenses, BLS, ACLS and other certificates expired or expiring, missing for the role, verification older than your policy, compact-state licenses used out of state, and staff working shifts on an expired license. |
+| [robin-of-staff-health](packages/robin-of-staff-health) | Employee health compliance (HR records, not care): TB tests, flu and other required vaccines or declinations, mask fit tests and annual health screens due or overdue by department and role. |
+| [owl-of-access-requests](packages/owl-of-access-requests) | Patient right-of-access requests: the 30-day clock and one 30-day extension, requests past due, extensions without a written notice, fees above your limit or the flat fee, and denials without a reason. |
+| [hawk-of-breaches](packages/hawk-of-breaches) | Privacy incident and breach clocks: risk assessments not done, the 60-day notice deadline to patients, the media and HHS for large breaches, the annual HHS log for small ones, and notices sent late. |
+| [swift-of-associates](packages/swift-of-associates) | Business associate inventory: every vendor that touches patient data with a BAA on file or missing, BAAs expired or ending, security reviews overdue, and vendors paid with no contract on the list. |
+| [plover-of-risk-analysis](packages/plover-of-risk-analysis) | Security risk analysis tracker: the annual risk analysis evidence checklist, open risks past their due date, high risks with no owner or plan, and systems with patient data missing from the asset list. |
+| [lark-of-training](packages/lark-of-training) | Compliance training: required courses per role and state (HIPAA, fraud and abuse, Texas HB 300 and others), new hires not trained within the days your policy allows, annual refreshers overdue and courses missing for a role. |
+| [wren-of-reviews](packages/wren-of-reviews) | Online review replies without a HIPAA fine: checks drafted replies for words that confirm someone is a patient (visit, treatment, chart, diagnosis, their name) and writes safe, generic reply drafts a person approves. |
+| [crane-of-physician-contracts](packages/crane-of-physician-contracts) | Payments to referral-source physicians against their contracts (Stark and anti-kickback admin checks): payments with no signed or current agreement, expired agreements still paid, payments above the contract or your fair-market-value range, and missing time logs. |
 
-### Case management
-
-| Agent | What it checks |
-|---|---|
-| [poplar-of-authorizations](packages/poplar-of-authorizations) | Managed care authorizations against the daily census: days with no authorization, levels that differ from the authorized level, days past the authorized count, authorizations about to end and concurrent reviews due. |
-| [yew-of-length-of-stay](packages/yew-of-length-of-stay) | Case management weekly meeting list for skilled stays: clinical reviews overdue, authorizations ending with no plan, discharges past their date, custodial residents still on a skilled payer, Medicare day 20 and day 100 coming up, and late NOMNC notices. |
-
-### Managed care
-
-| Agent | What it checks |
-|---|---|
-| [willow-of-managed-care](packages/willow-of-managed-care) | Managed care (HMO, Medicare Advantage, Medicaid MCO) claim checks: no contract rate, billed or paid below contract, levels not authorized, days past the authorization and claims missing the authorization number. |
-| [mulberry-of-mco-contracts](packages/mulberry-of-mco-contracts) | Managed care contract review: per-diem rates below your market benchmark, paid below contract, contracts ending or in their notice window, rates unchanged for years, and a payer matrix for the admissions team. |
-
-### Financial services
+### Specialty billing
 
 | Agent | What it checks |
 |---|---|
-| [sequoia-of-payables](packages/sequoia-of-payables) | Accounts payable review for nursing homes: duplicate invoices, vendors not on the approved list, invoices over the purchase order, missing purchase orders, past-due bills and goods received but not invoiced for the month-end accrual. |
-| [cypress-of-cash](packages/cypress-of-cash) | Daily bank reconciliation: bank lines with no book entry, book entries not on the bank, stale outstanding checks, deposits in transit too long and the unexplained difference. |
-| [redwood-of-cashflow](packages/redwood-of-cashflow) | 13-week cash projection for a nursing home from opening cash, AR collection rates by payer type, payroll dates, bills due and fixed payments, with the weeks below your minimum cash. |
-| [hazel-of-borrowing-base](packages/hazel-of-borrowing-base) | Borrowing base certificate preparation: eligible receivables by payer type, ineligibles by reason (age, Medicaid pending, credits, cross-aging, concentration), availability at your advance rates and the room left on the line. |
-| [linden-of-covenants](packages/linden-of-covenants) | Loan and lease covenant tests for nursing homes: occupancy, rent coverage, debt service coverage, fixed charge coverage and days cash on hand, with cushions, near misses and reporting due dates. |
-| [sycamore-of-close](packages/sycamore-of-close) | Month-end close checks for nursing homes: trial balance out of balance, big month-over-month swings, per-patient-day costs outside their usual range, missing recurring accruals, suspense balances, intercompany that does not net out and late close tasks. |
-| [chestnut-of-cost-report](packages/chestnut-of-cost-report) | Cost report and audit support: patient days by payer tied out between the census, the cost report draft and the PS&R, and the prepared-by-client list for auditors, the bank and the Medicare contractor. |
-| [ash-of-ancillaries](packages/ash-of-ancillaries) | Ancillary invoice review: pharmacy, therapy, lab, radiology and supply charges for residents not in the building, for residents whose payer should be billed instead, outside consolidated billing, above contract rates or duplicated, with credit request drafts. |
-| [walnut-of-vendor-contracts](packages/walnut-of-vendor-contracts) | Vendor contract analysis: renewal notice dates, expired contracts still billing, spend with no contract, price increases above the contract escalator and charges above contracted rates. |
-| [beech-of-propco](packages/beech-of-propco) | Property company bookkeeping for nursing-home real estate: rent short or unpaid, escalators not billed, operator (tenant) rent coverage and occupancy, leases ending and tenant financials not received. |
+| [magpie-of-aba](packages/magpie-of-aba) | ABA therapy units against authorizations: units delivered vs authorized hours per week and in total, sessions outside the authorization dates, supervision below the share the payer requires, unit math against session minutes, and authorizations ending with hours unused. |
+| [swallow-of-therapy](packages/swallow-of-therapy) | Outpatient therapy billing (PT, OT, speech): timed units against the 8-minute rule, the KX threshold per patient per year, CQ and CO assistant modifiers, GP/GO/GN discipline modifiers, and plan-of-care certifications and recertifications due. |
+| [dove-of-hospice](packages/dove-of-hospice) | Hospice billing deadlines and the cap: notices of election and termination filed late, benefit periods and face-to-face encounters before the third period, the aggregate cap per cap year and the live-discharge rate. |
+| [sparrow-of-home-health](packages/sparrow-of-home-health) | Home health 30-day periods: notices of admission filed late (with the payment cut per day), visits under the low-utilization threshold, periods that overlap another period, and visits outside any period. |
+| [jay-of-behavioral-health](packages/jay-of-behavioral-health) | Behavioral health billing: psychotherapy codes against session minutes, add-on codes without their base code, crisis time, sessions over the payer's yearly limit, and providers billing codes their license type cannot bill. |
+| [ibis-of-wound-products](packages/ibis-of-wound-products) | Wound care product billing: skin substitute units against the product size used and wasted (JW/JZ), application codes against the product lines, products billed with no invoice and paid below what they cost. |
+| [raven-of-liens](packages/raven-of-liens) | Personal injury liens and letters of protection: open balances by attorney and case, cases with no update, settled cases not paid, reductions accepted and balances past the statute window you set. |
 
-### Payroll and staffing
+### Care management and value-based care
 
 | Agent | What it checks |
 |---|---|
-| [holly-of-payroll](packages/holly-of-payroll) | Payroll audit for nursing homes: missing punches, paid hours that differ from punches, overtime under the 40-hour or 8/80 rule, shift differentials left out of the overtime rate, garnishments over the limit and terminated staff paid. |
-| [magnolia-of-staffing](packages/magnolia-of-staffing) | Staffing and PBJ checks: hours per resident day by role against your targets, days without 8 consecutive RN hours, agency invoices against agency timecards and the PBJ due date. |
-| [acacia-of-accruals](packages/acacia-of-accruals) | Payroll and PTO accruals at month end: wages earned but not paid by department, employer taxes, PTO liability change, and the difference from what is booked, as journal entry lines. |
+| [egret-of-care-management](packages/egret-of-care-management) | Care management time billing: minutes per patient per month against the thresholds for chronic care, principal care and behavioral health codes, add-on units, consent on file, and two practices or overlapping codes in the same month. |
+| [tern-of-remote-monitoring](packages/tern-of-remote-monitoring) | Remote monitoring billing: days of readings per 30-day period against each device code's day threshold, management minutes and interactive contact, setup billed once, and overlaps with care management. |
+| [linnet-of-primary-care](packages/linnet-of-primary-care) | Advanced primary care management: monthly codes against patient tiers, consent, care management codes billed in the same month that the rules do not allow, and enrolled patients not billed. |
+| [stork-of-attribution](packages/stork-of-attribution) | Attribution reconciliation for value-based contracts: patients the payer attributes to you that you never saw, your active patients the payer left out, patients attributed to the wrong provider, and changes since last month. |
+| [pelican-of-capitation](packages/pelican-of-capitation) | Capitation reconciliation: per-member payments against the roster month by month, members paid at the wrong rate, members on the roster not paid, retro adds and terms, and the net amount to dispute. |
 
-### Change of ownership and licensing
-
-| Agent | What it checks |
-|---|---|
-| [olive-of-chow](packages/olive-of-chow) | Change of ownership (CHOW) tracker: every step for Medicare, Medicaid, the state license, payers, banking, payroll and vendors against the closing date, with late steps, steps due soon, blocked steps and standard steps missing from your list. |
-| [fir-of-licensing](packages/fir-of-licensing) | Licensing and credentialing calendar: facility licenses, Medicare and Medicaid revalidations, CLIA and other certificates, administrator and nurse licenses, expired or expiring items, and standard items missing for a facility. |
-
-### Acquisitions and underwriting
+### Home care
 
 | Agent | What it checks |
 |---|---|
-| [baobab-of-underwriting](packages/baobab-of-underwriting) | Acquisition underwriting packet for a nursing home: trailing-twelve-month summary with one-time items removed, occupancy and payer mix, year-one projection, staffing model, value at your cap rate and valuation of receivables. |
+| [oriole-of-evv](packages/oriole-of-evv) | Electronic visit verification against Medicaid claims: claim lines with no matching EVV visit, units billed above the verified time, visits verified at the wrong place or by another caregiver, and manual edits above your limit. |
+| [thrush-of-caregiver-hours](packages/thrush-of-caregiver-hours) | Caregiver hours and pay: weekly hours across clients, overtime owed above 40 hours, travel time between clients, split shifts, missed meal breaks under your state settings, and live-in shifts. |
+| [warbler-of-care-plans](packages/warbler-of-care-plans) | Home care hours against the plan of care: hours delivered vs authorized per week, under-delivery, over-delivery that will not be paid, services not on the plan and plans or authorizations ending. |
 
+### Money recovery and practice finance
+
+| Agent | What it checks |
+|---|---|
+| [falcon-of-disputes](packages/falcon-of-disputes) | No Surprises Act payment disputes: the 30-business-day open negotiation, the 4-business-day window to start IDR, offers below the QPA, batching groups, outcomes by payer and fees paid. |
+| [osprey-of-secondary-claims](packages/osprey-of-secondary-claims) | Secondary and tertiary claims: primary paid with a balance left and no secondary claim sent, secondaries sent without the primary's payment, wrong payer order, and secondary timely filing windows closing. |
+| [gull-of-recoupments](packages/gull-of-recoupments) | Payer recoupments and offsets: takebacks matched to the original claim, recoupments with no notice on file, the same claim taken back twice, and appeal windows still open. |
+| [curlew-of-code-updates](packages/curlew-of-code-updates) | Code-set update impact: deleted and changed CPT, HCPCS and ICD-10 codes found in your chargemaster, fee schedule, order sets and open claims, with new codes that need a fee. |
+| [condor-of-provider-pay](packages/condor-of-provider-pay) | Provider pay by work RVU: wRVUs per provider from charges and the RVU file, tiered pay and draws trued up, plus codes with no RVU and charges missing a provider. |
 
 ## Try it (Node 20 or newer)
 
 ```bash
 npm install
-npm test                      # 733 tests across the core and 32 agents
-npm run evals                 # 449 eval cases on the fictional fixtures
+npm test                      # 721 tests across the cores and 30 agents
+npm run evals                 # 465 eval cases on the fictional fixtures
 npm run hostile               # plants formulas, HTML, "../" and AI-aimed instructions in every fixture
+npm run hostile:args          # broken and hostile arguments on every tool
 npm run check                 # family rules: unique tools, refused tools, canaries, READMEs
 npm run samples               # writes sample-reports/ (open sample-reports/index.html)
-node packages/oak-of-census/bin/oak-of-census.js demo
-node packages/baobab-of-underwriting/bin/baobab-of-underwriting.js demo
+node packages/heron-of-exclusions/bin/heron-of-exclusions.js demo
+node packages/condor-of-provider-pay/bin/condor-of-provider-pay.js demo
 ```
 
 Every agent has `demo`, `eval`, `tools`, `sources`, `inspect` and `mcp`. In Claude Code before anything is published:
 
 ```bash
-claude mcp add oak-of-census -- node /path/to/evergreen-agents/packages/oak-of-census/bin/oak-of-census.js mcp --root .
+claude mcp add heron-of-exclusions -- node /path/to/kestrel-agents/packages/heron-of-exclusions/bin/heron-of-exclusions.js mcp --root .
 ```
+
+Only Node 22 was run while building ver 1. The package files say Node 20 or newer; run the tests on your Node version before relying on it.
 
 ## Layout
 
 ```
-packages/remedy-core       shared runtime (copied from the Remedy family, one masking fix, see REVIEW)
-packages/evergreen-core    nursing-home helpers and the agent builder (snfAgent)
-packages/<tree>-of-<job>   one agent: src/logic.js (pure), src/manifest.js, src/demo.js,
+packages/remedy-core       shared runtime (from the Remedy family, with the Evergreen masking fix)
+packages/kestrel-core      practice helpers and the agent builder (medAgent)
+packages/<bird>-of-<job>   one agent: src/logic.js (pure), src/manifest.js, src/demo.js,
                            fixtures/, evals/cases.json, test/, README.md (generated)
+scripts/agents.json        the 30 agents with their one-line descriptions
 scripts/new-agent.mjs      package boilerplate for every agent in scripts/agents.json
 scripts/readme.mjs         writes every agent README from the agent itself
 scripts/run-all-evals.mjs  all eval cases

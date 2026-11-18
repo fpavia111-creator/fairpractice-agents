@@ -1,0 +1,7 @@
+status,patient_id,patient_name,month,cpt,minutes,amount,message,fix,owner,decision
+no_consent,E3,Tamsin Doyle,2026-10,99490,,60,2026-10: 99490 billed with no care management consent on file for the month.,Get and record consent before billing; hold these codes until then.,,
+other_practice,E5,Valerie Kwan,2026-10,99490,,60,2026-10: chronic care management billed while another practice bills it for this patient.,Only one practitioner may bill CCM for a patient in a month; confirm with the patient and the other practice.,,
+overlap_codes,E4,Umar Haddad,2026-10,99426 99490,,60,2026-10: 99426 99490 billed together; these programs are not billed for the same patient in the same month.,Keep the one the time and care plan support and remove the other.,,
+under_threshold,E2,Sol Petrov,2026-10,99490,15,60,2026-10: 99490 needs 20 minutes; 15 logged.,"Do not bill until the time is met, or correct the time log if minutes are missing.",,
+addon_over,E1,Ruth Ashby,2026-10,99439,45,47,2026-10: 2 unit(s) of 99439 billed; 45 minutes support 1.,Reduce 99439 to 1.,,
+unbilled_time,E6,Walt Imbert,2026-10,,40,107,"2026-10: 40 minutes of CCM logged, consent on file, nothing billed; the time supports 99490×1 99439×1.",Check the care plan is in place and bill the month.,,

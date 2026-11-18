@@ -28,5 +28,5 @@
  ["osprey-of-secondary-claims", "Secondary and tertiary claims: primary paid with a balance left and no secondary claim sent, secondaries sent without the primary's payment, wrong payer order, and secondary timely filing windows closing.", "coordination-of-benefits,secondary-claims,cob"],
  ["gull-of-recoupments", "Payer recoupments and offsets: takebacks matched to the original claim, recoupments with no notice on file, the same claim taken back twice, and appeal windows still open.", "recoupment,offsets,835,overpayments"],
  ["curlew-of-code-updates", "Code-set update impact: deleted and changed CPT, HCPCS and ICD-10 codes found in your chargemaster, fee schedule, order sets and open claims, with new codes that need a fee.", "cpt,hcpcs,icd-10,code-updates,chargemaster"],
- ["condor-of-provider-pay", "Provider pay by work RVU: wRVUs per provider from charges and the RVU file, tiered pay, bonuses and quarterly draws trued up, plus codes with no RVU and charges missing a provider.", "wrvu,provider-compensation,physician-pay"]
+ ["condor-of-provider-pay", "Provider pay by work RVU: wRVUs per provider from charges and the RVU file, tiered pay and draws trued up, plus codes with no RVU and charges missing a provider.", "wrvu,provider-compensation,physician-pay"]
 ]

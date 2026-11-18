@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Care management time check</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Care management time check</h1>
+<p class="mut">7 patient-month(s) for 7 patient(s). 287 at risk, 107 unbilled. 6 finding(s): no_consent 1, other_practice 1, overlap_codes 1, under_threshold 1, addon_over 1, unbilled_time 1.</p>
+
+<h2>Findings by type</h2><div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Count</th></tr></thead><tbody>
+<tr><td>no_consent</td><td>1</td></tr>
+<tr><td>other_practice</td><td>1</td></tr>
+<tr><td>overlap_codes</td><td>1</td></tr>
+<tr><td>under_threshold</td><td>1</td></tr>
+<tr><td>addon_over</td><td>1</td></tr>
+<tr><td>unbilled_time</td><td>1</td></tr>
+</tbody></table></div>
+<h2>All rows (6)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Patient</th><th scope="col">Month</th><th scope="col">cpt</th><th scope="col">Minutes</th><th scope="col">Amount</th><th scope="col">Finding</th><th scope="col">How to fix</th></tr></thead><tbody>
+<tr><td>no_consent</td><td>Tamsin Doyle</td><td>2026-10</td><td>99490</td><td></td><td>60</td><td>2026-10: 99490 billed with no care management consent on file for the month.</td><td>Get and record consent before billing; hold these codes until then.</td></tr>
+<tr><td>other_practice</td><td>Valerie Kwan</td><td>2026-10</td><td>99490</td><td></td><td>60</td><td>2026-10: chronic care management billed while another practice bills it for this patient.</td><td>Only one practitioner may bill CCM for a patient in a month; confirm with the patient and the other practice.</td></tr>
+<tr><td>overlap_codes</td><td>Umar Haddad</td><td>2026-10</td><td>99426 99490</td><td></td><td>60</td><td>2026-10: 99426 99490 billed together; these programs are not billed for the same patient in the same month.</td><td>Keep the one the time and care plan support and remove the other.</td></tr>
+<tr><td>under_threshold</td><td>Sol Petrov</td><td>2026-10</td><td>99490</td><td>15</td><td>60</td><td>2026-10: 99490 needs 20 minutes; 15 logged.</td><td>Do not bill until the time is met, or correct the time log if minutes are missing.</td></tr>
+<tr><td>addon_over</td><td>Ruth Ashby</td><td>2026-10</td><td>99439</td><td>45</td><td>47</td><td>2026-10: 2 unit(s) of 99439 billed; 45 minutes support 1.</td><td>Reduce 99439 to 1.</td></tr>
+<tr><td>unbilled_time</td><td>Walt Imbert</td><td>2026-10</td><td></td><td>40</td><td>107</td><td>2026-10: 40 minutes of CCM logged, consent on file, nothing billed; the time supports 99490×1 99439×1.</td><td>Check the care plan is in place and bill the month.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to an EHR, practice-management system, payer portal, clearinghouse, state system, HR or payroll system, or bank.</li><li>Minute thresholds and which codes may be billed together follow the Medicare rules as we understand them for 2026; commercial plans and later years may differ. Time is counted by the program column in your log.</li><li>Egret does not check that a care plan exists or that the patient has the conditions the codes need; a person confirms those.</li><li>Not legal, billing, coding, tax, clinical or HIPAA advice. It does not diagnose or recommend care. A person decides what to bill, pay, report, file or send.</li><li>Results returned to the AI model have patient and staff names, record numbers, member ids and other direct identifiers masked. The files written here keep the real values: keep them in a secure folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Remedy agent from your files on this computer. Nothing was sent, submitted or paid. This page contains patient information: keep it in your secure folder and do not e-mail it.</p>
+</main></body></html>
