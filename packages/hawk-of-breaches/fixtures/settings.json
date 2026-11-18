@@ -1,0 +1,1 @@
+{ "notice_days": 60, "assess_days": 10, "large_threshold": 500, "warn_days": 14, "state_rules": [ { "state": "TX", "ag_threshold": 250, "ag_days": 30 } ] }

@@ -1,0 +1,8 @@
+Incident #,Date Discovered,People Affected,Risk Assessment Date,Determination,Individuals Notified,Media Notified,HHS Notified,States,AG Notified
+INC-2026-01,2026-02-03,12,2026-02-06,breach,2026-03-01,,,TX,
+INC-2026-02,2026-06-10,2400,2026-06-15,breach,2026-08-20,2026-08-20,,TX;OK,
+INC-2026-03,2026-08-20,40,2026-08-25,breach,,,,TX,
+INC-2026-04,2026-09-01,1,,pending,,,,,
+INC-2026-05,2026-10-01,3,2026-10-03,not a breach (low probability),,,,,
+INC-2026-06,2026-09-25,600,2026-09-29,breach,,,,TX,
+INC-2026-07,2026-11-01,2,,pending,,,,,
