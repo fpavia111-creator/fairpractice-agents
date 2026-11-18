@@ -1,0 +1,14 @@
+Patient ID,Patient Name,Date of Service,CPT,Modifiers,Units,Minutes,Provider,Credential,Payer,Allowed
+P1,Nora Pettigrew,2026-09-16,97110,GP,4,60,Dana Moss,PT,Medicare,600
+P1,Nora Pettigrew,2026-09-30,97110,GP,4,60,Dana Moss,PT,Medicare,600
+P1,Nora Pettigrew,2026-10-14,97110,GP,4,60,Dana Moss,PT,Medicare,600
+P1,Nora Pettigrew,2026-10-28,97110,GP,4,60,Dana Moss,PT,Medicare,580
+P1,Nora Pettigrew,2026-11-03,97110,GP,2,23,Dana Moss,PT,Medicare,40
+P1,Nora Pettigrew,2026-11-03,97140,GP,1,10,Dana Moss,PT,Medicare,35
+P1,Nora Pettigrew,2026-11-03,97112,GP,1,7,Dana Moss,PT,Medicare,30
+P2,Hal Duquesne,2026-11-04,97530,GP,2,30,Sam Ortiz,COTA,Medicare,70
+P2,Hal Duquesne,2026-11-04,97535,GO CO,1,15,Sam Ortiz,COTA,Medicare,35
+P3,Ivy Okonkwo,2026-11-06,92507,GN,1,45,Lee Park,CCC-SLP,Bluepeak Health,95
+P4,Remy Sandoval,2026-10-20,97110,GP,2,30,Dana Moss,PT,Medicare,70
+P4,Remy Sandoval,2026-11-10,97110,GP,2,30,Dana Moss,PT,Medicare,70
+P4,Remy Sandoval,2026-11-10,97140,GP CQ,1,15,Jo Reyes,PTA,Medicare,30
