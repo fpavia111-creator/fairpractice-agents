@@ -1,0 +1,13 @@
+Patient ID,Patient Name,Payer,Order,Effective,Term
+S1,Ava Price,Bluepeak Health,Primary,2025-01-01,
+S1,Ava Price,Cedar Supplement,Secondary,2025-01-01,
+S2,Ben Ruiz,Bluepeak Health,Primary,2025-01-01,
+S2,Ben Ruiz,Cedar Supplement,Secondary,2025-01-01,
+S3,Cal Dey,Bluepeak Health,Primary,2025-01-01,
+S3,Cal Dey,State Medicaid,Secondary,2025-01-01,
+S4,Dee Fox,Bluepeak Health,Primary,2025-01-01,
+S4,Dee Fox,Cedar Supplement,Secondary,2025-01-01,
+S5,Eli Gro,Bluepeak Health,Primary,2025-01-01,
+S5,Eli Gro,Cedar Supplement,Secondary,2025-01-01,
+S6,Fay Ho,Bluepeak Health,Primary,2025-01-01,
+S6,Fay Ho,Cedar Supplement,Secondary,2025-01-01,
