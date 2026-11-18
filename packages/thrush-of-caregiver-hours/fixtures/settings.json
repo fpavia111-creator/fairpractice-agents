@@ -1,0 +1,1 @@
+{ "ot_hours": 40, "week_start": "monday", "max_travel_minutes": 60, "split_gap_minutes": 60, "split_premium": 16.5, "meal_after_hours": 5, "meal_minutes": 30, "sleep_cap_minutes": 480 }

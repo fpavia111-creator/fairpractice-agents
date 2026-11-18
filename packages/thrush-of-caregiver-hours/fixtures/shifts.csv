@@ -1,0 +1,15 @@
+Caregiver ID,Caregiver,Client ID,Date,Clock In,Clock Out,Minutes,Meal Minutes,Live In,Sleep Minutes,Sleep Interrupted,Pay Rate
+G1,Ana Ruiz,X1,2026-11-02,07:00,11:00,,0,No,,,18
+G1,Ana Ruiz,X2,2026-11-02,11:20,16:20,,0,No,,,18
+G1,Ana Ruiz,X1,2026-11-03,07:00,11:00,,0,No,,,18
+G1,Ana Ruiz,X2,2026-11-03,11:20,16:20,,0,No,,,18
+G1,Ana Ruiz,X1,2026-11-04,07:00,11:00,,0,No,,,18
+G1,Ana Ruiz,X2,2026-11-04,11:20,16:20,,0,No,,,18
+G1,Ana Ruiz,X1,2026-11-05,07:00,11:00,,0,No,,,18
+G1,Ana Ruiz,X2,2026-11-05,11:20,16:20,,0,No,,,18
+G1,Ana Ruiz,X1,2026-11-06,07:00,11:00,,0,No,,,18
+G1,Ana Ruiz,X2,2026-11-06,11:20,16:20,,0,No,,,18
+G2,Bo Chen,X3,2026-11-03,06:00,12:30,,0,No,,,17
+G3,Cy Ames,X3,2026-11-04,08:00,10:00,,0,No,,,17
+G3,Cy Ames,X4,2026-11-04,14:00,18:00,,0,No,,,17
+G4,Di Park,X5,2026-11-05,08:00,08:00,1440,60,Yes,600,No,16
