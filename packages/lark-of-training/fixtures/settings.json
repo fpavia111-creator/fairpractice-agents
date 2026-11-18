@@ -1,0 +1,8 @@
+{
+  "courses": [
+    { "course": "HIPAA Privacy and Security", "every_days": 365, "new_hire_days": 30 },
+    { "course": "Fraud Waste and Abuse", "every_days": 365, "new_hire_days": 90 },
+    { "course": "Texas HB 300 Privacy", "states": ["TX"], "every_days": 730, "new_hire_days": 90 }
+  ],
+  "warn_days": 30
+}
