@@ -1,0 +1,16 @@
+Client ID,Client Name,Date of Service,CPT,Units,Minutes,Provider,License,Payer,Allowed
+B1,Tessa Marlowe,2026-10-06,90834,1,45,Ana Cole,LCSW,Bluepeak Health,110
+B1,Tessa Marlowe,2026-11-03,90837,1,45,Ana Cole,LCSW,Bluepeak Health,150
+B2,Ulrich Banner,2026-10-08,99214,1,25,Ben Ito,PMHNP,Bluepeak Health,120
+B2,Ulrich Banner,2026-10-08,90833,1,20,Ben Ito,PMHNP,Bluepeak Health,70
+B2,Ulrich Banner,2026-11-04,90833,1,25,Ben Ito,PMHNP,Bluepeak Health,70
+B3,Vera Lindqvist,2026-11-05,90792,1,60,Cy Diaz,LPC,Bluepeak Health,190
+B3,Vera Lindqvist,2026-11-12,90834,1,50,Cy Diaz,LPC,Bluepeak Health,110
+B3,Vera Lindqvist,2026-11-12,90785,1,,Cy Diaz,LPC,Bluepeak Health,15
+B4,Wes Harrow,2026-11-09,90839,1,100,Ana Cole,LCSW,Bluepeak Health,160
+B4,Wes Harrow,2026-11-09,90840,2,,Ana Cole,LCSW,Bluepeak Health,150
+B5,Yara Pell,2026-09-02,90834,1,45,Cy Diaz,LPC,Cedar Mutual,105
+B5,Yara Pell,2026-09-16,90834,1,45,Cy Diaz,LPC,Cedar Mutual,105
+B5,Yara Pell,2026-09-30,90834,1,45,Cy Diaz,LPC,Cedar Mutual,105
+B5,Yara Pell,2026-10-14,90834,1,45,Cy Diaz,LPC,Cedar Mutual,105
+B5,Yara Pell,2026-10-28,90834,1,45,Cy Diaz,LPC,Cedar Mutual,105
