@@ -1,0 +1,10 @@
+Payee,NPI,Payment Date,Amount,Hours,Time Log,Contract ID
+Dr. Evelyn Shore,1234567893,2026-03-31,6000,30,attached,
+Dr. Evelyn Shore,1234567893,2026-06-30,6000,30,attached,
+Dr. Evelyn Shore,1234567893,2026-09-30,6000,30,attached,
+Dr. Evelyn Shore,1234567893,2026-10-31,7500,25,,
+Dr. Raymond Tull,,2026-05-15,3000,20,,
+Dr. Ingrid Vale,,2026-04-01,2500,10,attached,
+Dr. Felipe Arce,,2026-05-31,4400,20,attached,
+Dr. Owen Marsh,,2026-08-01,1500,,,
+Dr. Nadia Oyelaran,,2026-07-15,4200,20,,

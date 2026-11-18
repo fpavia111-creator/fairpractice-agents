@@ -1,0 +1,6 @@
+Contract ID,Physician,NPI,Type,Signed Date,Start Date,End Date,Hourly Rate,Annual Cap,Time Log Required
+MD-01,Dr. Evelyn Shore,1234567893,Medical Director,2025-12-15,2026-01-01,2026-12-31,200,24000,yes
+OC-02,Dr. Raymond Tull,,On-Call,2025-03-01,2025-03-01,2026-02-28,150,,no
+CS-03,Dr. Ingrid Vale,,Consulting,,2026-02-01,2027-01-31,250,10000,yes
+LS-04,Dr. Felipe Arce,,Medical Director,2026-06-10,2026-05-01,2027-04-30,220,,yes
+EM-05,Dr. Nadia Oyelaran,,Medical Director,2025-01-01,2025-01-01,2026-12-20,210,,no

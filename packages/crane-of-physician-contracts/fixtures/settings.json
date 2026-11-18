@@ -1,0 +1,1 @@
+{ "fmv_hourly": { "Medical Director": { "low": 150, "high": 275 }, "On-Call": { "low": 100, "high": 175 }, "Consulting": { "low": 150, "high": 300 } }, "warn_days": 60 }
