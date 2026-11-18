@@ -1,0 +1,8 @@
+Client ID,Client Name,Caregiver ID,Caregiver,Date,Clock In,Clock Out,Service,Location Verified,Manual Edit
+V1,Abby Lund,K1,Rosa Delgado,2026-11-02,09:00,11:00,T1019,Yes,No
+V1,Abby Lund,K1,Rosa Delgado,2026-11-03,09:00,10:30,T1019,Yes,No
+V3,Celia Ward,K2,Tom Baptiste,2026-11-02,13:00,15:00,T1019,Yes,No
+V4,Dane Ivers,K2,Tom Baptiste,2026-11-05,08:00,10:00,T1019,No,No
+V5,Etta Moss,K4,Lia Gruber,2026-11-02,10:00,12:00,T1019,Yes,Yes
+V5,Etta Moss,K4,Lia Gruber,2026-11-03,10:00,12:00,T1019,Yes,No
+V5,Etta Moss,K4,Lia Gruber,2026-11-04,10:00,12:00,T1019,Yes,Yes

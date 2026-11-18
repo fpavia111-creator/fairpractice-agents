@@ -1,0 +1,218 @@
+{
+ "suite": "oriole-of-evv",
+ "root": "..",
+ "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+ "cases": [
+  {
+   "id": "totals",
+   "tool": "oriole_check",
+   "args": {
+    "visits": "fixtures/evv-visits.csv",
+    "claims": "fixtures/claims.csv",
+    "settings": "fixtures/settings.json"
+   },
+   "expect": {
+    "status": "executed",
+    "equals": {
+     "result.visits": 7,
+     "result.claim_lines": 8,
+     "result.clients": 4,
+     "result.unbilled_visits": 0,
+     "result.dollars_at_risk": 144
+    }
+   }
+  },
+  {
+   "id": "every-planted-status-in-order",
+   "tool": "oriole_check",
+   "args": {
+    "visits": "fixtures/evv-visits.csv",
+    "claims": "fixtures/claims.csv",
+    "settings": "fixtures/settings.json"
+   },
+   "expect": {
+    "equals": {
+     "result.items.0.status": "no_evv",
+     "result.items.1.status": "units_over_verified",
+     "result.items.2.status": "caregiver_mismatch",
+     "result.items.3.status": "location_mismatch",
+     "result.items.4.status": "manual_edits_high"
+    }
+   }
+  },
+  {
+   "id": "status-filter",
+   "tool": "oriole_check",
+   "args": {
+    "visits": "fixtures/evv-visits.csv",
+    "claims": "fixtures/claims.csv",
+    "settings": "fixtures/settings.json",
+    "status": "no_evv"
+   },
+   "expect": {
+    "status": "executed",
+    "equals": {
+     "result.items.0.status": "no_evv"
+    }
+   }
+  },
+  {
+   "id": "limit-one",
+   "tool": "oriole_check",
+   "args": {
+    "visits": "fixtures/evv-visits.csv",
+    "claims": "fixtures/claims.csv",
+    "settings": "fixtures/settings.json",
+    "limit": 1
+   },
+   "expect": {
+    "status": "executed",
+    "length": {
+     "result.items": 1
+    }
+   }
+  },
+  {
+   "id": "report",
+   "tool": "oriole_write_report",
+   "args": {
+    "visits": "fixtures/evv-visits.csv",
+    "claims": "fixtures/claims.csv",
+    "settings": "fixtures/settings.json"
+   },
+   "expect": {
+    "status": "executed",
+    "matches": [
+     "\\.csv",
+     "\\.html"
+    ]
+   }
+  },
+  {
+   "id": "report-spanish",
+   "tool": "oriole_write_report",
+   "args": {
+    "visits": "fixtures/evv-visits.csv",
+    "claims": "fixtures/claims.csv",
+    "settings": "fixtures/settings.json",
+    "language": "es"
+   },
+   "expect": {
+    "status": "executed"
+   }
+  },
+  {
+   "id": "typo-setting-refused",
+   "tool": "oriole_check",
+   "args": {
+    "visits": "fixtures/evv-visits.csv",
+    "claims": "fixtures/claims.csv",
+    "settings": "fixtures/settings-typo.json"
+   },
+   "expect": {
+    "status": "error"
+   }
+  },
+  {
+   "id": "missing-file",
+   "tool": "oriole_check",
+   "args": {
+    "visits": "fixtures/does-not-exist.csv",
+    "claims": "fixtures/claims.csv",
+    "settings": "fixtures/settings.json"
+   },
+   "expect": {
+    "status": "error"
+   }
+  },
+  {
+   "id": "refuses-claim_submit",
+   "tool": "claim_submit",
+   "args": {},
+   "expect": {
+    "status": "blocked"
+   }
+  },
+  {
+   "id": "refuses-evv_visit_edit",
+   "tool": "evv_visit_edit",
+   "args": {},
+   "expect": {
+    "status": "blocked"
+   }
+  },
+  {
+   "id": "recall-empty-memory",
+   "tool": "oriole_recall",
+   "args": {},
+   "expect": {
+    "status": "executed",
+    "contains": [
+     "memory is empty"
+    ]
+   }
+  },
+  {
+   "id": "over-units",
+   "tool": "oriole_check",
+   "args": {
+    "visits": "fixtures/evv-visits.csv",
+    "claims": "fixtures/claims.csv",
+    "settings": "fixtures/settings.json",
+    "status": "units_over_verified"
+   },
+   "expect": {
+    "equals": {
+     "result.items.0.verified_minutes": 90,
+     "result.items.0.verified_units": 6,
+     "result.items.0.amount": 12
+    }
+   }
+  },
+  {
+   "id": "manual-share",
+   "tool": "oriole_check",
+   "args": {
+    "visits": "fixtures/evv-visits.csv",
+    "claims": "fixtures/claims.csv",
+    "settings": "fixtures/settings.json",
+    "status": "manual_edits_high"
+   },
+   "expect": {
+    "equals": {
+     "result.items.0.manual": 2,
+     "result.items.0.visits": 3,
+     "result.items.0.pct": 66.67
+    }
+   }
+  },
+  {
+   "id": "default-limit-same",
+   "tool": "oriole_check",
+   "args": {
+    "visits": "fixtures/evv-visits.csv",
+    "claims": "fixtures/claims.csv"
+   },
+   "expect": {
+    "equals": {
+     "result.by_status.manual_edits_high": 1
+    }
+   }
+  },
+  {
+   "id": "caregivers-masked",
+   "tool": "oriole_check",
+   "args": {
+    "visits": "fixtures/evv-visits.csv",
+    "claims": "fixtures/claims.csv",
+    "settings": "fixtures/settings.json"
+   },
+   "expect": {
+    "not_contains": [
+     "Omar Feld",
+     "Tom Baptiste"
+    ]
+   }
+  }
+ ]
+}
