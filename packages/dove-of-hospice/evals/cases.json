@@ -217,7 +217,7 @@
      "result.dollars_at_risk": 0
     },
     "not_contains": [
-     "\"cap\""
+     "\"cap_over\""
     ]
    }
   }
