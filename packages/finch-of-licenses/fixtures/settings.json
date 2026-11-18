@@ -1,0 +1,7 @@
+{
+  "required_by_role": { "RN": ["RN License", "BLS"], "LVN": ["LVN License", "BLS"], "Respiratory Therapist": ["RCP License", "BLS"] },
+  "warn_days": 60,
+  "verify_days": 365,
+  "compact_states": ["TX", "AZ", "FL", "GA", "NC", "OK", "VA"],
+  "state_licensed": ["RN License", "LVN License", "RCP License"]
+}
