@@ -1,0 +1,225 @@
+{
+ "suite": "dove-of-hospice",
+ "root": "..",
+ "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+ "cases": [
+  {
+   "id": "totals",
+   "tool": "dove_check",
+   "args": {
+    "patients": "fixtures/census.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15"
+   },
+   "expect": {
+    "status": "executed",
+    "equals": {
+     "result.patients": 8,
+     "result.cap_year": 2026,
+     "result.live_discharge_rate": 50,
+     "result.dollars_at_risk": 31932.8,
+     "result.cap.beneficiaries": 5,
+     "result.cap.limit": 176807.2,
+     "result.cap.paid": 205000
+    }
+   }
+  },
+  {
+   "id": "every-planted-status-in-order",
+   "tool": "dove_check",
+   "args": {
+    "patients": "fixtures/census.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15"
+   },
+   "expect": {
+    "equals": {
+     "result.items.0.status": "noe_missing",
+     "result.items.1.status": "noe_late",
+     "result.items.2.status": "notr_missing",
+     "result.items.3.status": "f2f_missing",
+     "result.items.4.status": "cap_over",
+     "result.items.5.status": "f2f_due",
+     "result.items.6.status": "live_discharge_high"
+    }
+   }
+  },
+  {
+   "id": "status-filter",
+   "tool": "dove_check",
+   "args": {
+    "patients": "fixtures/census.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15",
+    "status": "noe_missing"
+   },
+   "expect": {
+    "status": "executed",
+    "equals": {
+     "result.items.0.status": "noe_missing"
+    }
+   }
+  },
+  {
+   "id": "limit-one",
+   "tool": "dove_check",
+   "args": {
+    "patients": "fixtures/census.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15",
+    "limit": 1
+   },
+   "expect": {
+    "status": "executed",
+    "length": {
+     "result.items": 1
+    }
+   }
+  },
+  {
+   "id": "report",
+   "tool": "dove_write_report",
+   "args": {
+    "patients": "fixtures/census.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15"
+   },
+   "expect": {
+    "status": "executed",
+    "matches": [
+     "\\.csv",
+     "\\.html"
+    ]
+   }
+  },
+  {
+   "id": "report-spanish",
+   "tool": "dove_write_report",
+   "args": {
+    "patients": "fixtures/census.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15",
+    "language": "es"
+   },
+   "expect": {
+    "status": "executed"
+   }
+  },
+  {
+   "id": "typo-setting-refused",
+   "tool": "dove_check",
+   "args": {
+    "patients": "fixtures/census.csv",
+    "settings": "fixtures/settings-typo.json",
+    "as_of": "2026-11-15"
+   },
+   "expect": {
+    "status": "error"
+   }
+  },
+  {
+   "id": "missing-file",
+   "tool": "dove_check",
+   "args": {
+    "patients": "fixtures/does-not-exist.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15"
+   },
+   "expect": {
+    "status": "error"
+   }
+  },
+  {
+   "id": "refuses-noe_submit",
+   "tool": "noe_submit",
+   "args": {},
+   "expect": {
+    "status": "blocked"
+   }
+  },
+  {
+   "id": "refuses-claim_submit",
+   "tool": "claim_submit",
+   "args": {},
+   "expect": {
+    "status": "blocked"
+   }
+  },
+  {
+   "id": "recall-empty-memory",
+   "tool": "dove_recall",
+   "args": {},
+   "expect": {
+    "status": "executed",
+    "contains": [
+     "memory is empty"
+    ]
+   }
+  },
+  {
+   "id": "late-noe-days",
+   "tool": "dove_check",
+   "args": {
+    "patients": "fixtures/census.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15",
+    "status": "noe_late"
+   },
+   "expect": {
+    "equals": {
+     "result.items.0.uncovered_days": 8,
+     "result.items.0.amount": 1760,
+     "result.items.0.due": "2026-11-07"
+    }
+   }
+  },
+  {
+   "id": "f2f-period-4",
+   "tool": "dove_check",
+   "args": {
+    "patients": "fixtures/census.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15",
+    "status": "f2f_missing"
+   },
+   "expect": {
+    "equals": {
+     "result.items.0.period": 4,
+     "result.items.0.date": "2026-09-07"
+    }
+   }
+  },
+  {
+   "id": "cap-overage",
+   "tool": "dove_check",
+   "args": {
+    "patients": "fixtures/census.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15",
+    "status": "cap_over"
+   },
+   "expect": {
+    "equals": {
+     "result.items.0.amount": 28192.8,
+     "result.items.0.cap_year": 2026
+    }
+   }
+  },
+  {
+   "id": "no-settings-no-cap",
+   "tool": "dove_check",
+   "args": {
+    "patients": "fixtures/census.csv",
+    "as_of": "2026-11-15"
+   },
+   "expect": {
+    "equals": {
+     "result.dollars_at_risk": 0
+    },
+    "not_contains": [
+     "\"cap\""
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+Patient ID,Patient Name,Election Date,NOE Filed,Discharge Date,Discharge Reason,NOTR Filed,Starting Period,F2F Dates,Cap Year Paid,Cap Share
+H1,Agnes Whitlock,2026-11-02,2026-11-10,,,,1,,,
+H2,Bernard Quill,2026-11-06,,,,,1,,,
+H3,Cora Valdez,2026-05-01,2026-05-04,2026-11-03,Revoked,,1,2026-10-20,40000,
+H4,Desmond Achebe,2026-01-10,2026-01-12,,,,1,2026-07-01; 2026-11-01,70000,
+H5,Elsie Fairbanks,2026-10-25,2026-10-27,,,,3,2026-10-20,,
+H6,Frank Lomax,2026-02-01,2026-02-03,2026-08-20,Death,,1,2026-07-25,60000,
+H7,Greta Moreau,2025-11-01,2025-11-03,2026-03-01,Died,,1,,20000,
+H8,Hugo Brandt,2025-12-01,2025-12-02,2026-06-30,No longer terminally ill,2026-07-02,1,2026-05-20,15000,
