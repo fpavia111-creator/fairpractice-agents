@@ -1,5 +1,7 @@
 # Kestrel: medical practice admin, billing and compliance agents (ver 1)
 
+English · [Deutsch](README.de.md) · [Français](README.fr.md) · [Español](README.es.md) · [Português](README.pt-BR.md) · [Italiano](README.it.md) · [日本語](README.ja.md) · [简体中文](README.zh-Hans.md) · [한국어](README.ko.md)
+
 30 MCP agents for medical practices, home care agencies, hospices and therapy clinics: the recommended first 30 from the medical agents catalog. Each one reads files a practice already exports (claims, remits, schedules, rosters, EVV visits, payroll, staff lists, vendor lists), flags what a biller, compliance officer or practice manager would catch by hand, and writes a CSV worklist and an HTML report for staff.
 
 Built on `remedy-core` (masking, policy, approvals, audit log, MCP server, memory, nine-language reports) plus `kestrel-core` (business days with federal holidays, month and week helpers, clock and duration minutes, name and code matching, and common practice column names).

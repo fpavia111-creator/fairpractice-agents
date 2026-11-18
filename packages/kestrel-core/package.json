@@ -5,11 +5,34 @@
   "type": "module",
   "license": "MIT",
   "author": "Kurt Francisco",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "main": "src/index.js",
-  "exports": { ".": "./src/index.js", "./testkit": "./src/testkit.js", "./package.json": "./package.json" },
-  "files": ["src", "README.md", "LICENSE"],
-  "scripts": { "test": "node scripts/run-tests.cjs" },
-  "dependencies": { "remedy-core": "^0.2.0" },
-  "keywords": ["mcp", "mcp-server", "healthcare", "medical-billing", "revenue-cycle", "healthcare-compliance", "kestrel"]
+  "exports": {
+    ".": "./src/index.js",
+    "./testkit": "./src/testkit.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs"
+  },
+  "dependencies": {
+    "remedy-core": "^0.2.0"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "healthcare",
+    "medical-billing",
+    "revenue-cycle",
+    "healthcare-compliance",
+    "kestrel"
+  ]
 }
