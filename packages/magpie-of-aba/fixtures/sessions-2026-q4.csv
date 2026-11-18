@@ -1,0 +1,14 @@
+Client ID,Client Name,Date of Service,Start Time,End Time,CPT,Units,Provider,Provider Role
+C1,Milo Hartley,2026-11-02,09:00,12:00,97153,12,Rae Tech,RBT
+C1,Milo Hartley,2026-11-03,09:00,12:00,97153,12,Rae Tech,RBT
+C1,Milo Hartley,2026-11-04,09:00,12:00,97153,12,Rae Tech,RBT
+C1,Milo Hartley,2026-11-05,09:00,11:00,97153,8,Rae Tech,RBT
+C1,Milo Hartley,2026-11-06,13:00,14:00,97155,4,Dana Analyst,BCBA
+C1,Milo Hartley,2026-11-09,09:00,11:00,97153,9,Rae Tech,RBT
+C2,Zoe Abernathy,2026-11-03,15:00,17:00,97153,8,Sam Tech,RBT
+C3,Leo Castillo,2026-11-02,09:00,11:00,97153,8,Sam Tech,RBT
+C3,Leo Castillo,2026-11-03,09:00,10:00,97155,4,Sam Tech,RBT
+C4,Ava Lindgren,2026-10-05,15:00,17:00,97153,8,Rae Tech,RBT
+C4,Ava Lindgren,2026-10-12,15:00,17:00,97153,8,Rae Tech,RBT
+C4,Ava Lindgren,2026-10-19,15:00,17:00,97153,8,Rae Tech,RBT
+C4,Ava Lindgren,2026-10-20,16:00,16:30,97155,2,Dana Analyst,BCBA

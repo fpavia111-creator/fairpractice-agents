@@ -1,0 +1,7 @@
+Client ID,Client Name,Auth #,CPT,Authorized Units,Units per Week,Start Date,End Date
+C1,Milo Hartley,A-100,97153,480,40,2026-09-01,2027-02-28
+C1,Milo Hartley,A-101,97155,96,,2026-09-01,2027-02-28
+C2,Zoe Abernathy,A-200,97153,200,,2026-08-01,2026-10-31
+C3,Leo Castillo,A-300,,300,40,2026-09-01,2026-12-10
+C4,Ava Lindgren,A-400,97153,20,,2026-10-01,2027-03-31
+C4,Ava Lindgren,A-401,97155,24,,2026-10-01,2027-03-31
