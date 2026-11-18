@@ -1,0 +1,7 @@
+Risk ID,System,Threat,Likelihood,Impact,Rating,Owner,Plan,Due Date,Status,Accepted By
+R-01,EHR (fictional),Shared logins at nurses' station,4,4,,Dana IT Lead,Unique logins and badge tap,2026-09-30,open,
+R-02,Laptops,Lost unencrypted laptop,3,5,,,Encrypt all laptops,2026-12-31,open,
+R-03,Email,Phishing,4,4,,Security Officer,,2027-03-31,open,
+R-04,Backup server,Backups not tested,2,4,,Dana IT Lead,Quarterly restore test,2026-12-05,open,
+R-05,Fax server,Misdialed faxes,2,2,,Front Office Lead,Speed-dial list,,accepted,
+R-06,Patient portal,Weak passwords,3,3,,Dana IT Lead,MFA rollout,2026-08-01,closed,

@@ -1,0 +1,258 @@
+{
+ "suite": "plover-of-risk-analysis",
+ "root": "..",
+ "data_note": "Fictional data in ../fixtures. Deterministic checks; no model is called.",
+ "cases": [
+  {
+   "id": "totals",
+   "tool": "plover_check",
+   "args": {
+    "risks": "fixtures/risk-register.csv",
+    "assets": "fixtures/assets.csv",
+    "evidence": "fixtures/evidence.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15"
+   },
+   "expect": {
+    "status": "executed",
+    "equals": {
+     "result.risks": 6,
+     "result.open_risks": 4,
+     "result.high_open": 3,
+     "result.assets_with_phi": 7
+    }
+   }
+  },
+  {
+   "id": "every-planted-status-in-order",
+   "tool": "plover_check",
+   "args": {
+    "risks": "fixtures/risk-register.csv",
+    "assets": "fixtures/assets.csv",
+    "evidence": "fixtures/evidence.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15"
+   },
+   "expect": {
+    "equals": {
+     "result.items.0.status": "sra_overdue",
+     "result.items.1.status": "high_no_owner",
+     "result.items.2.status": "high_no_plan",
+     "result.items.3.status": "past_due",
+     "result.items.4.status": "asset_not_assessed",
+     "result.items.5.status": "evidence_missing",
+     "result.items.6.status": "evidence_missing",
+     "result.items.7.status": "accepted_no_signoff",
+     "result.items.8.status": "due_soon"
+    }
+   }
+  },
+  {
+   "id": "status-filter",
+   "tool": "plover_check",
+   "args": {
+    "risks": "fixtures/risk-register.csv",
+    "assets": "fixtures/assets.csv",
+    "evidence": "fixtures/evidence.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15",
+    "status": "sra_overdue"
+   },
+   "expect": {
+    "status": "executed",
+    "equals": {
+     "result.items.0.status": "sra_overdue"
+    }
+   }
+  },
+  {
+   "id": "limit-one",
+   "tool": "plover_check",
+   "args": {
+    "risks": "fixtures/risk-register.csv",
+    "assets": "fixtures/assets.csv",
+    "evidence": "fixtures/evidence.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15",
+    "limit": 1
+   },
+   "expect": {
+    "status": "executed",
+    "length": {
+     "result.items": 1
+    }
+   }
+  },
+  {
+   "id": "report",
+   "tool": "plover_write_report",
+   "args": {
+    "risks": "fixtures/risk-register.csv",
+    "assets": "fixtures/assets.csv",
+    "evidence": "fixtures/evidence.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15"
+   },
+   "expect": {
+    "status": "executed",
+    "matches": [
+     "\\.csv",
+     "\\.html"
+    ]
+   }
+  },
+  {
+   "id": "report-spanish",
+   "tool": "plover_write_report",
+   "args": {
+    "risks": "fixtures/risk-register.csv",
+    "assets": "fixtures/assets.csv",
+    "evidence": "fixtures/evidence.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15",
+    "language": "es"
+   },
+   "expect": {
+    "status": "executed"
+   }
+  },
+  {
+   "id": "typo-setting-refused",
+   "tool": "plover_check",
+   "args": {
+    "risks": "fixtures/risk-register.csv",
+    "assets": "fixtures/assets.csv",
+    "evidence": "fixtures/evidence.csv",
+    "settings": "fixtures/settings-typo.json",
+    "as_of": "2026-11-15"
+   },
+   "expect": {
+    "status": "error"
+   }
+  },
+  {
+   "id": "missing-file",
+   "tool": "plover_check",
+   "args": {
+    "risks": "fixtures/does-not-exist.csv",
+    "assets": "fixtures/assets.csv",
+    "evidence": "fixtures/evidence.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15"
+   },
+   "expect": {
+    "status": "error"
+   }
+  },
+  {
+   "id": "refuses-system_scan",
+   "tool": "system_scan",
+   "args": {},
+   "expect": {
+    "status": "blocked"
+   }
+  },
+  {
+   "id": "refuses-risk_accept",
+   "tool": "risk_accept",
+   "args": {},
+   "expect": {
+    "status": "blocked"
+   }
+  },
+  {
+   "id": "recall-empty-memory",
+   "tool": "plover_recall",
+   "args": {},
+   "expect": {
+    "status": "executed",
+    "contains": [
+     "memory is empty"
+    ]
+   }
+  },
+  {
+   "id": "sra-overdue-since",
+   "tool": "plover_check",
+   "args": {
+    "risks": "fixtures/risk-register.csv",
+    "assets": "fixtures/assets.csv",
+    "evidence": "fixtures/evidence.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15",
+    "status": "sra_overdue"
+   },
+   "expect": {
+    "equals": {
+     "result.items.0.due": "2026-09-30",
+     "result.items.0.days": 46
+    }
+   }
+  },
+  {
+   "id": "recent-analysis-not-overdue",
+   "tool": "plover_check",
+   "args": {
+    "risks": "fixtures/risk-register.csv",
+    "as_of": "2026-09-01",
+    "settings": "fixtures/settings.json"
+   },
+   "expect": {
+    "equals": {},
+    "not_contains": [
+     "\"sra_overdue\""
+    ]
+   }
+  },
+  {
+   "id": "no-settings-means-no-analysis-date",
+   "tool": "plover_check",
+   "args": {
+    "risks": "fixtures/risk-register.csv",
+    "as_of": "2026-11-15"
+   },
+   "expect": {
+    "equals": {
+     "result.by_status.sra_overdue": 1
+    },
+    "contains": [
+     "No date is recorded"
+    ]
+   }
+  },
+  {
+   "id": "usb-drives-missing",
+   "tool": "plover_check",
+   "args": {
+    "risks": "fixtures/risk-register.csv",
+    "assets": "fixtures/assets.csv",
+    "evidence": "fixtures/evidence.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15",
+    "status": "asset_not_assessed"
+   },
+   "expect": {
+    "equals": {
+     "result.items.0.asset": "Billing workstation USB drives"
+    }
+   }
+  },
+  {
+   "id": "high-score-setting",
+   "tool": "plover_check",
+   "args": {
+    "risks": "fixtures/risk-register.csv",
+    "assets": "fixtures/assets.csv",
+    "evidence": "fixtures/evidence.csv",
+    "settings": "fixtures/settings.json",
+    "as_of": "2026-11-15"
+   },
+   "expect": {
+    "equals": {
+     "result.items.1.level": 3
+    }
+   }
+  }
+ ],
+ "no_names_in_report": true
+}
