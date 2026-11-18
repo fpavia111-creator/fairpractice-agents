@@ -20,7 +20,7 @@ test('the yearly small-breach report is due 60 days after December 31 (February 
 });
 
 test('individual notice: day 60 on time, day 61 late, missing after the deadline is past due', () => {
-  const r = checkIncidents([I('A', '2026-08-01', { ind: '2026-09-30', hhs: 'x' }), I('B', '2026-08-01', { ind: '2026-10-01', hhs: '2026-10-01' }), I('C', '2026-08-01', { hhs: '2026-10-01' })], { asOf });
+  const r = checkIncidents([I('A', '2026-08-01', { ind: '2026-09-30', hhs: '2026-10-01' }), I('B', '2026-08-01', { ind: '2026-10-01', hhs: '2026-10-01' }), I('C', '2026-08-01', { hhs: '2026-10-01' })], { asOf });
   assert.deepEqual(st(r), [['C', 'notice_past_due'], ['B', 'notice_late']]);
 });
 
@@ -36,6 +36,6 @@ test('pending incidents: assessment target and the 60-day window still run', () 
 
 test('state rules apply only to listed states at or above their threshold', () => {
   const rules = [{ state: 'TX', ag_threshold: 250, ag_days: 30 }];
-  assert.deepEqual(st(checkIncidents([I('A', '2026-09-01', { n: 300, states: 'tx, ok', ind: '2026-09-20', hhs: 'x', media: 'x' })], { asOf, stateRules: rules })), [['A', 'state_ag_notice_missing']]);
-  assert.deepEqual(checkIncidents([I('A', '2026-09-01', { n: 200, states: 'TX', ind: '2026-09-20', hhs: 'x' })], { asOf, stateRules: rules }).items, []);
+  assert.deepEqual(st(checkIncidents([I('A', '2026-09-01', { n: 300, states: 'tx, ok', ind: '2026-09-20', hhs: '2026-10-01', media: '2026-10-01' })], { asOf, stateRules: rules })), [['A', 'state_ag_notice_missing']]);
+  assert.deepEqual(checkIncidents([I('A', '2026-09-01', { n: 200, states: 'TX', ind: '2026-09-20', hhs: '2026-10-01' })], { asOf, stateRules: rules }).items, []);
 });
