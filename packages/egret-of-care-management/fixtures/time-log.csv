@@ -1,0 +1,12 @@
+Patient ID,Patient Name,Date,Minutes,Program,Staff Type
+E1,Ruth Ashby,2026-10-05,25,CCM,RN
+E1,Ruth Ashby,2026-10-19,20,CCM,MA
+E2,Sol Petrov,2026-10-08,15,CCM,RN
+E3,Tamsin Doyle,2026-10-12,25,CCM,RN
+E4,Umar Haddad,2026-10-06,25,CCM,RN
+E4,Umar Haddad,2026-10-20,35,PCM,RN
+E5,Valerie Kwan,2026-10-14,22,CCM,MA
+E6,Walt Imbert,2026-10-09,20,CCM,RN
+E6,Walt Imbert,2026-10-23,20,CCM,RN
+E7,Xena Lowry,2026-10-07,22,CCM,RN
+E7,Xena Lowry,2026-10-21,25,BHI,LCSW
