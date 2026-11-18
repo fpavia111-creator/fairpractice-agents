@@ -150,7 +150,7 @@ export function durationMinutes(v) {
 /** A person's name for matching: lower case, accents and punctuation off, suffixes off, "Last, First" turned around, words sorted. */
 export function personKey(v) {
   let s = str(v); const c = /^([^,]+),\s*(.+)$/.exec(s); if (c) s = `${c[2]} ${c[1]}`;
-  return normalizeName(s, { stripEntity: false }).split(/\s+/).filter((w) => w.length > 1 && !/^(jr|sr|ii|iii|iv|md|do|rn|lpn|np|pa|phd|dds|dmd)$/.test(w)).sort().join(' ');
+  return normalizeName(s, { stripEntity: false }).split(/\s+/).filter((w) => w.length > 1 && !/^(dr|mr|mrs|ms|miss|prof|jr|sr|ii|iii|iv|md|do|rn|lpn|lvn|np|pa|phd|dds|dmd|dc|dpm|od|pt|ot|lcsw|lpc)$/.test(w)).sort().join(' ');
 }
 /** Similarity 0..1 of two person names (word order and case ignored). */
 export function personSimilarity(a, b) { const x = personKey(a), y = personKey(b); if (!x || !y) return 0; if (x === y) return 1; return round2(jaroWinkler(x, y)); }
