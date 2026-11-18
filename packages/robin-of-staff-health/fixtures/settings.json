@@ -1,0 +1,8 @@
+{
+  "requirements": [
+    { "item": "TB test", "every_days": 365, "new_hire_days": 0 },
+    { "item": "Flu vaccine", "season_start": "08-01", "due_by": "11-01", "new_hire_days": 30, "declination_allowed": true },
+    { "item": "Fit test", "every_days": 365, "roles": ["RN", "Respiratory Therapist"], "new_hire_days": 30 }
+  ],
+  "warn_days": 30
+}
