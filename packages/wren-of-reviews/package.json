@@ -1,6 +1,7 @@
 {
   "name": "wren-of-reviews",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/wren-of-reviews",
   "description": "Online review replies without a HIPAA fine: checks drafted replies for words that confirm someone is a patient (visit, treatment, chart, diagnosis, their name) and writes safe, generic reply drafts a person approves.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

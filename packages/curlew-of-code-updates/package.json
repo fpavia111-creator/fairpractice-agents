@@ -1,6 +1,7 @@
 {
   "name": "curlew-of-code-updates",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/curlew-of-code-updates",
   "description": "Code-set update impact: deleted and changed CPT, HCPCS and ICD-10 codes found in your chargemaster, fee schedule, order sets and open claims, with new codes that need a fee.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

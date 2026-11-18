@@ -1,6 +1,7 @@
 {
   "name": "swallow-of-therapy",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/swallow-of-therapy",
   "description": "Outpatient therapy billing (PT, OT, speech): timed units against the 8-minute rule, the KX threshold per patient per year, CQ and CO assistant modifiers, GP/GO/GN discipline modifiers, and plan-of-care certifications and recertifications due.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

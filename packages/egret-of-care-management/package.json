@@ -1,6 +1,7 @@
 {
   "name": "egret-of-care-management",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/egret-of-care-management",
   "description": "Care management time billing: minutes per patient per month against the thresholds for chronic care, principal care and behavioral health codes, add-on units, consent on file, and two practices or overlapping codes in the same month.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

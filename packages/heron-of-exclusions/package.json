@@ -1,6 +1,7 @@
 {
   "name": "heron-of-exclusions",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/heron-of-exclusions",
   "description": "Exclusion screening for everyone a practice pays: staff, providers, contractors and vendors checked against the OIG exclusion list, SAM and state Medicaid exclusion files you download, with NPI and birth-date matches, near-name matches to clear, reinstatements and people not screened this month.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

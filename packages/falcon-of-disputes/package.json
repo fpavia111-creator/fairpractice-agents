@@ -1,6 +1,7 @@
 {
   "name": "falcon-of-disputes",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/falcon-of-disputes",
   "description": "No Surprises Act payment disputes: the 30-business-day open negotiation, the 4-business-day window to start IDR, offers below the QPA, batching groups, outcomes by payer and fees paid.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

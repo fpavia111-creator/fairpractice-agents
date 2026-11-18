@@ -1,6 +1,7 @@
 {
   "name": "robin-of-staff-health",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/robin-of-staff-health",
   "description": "Employee health compliance (HR records, not care): TB tests, flu and other required vaccines or declinations, mask fit tests and annual health screens due or overdue by department and role.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

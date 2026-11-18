@@ -1,6 +1,7 @@
 {
   "name": "condor-of-provider-pay",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/condor-of-provider-pay",
   "description": "Provider pay by work RVU: wRVUs per provider from charges and the RVU file, tiered pay, bonuses and quarterly draws trued up, plus codes with no RVU and charges missing a provider.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

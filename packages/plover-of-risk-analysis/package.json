@@ -1,6 +1,7 @@
 {
   "name": "plover-of-risk-analysis",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/plover-of-risk-analysis",
   "description": "Security risk analysis tracker: the annual risk analysis evidence checklist, open risks past their due date, high risks with no owner or plan, and systems with patient data missing from the asset list.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

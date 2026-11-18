@@ -1,6 +1,7 @@
 {
   "name": "hawk-of-breaches",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/hawk-of-breaches",
   "description": "Privacy incident and breach clocks: risk assessments not done, the 60-day notice deadline to patients, the media and HHS for large breaches, the annual HHS log for small ones, and notices sent late.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

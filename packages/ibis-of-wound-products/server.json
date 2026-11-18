@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fpavia111-creator/ibis-of-wound-products",
+  "title": "Ibis of Wound Products",
+  "description": "Wound care product billing: skin substitute units against the product size used and wasted…",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/fpavia111-creator/kestrel-agents",
+    "source": "github",
+    "subfolder": "packages/ibis-of-wound-products"
+  },
+  "websiteUrl": "https://fair-agents.com/fairpractice.html",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "ibis-of-wound-products",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        },
+        {
+          "type": "named",
+          "name": "--root",
+          "description": "Folder holding the exports this agent may read and write (it cannot reach outside it)",
+          "isRequired": true,
+          "format": "filepath",
+          "valueHint": "exports_folder"
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 {
   "name": "stork-of-attribution",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/stork-of-attribution",
   "description": "Attribution reconciliation for value-based contracts: patients the payer attributes to you that you never saw, your active patients the payer left out, patients attributed to the wrong provider, and changes since last month.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

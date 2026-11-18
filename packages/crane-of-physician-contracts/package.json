@@ -1,6 +1,7 @@
 {
   "name": "crane-of-physician-contracts",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/crane-of-physician-contracts",
   "description": "Payments to referral-source physicians against their contracts (Stark and anti-kickback admin checks): payments with no signed or current agreement, expired agreements still paid, payments above the contract or your fair-market-value range, and missing time logs.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

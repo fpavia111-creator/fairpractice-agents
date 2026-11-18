@@ -1,6 +1,7 @@
 {
   "name": "oriole-of-evv",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/oriole-of-evv",
   "description": "Electronic visit verification against Medicaid claims: claim lines with no matching EVV visit, units billed above the verified time, visits verified at the wrong place or by another caregiver, and manual edits above your limit.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

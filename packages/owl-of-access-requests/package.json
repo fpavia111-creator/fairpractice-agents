@@ -1,6 +1,7 @@
 {
   "name": "owl-of-access-requests",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/owl-of-access-requests",
   "description": "Patient right-of-access requests: the 30-day clock and one 30-day extension, requests past due, extensions without a written notice, fees above your limit or the flat fee, and denials without a reason.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

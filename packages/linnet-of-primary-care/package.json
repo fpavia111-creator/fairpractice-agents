@@ -1,6 +1,7 @@
 {
   "name": "linnet-of-primary-care",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/linnet-of-primary-care",
   "description": "Advanced primary care management: monthly codes against patient tiers, consent, care management codes billed in the same month that the rules do not allow, and enrolled patients not billed.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

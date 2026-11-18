@@ -1,6 +1,7 @@
 {
   "name": "raven-of-liens",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/raven-of-liens",
   "description": "Personal injury liens and letters of protection: open balances by attorney and case, cases with no update, settled cases not paid, reductions accepted and balances past the statute window you set.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

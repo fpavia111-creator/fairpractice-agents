@@ -1,6 +1,7 @@
 {
   "name": "jay-of-behavioral-health",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/jay-of-behavioral-health",
   "description": "Behavioral health billing: psychotherapy codes against session minutes, add-on codes without their base code, crisis time, sessions over the payer's yearly limit, and providers billing codes their license type cannot bill.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",
