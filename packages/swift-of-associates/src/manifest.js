@@ -47,8 +47,8 @@ export const manifest = medAgent({
   report: {
     title: { en: 'Business associate inventory check', es: 'Revisión de asociados comerciales', de: 'Prüfung der Auftragsverarbeiter', fr: 'Contrôle des sous-traitants (BAA)', pt: 'Verificação de associados de negócios', it: 'Verifica dei business associate', ja: '業務提携先（BAA）点検', zh: '业务伙伴清单检查', ko: '업무 제휴사(BAA) 점검' },
     base: 'swift-associates',
-    rows: (o) => o.items.map((i) => ({ status: i.status, vendor: i.vendor, service: i.service || '', owner: i.owner || '', baa_signed: i.baa_signed || '', baa_expires: i.baa_expires || '', amount: i.amount || 0, message: i.message, fix: i.fix })),
-    htmlColumns: ['status', 'vendor', 'service', 'owner', 'baa_expires', 'amount', 'message', 'fix'],
+    rows: (o) => o.items.map((i) => ({ status: i.status, vendor: i.vendor, service: i.service || '', vendor_owner: i.owner || '', baa_signed: i.baa_signed || '', baa_expires: i.baa_expires || '', amount: i.amount || 0, message: i.message, fix: i.fix })),
+    htmlColumns: ['status', 'vendor', 'service', 'vendor_owner', 'baa_expires', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
     limits: [KESTREL_LIMITS.files, 'Whether a vendor is a business associate depends on what it actually does with patient data; the service words are only a hint.', KESTREL_LIMITS.advice],
   },
