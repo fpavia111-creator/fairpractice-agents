@@ -1,9 +1,0 @@
-status,request_id,patient_id,patient_name,received,due,fulfilled,amount,message,fix,owner,decision
-past_due,AR-1003,P5003,Imani Rhodes,2026-10-01,2026-10-31,,0,Request AR-1003 received 2026-10-01 was due 2026-10-31 and is 15 day(s) late.,Send the records now; late access is the most common reason for an OCR fine.,,
-fulfilled_late,AR-1002,P5002,Wesley Carver,2026-09-20,2026-10-20,2026-10-28,0,"Request AR-1002 was answered 2026-10-28, 8 day(s) after the 2026-10-20 deadline.",Note the cause in the log and fix the step that slowed it.,,
-extension_no_notice,AR-1004,P5004,Gustav Lindqvist,2026-09-15,2026-11-14,2026-11-10,0,Request AR-1004 was extended without a written notice inside the first 30 days (notice 10 day(s) late).,An extension needs a written notice with the reason and the new date before the first deadline.,,
-denial_no_reason,AR-1006,P5006,Elliot Shaw,2026-08-10,2026-09-09,,0,Request AR-1006 was denied with no reason recorded.,"A denial needs a written reason and, where it applies, review rights.",,
-fee_over_limit,AR-1002,P5002,Wesley Carver,2026-09-20,2026-10-20,2026-10-28,10,Request AR-1002 was charged 25; your fee settings allow 15.,Refund the difference and correct the fee method.,,
-fee_over_limit,AR-1004,P5004,Gustav Lindqvist,2026-09-15,2026-11-14,2026-11-10,0.5,Request AR-1004 was charged 8; your fee settings allow 7.5.,Refund the difference and correct the fee method.,,
-fee_over_limit,AR-1007,P5007,Mina Kaur,2026-10-02,2026-11-01,2026-10-09,8.5,Request AR-1007 was charged 15; your fee settings allow 6.5.,Refund the difference and correct the fee method.,,
-due_soon,AR-1005,P5005,Rosa Delgado,2026-10-20,2026-11-19,,0,Request AR-1005 is due 2026-11-19 (in 4 day(s)).,"Finish it, or send a written extension notice before the deadline.",,

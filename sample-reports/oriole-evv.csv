@@ -1,6 +1,0 @@
-status,client_id,client_name,caregiver,date,service,units,amount,message,fix,owner,decision
-no_evv,V2,Bruno Sato,,2026-11-04,T1019,6,36,T1019 on 2026-11-04 (6 units) has no EVV visit.,Hold the claim; find the visit or record it through your state's exception process before billing.,,
-units_over_verified,V1,Abby Lund,,2026-11-03,T1019,8,12,"T1019 on 2026-11-03: 8 units billed, 90 verified minutes support 6.","Bill 6 units, or correct the visit through the exception process if the time was really worked.",,
-caregiver_mismatch,V3,Celia Ward,Omar Feld,2026-11-02,T1019,8,48,T1019 on 2026-11-02 was billed under Omar Feld but verified by Tom Baptiste.,Bill under the caregiver who did the visit.,,
-location_mismatch,V4,Dane Ivers,,2026-11-05,T1019,8,48,The visit on 2026-11-05 was verified away from the client's address.,"Check the reason (community outing, wrong address on file) and record it before billing.",,
-manual_edits_high,,,Lia Gruber,,,,0,"Lia Gruber: 2 of 3 visits (66.67%) were entered or edited by hand, above your 20% limit.","Check the caregiver's phone or app, retrain on clocking in, and review the edits.",,

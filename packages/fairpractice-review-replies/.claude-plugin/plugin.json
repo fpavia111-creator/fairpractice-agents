@@ -1,7 +1,7 @@
 {
   "name": "fairpractice-review-replies",
   "version": "0.1.0",
-  "description": "Online review replies without a HIPAA fine: checks drafted replies for words that confirm someone is a patient (visit, treatment, chart, diagnosis, their name) and writes safe, generic reply drafts a person approves.",
+  "description": "Online review replies: checks drafted replies for words that confirm someone is a patient (visit, treatment, chart, diagnosis, their name) and writes safe, generic reply drafts a person approves.",
   "author": {
     "name": "Kurt Francisco"
   },

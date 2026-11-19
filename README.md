@@ -13,7 +13,7 @@ Built on `fairclaim-core` (masking, policy, approvals, audit log, MCP server, me
 - **Settings, not hard-coded rules.** Thresholds, limits, windows and state rules are JSON settings you pass. A misspelled setting is refused by name. Where a rule depends on a state or a payer, the sample settings say so and ask for your own check.
 - **Fictional data only.** Every patient, provider, payer, attorney and vendor in the fixtures is made up. Code-update fixtures use invented ZZ codes.
 
-This keeps PHI away from the model; it is **not** a HIPAA compliance determination, and not billing, coding, legal, tax, accounting or clinical advice. Column names were written from general knowledge of common exports and **have not been checked against real exports** from any EHR or billing system.
+Masking covers the names and numbers the agents know about; free text (review texts, reasons, risk plans) is sent with known names replaced, and results go to whatever model your assistant uses (`docs/model-view.md`). It is **not** de-identification or a HIPAA compliance determination, and not billing, coding, legal, tax, accounting or clinical advice. Column names were written from general knowledge of common exports and **have not been checked against real exports** from any EHR or billing system; two public files were run as published, the OIG exclusion list and the CMS fee schedule RVU file (`docs/realdata.md`).
 
 ## The 30 agents
 
@@ -29,7 +29,7 @@ This keeps PHI away from the model; it is **not** a HIPAA compliance determinati
 | [fairpractice-business-associates](packages/fairpractice-business-associates) | Business associate inventory: every vendor that touches patient data with a BAA on file or missing, BAAs expired or ending, security reviews overdue, and vendors paid with no contract on the list. |
 | [fairpractice-security-risk-analysis](packages/fairpractice-security-risk-analysis) | Security risk analysis tracker: the annual risk analysis evidence checklist, open risks past their due date, high risks with no owner or plan, and systems with patient data missing from the asset list. |
 | [fairpractice-compliance-training](packages/fairpractice-compliance-training) | Compliance training: required courses per role and state (HIPAA, fraud and abuse, Texas HB 300 and others), new hires not trained within the days your policy allows, annual refreshers overdue and courses missing for a role. |
-| [fairpractice-review-replies](packages/fairpractice-review-replies) | Online review replies without a HIPAA fine: checks drafted replies for words that confirm someone is a patient (visit, treatment, chart, diagnosis, their name) and writes safe, generic reply drafts a person approves. |
+| [fairpractice-review-replies](packages/fairpractice-review-replies) | Online review replies: checks drafted replies for words that confirm someone is a patient (visit, treatment, chart, diagnosis, their name) and writes safe, generic reply drafts a person approves. |
 | [fairpractice-physician-contracts](packages/fairpractice-physician-contracts) | Payments to referral-source physicians against their contracts (Stark and anti-kickback admin checks): payments with no signed or current agreement, expired agreements still paid, payments above the contract or your fair-market-value range, and missing time logs. |
 
 ### Specialty billing
