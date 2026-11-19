@@ -1,0 +1,160 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "code"
+    ]
+  ],
+  "planted": [
+    ["ZZ9.01", "deleted_on_open_claim"],
+    ["ZZ101", "deleted_in_chargemaster"],
+    ["ZZ102", "deleted_in_chargemaster"],
+    ["ZZ101", "deleted_in_order_set"],
+    ["ZZ9.01", "deleted_in_order_set"],
+    ["ZZ102", "deleted_in_fee_schedule"],
+    ["ZZ111", "new_code_no_fee"],
+    ["ZZ112", "new_code_no_fee"],
+    ["ZZ113", "new_code_no_fee"],
+    ["ZZ105", "revised_code"]
+  ],
+  "clean": [
+    {
+      "arg": "open_claims",
+      "set": [
+        {
+          "where": ["Claim #", "OC-1"],
+          "column": "Diagnosis Codes",
+          "value": "ZZ9.011"
+        }
+      ]
+    },
+    {
+      "arg": "chargemaster",
+      "set": [
+        {
+          "where": ["Code", "ZZ101"],
+          "column": "Active",
+          "value": "N"
+        },
+        {
+          "where": ["Code", "ZZ102"],
+          "column": "Active",
+          "value": "N"
+        },
+        {
+          "where": ["Code", "ZZ105"],
+          "column": "Active",
+          "value": "N"
+        },
+        {
+          "where": ["Code", "ZZ111"],
+          "column": "Price",
+          "value": "150"
+        }
+      ],
+      "add": [
+        {
+          "Code": "ZZ112",
+          "Description": "Example service B2",
+          "Price": "90",
+          "Active": "Y"
+        },
+        {
+          "Code": "ZZ113",
+          "Description": "Example service B3",
+          "Price": "45",
+          "Active": "Y"
+        }
+      ]
+    },
+    {
+      "arg": "order_sets",
+      "set": [
+        {
+          "where": ["Code", "ZZ101"],
+          "column": "Code",
+          "value": "ZZ111"
+        },
+        {
+          "where": ["Code", "ZZ9.01"],
+          "column": "Code",
+          "value": "ZZ9.011"
+        }
+      ]
+    },
+    {
+      "arg": "fee_schedule",
+      "set": [
+        {
+          "where": ["Payer", "Cedar Mutual"],
+          "column": "Code",
+          "value": "ZZ113"
+        },
+        {
+          "where": [
+            ["Payer", "Bluepeak Health"],
+            ["Code", "ZZ102"]
+          ],
+          "column": "Code",
+          "value": "ZZ112"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "an open claim after the deletion date",
+      "edits": [
+        {
+          "arg": "open_claims",
+          "set": [
+            {
+              "where": ["Claim #", "OC-2"],
+              "column": "Date of Service",
+              "value": "2026-10-02"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["ZZ9.01", "deleted_on_open_claim"]
+      ]
+    },
+    {
+      "name": "a deleted code back in an order set",
+      "edits": [
+        {
+          "arg": "order_sets",
+          "set": [
+            {
+              "where": ["Code", "ZZ300"],
+              "column": "Code",
+              "value": "ZZ102"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["ZZ102", "deleted_in_order_set"]
+      ]
+    },
+    {
+      "name": "a new code priced at zero",
+      "edits": [
+        {
+          "arg": "chargemaster",
+          "set": [
+            {
+              "where": ["Code", "ZZ112"],
+              "column": "Price",
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["ZZ112", "new_code_no_fee"]
+      ]
+    }
+  ]
+}

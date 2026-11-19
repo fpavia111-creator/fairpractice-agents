@@ -1,0 +1,133 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "patient_id"
+    ]
+  ],
+  "planted": [
+    ["E3", "no_consent"],
+    ["E5", "other_practice"],
+    ["E4", "overlap_codes"],
+    ["E2", "under_threshold"],
+    ["E1", "addon_over"],
+    ["E6", "unbilled_time"]
+  ],
+  "clean": [
+    {
+      "arg": "claims",
+      "drop": [
+        [
+          ["Patient ID", "E4"],
+          ["CPT", "99426"]
+        ]
+      ],
+      "set": [
+        {
+          "where": [
+            ["Patient ID", "E1"],
+            ["CPT", "99439"]
+          ],
+          "column": "Units",
+          "value": "1"
+        }
+      ],
+      "add": [
+        {
+          "Patient ID": "E6",
+          "Patient Name": "Walt Imbert",
+          "Date of Service": "2026-10-31",
+          "CPT": "99490",
+          "Units": "1"
+        }
+      ]
+    },
+    {
+      "arg": "time",
+      "drop": [
+        [
+          ["Patient ID", "E4"],
+          ["Program", "PCM"]
+        ]
+      ],
+      "set": [
+        {
+          "where": ["Patient ID", "E2"],
+          "column": "Minutes",
+          "value": "22"
+        }
+      ]
+    },
+    {
+      "arg": "patients",
+      "set": [
+        {
+          "where": ["Patient ID", "E3"],
+          "column": "Consent Date",
+          "value": "2026-02-01"
+        },
+        {
+          "where": ["Patient ID", "E5"],
+          "column": "Other Practice Months",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "consent missing",
+      "edits": [
+        {
+          "arg": "patients",
+          "set": [
+            {
+              "where": ["Patient ID", "E7"],
+              "column": "Consent Date",
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["E7", "no_consent"]
+      ]
+    },
+    {
+      "name": "19 minutes for 99490",
+      "edits": [
+        {
+          "arg": "time",
+          "set": [
+            {
+              "where": ["Patient ID", "E2"],
+              "column": "Minutes",
+              "value": "19"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["E2", "under_threshold"]
+      ]
+    },
+    {
+      "name": "another practice billed the month",
+      "edits": [
+        {
+          "arg": "patients",
+          "set": [
+            {
+              "where": ["Patient ID", "E1"],
+              "column": "Other Practice Months",
+              "value": "2026-10"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["E1", "other_practice"]
+      ]
+    }
+  ]
+}

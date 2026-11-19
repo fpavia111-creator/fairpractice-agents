@@ -1,0 +1,126 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "request_id"
+    ]
+  ],
+  "planted": [
+    ["AR-1003", "past_due"],
+    ["AR-1002", "fulfilled_late"],
+    ["AR-1004", "extension_no_notice"],
+    ["AR-1006", "denial_no_reason"],
+    ["AR-1002", "fee_over_limit"],
+    ["AR-1004", "fee_over_limit"],
+    ["AR-1007", "fee_over_limit"],
+    ["AR-1005", "due_soon"]
+  ],
+  "clean": [
+    {
+      "arg": "requests",
+      "set": [
+        {
+          "where": ["Request #", "AR-1003"],
+          "column": "Date Sent",
+          "value": "2026-10-20"
+        },
+        {
+          "where": ["Request #", "AR-1002"],
+          "column": "Date Sent",
+          "value": "2026-10-15"
+        },
+        {
+          "where": ["Request #", "AR-1002"],
+          "column": "Fee Charged",
+          "value": "15.00"
+        },
+        {
+          "where": ["Request #", "AR-1004"],
+          "column": "Extension Notice",
+          "value": "2026-10-10"
+        },
+        {
+          "where": ["Request #", "AR-1004"],
+          "column": "Fee Charged",
+          "value": "7.50"
+        },
+        {
+          "where": ["Request #", "AR-1006"],
+          "column": "Denial Reason",
+          "value": "psychotherapy notes"
+        },
+        {
+          "where": ["Request #", "AR-1006"],
+          "column": "Date Sent",
+          "value": "2026-08-20"
+        },
+        {
+          "where": ["Request #", "AR-1007"],
+          "column": "Fee Charged",
+          "value": "6.50"
+        },
+        {
+          "where": ["Request #", "AR-1005"],
+          "column": "Date Sent",
+          "value": "2026-11-10"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "a fee for a portal copy over the flat fee",
+      "edits": [
+        {
+          "arg": "requests",
+          "set": [
+            {
+              "where": ["Request #", "AR-1001"],
+              "column": "Fee Charged",
+              "value": "10"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["AR-1001", "fee_over_limit"]
+      ]
+    },
+    {
+      "name": "received a month earlier, still open",
+      "edits": [
+        {
+          "arg": "requests",
+          "set": [
+            {
+              "where": ["Request #", "AR-1008"],
+              "column": "Date Received",
+              "value": "2026-10-12"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["AR-1008", "past_due"]
+      ]
+    },
+    {
+      "name": "sent after 34 days",
+      "edits": [
+        {
+          "arg": "requests",
+          "set": [
+            {
+              "where": ["Request #", "AR-1001"],
+              "column": "Date Sent",
+              "value": "2026-10-05"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["AR-1001", "fulfilled_late"]
+      ]
+    }
+  ]
+}

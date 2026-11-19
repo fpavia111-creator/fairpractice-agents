@@ -1,0 +1,99 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "provider"
+    ],
+    [
+      "code"
+    ],
+    [
+      "line"
+    ]
+  ],
+  "planted": [
+    ["91", "no_provider"],
+    ["99417", "no_rvu"],
+    ["Sam Otto DO", "draw_over_earned"],
+    ["Rhea Lin MD", "true_up_owed"],
+    ["June Park NP", "true_up_owed"]
+  ],
+  "clean": [
+    {
+      "arg": "charges",
+      "drop": [
+        ["Rendering Provider", ""]
+      ]
+    },
+    {
+      "arg": "rvus",
+      "add": [
+        {
+          "Code": "99417",
+          "Modifier": "",
+          "Work RVU": "0.61"
+        }
+      ]
+    },
+    {
+      "arg": "settings",
+      "json": {
+        "providers.Rhea Lin MD.draws": 53637.2,
+        "providers.Sam Otto DO.draws": 30330,
+        "providers.June Park NP.draws": 29060
+      }
+    }
+  ],
+  "mutations": [
+    {
+      "name": "draws paid ahead",
+      "edits": [
+        {
+          "arg": "settings",
+          "json": {
+            "providers.June Park NP.draws": 30000
+          }
+        }
+      ],
+      "expect": [
+        ["June Park NP", "draw_over_earned"]
+      ]
+    },
+    {
+      "name": "a code with no work RVU",
+      "edits": [
+        {
+          "arg": "charges",
+          "add": [
+            {
+              "Rendering Provider": "Rhea Lin MD",
+              "Date of Service": "2026-08-14",
+              "CPT": "99999",
+              "Modifier": "",
+              "Units": "1",
+              "Patient ID": "M1",
+              "Patient Name": "Alma Rhee"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["99999", "no_rvu"]
+      ]
+    },
+    {
+      "name": "draws lower than earned",
+      "edits": [
+        {
+          "arg": "settings",
+          "json": {
+            "providers.Sam Otto DO.draws": 29000
+          }
+        }
+      ],
+      "expect": [
+        ["Sam Otto DO", "true_up_owed"]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "case": "totals",
+  "id": [
+    ["patient_id", "date"],
+    [
+      "product"
+    ]
+  ],
+  "planted": [
+    ["W4/2026-10-28", "no_invoice"],
+    ["W2/2026-10-14", "units_over_opened"],
+    ["W1/2026-10-07", "waste_modifier_wrong"],
+    ["W3/2026-10-21", "application_mismatch"],
+    ["W5/2026-11-04", "paid_below_cost"]
+  ],
+  "clean": [
+    {
+      "arg": "invoices",
+      "add": [
+        {
+          "Product": "Q4102",
+          "Lot": "L-777",
+          "Invoice #": "INV-5520",
+          "Size sq cm": "9",
+          "Cost": "700"
+        }
+      ]
+    },
+    {
+      "arg": "claims",
+      "set": [
+        {
+          "where": [
+            ["Patient ID", "W2"],
+            ["CPT", "Q4186"]
+          ],
+          "column": "Units",
+          "value": "25"
+        },
+        {
+          "where": [
+            ["Patient ID", "W1"],
+            ["CPT", "Q4101"]
+          ],
+          "column": "Units",
+          "value": "12"
+        },
+        {
+          "where": [
+            ["Patient ID", "W1"],
+            ["CPT", "Q4101"]
+          ],
+          "column": "Modifiers",
+          "value": ""
+        },
+        {
+          "where": [
+            ["Patient ID", "W1"],
+            ["CPT", "Q4101"]
+          ],
+          "column": "Paid",
+          "value": "1050"
+        },
+        {
+          "where": [
+            ["Patient ID", "W5"],
+            ["CPT", "Q4101"],
+            ["Modifiers", ""]
+          ],
+          "column": "Paid",
+          "value": "1100"
+        }
+      ],
+      "add": [
+        {
+          "Patient ID": "W1",
+          "Patient Name": "Zane Corbett",
+          "Date of Service": "2026-10-07",
+          "CPT": "Q4101",
+          "Modifiers": "JW",
+          "Units": "4",
+          "Paid": "350"
+        },
+        {
+          "Patient ID": "W3",
+          "Patient Name": "Boris Kettering",
+          "Date of Service": "2026-10-21",
+          "CPT": "15272",
+          "Modifiers": "",
+          "Units": "1",
+          "Paid": "60"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "more waste billed than was opened",
+      "edits": [
+        {
+          "arg": "claims",
+          "set": [
+            {
+              "where": [
+                ["Patient ID", "W5"],
+                ["Modifiers", "JW"]
+              ],
+              "column": "Units",
+              "value": "6"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["W5/2026-11-04", "units_over_opened"],
+        ["W5/2026-11-04", "waste_modifier_wrong"]
+      ]
+    },
+    {
+      "name": "part of the product wasted but billed with JZ",
+      "edits": [
+        {
+          "arg": "usage",
+          "set": [
+            {
+              "where": ["Patient ID", "W2"],
+              "column": "Applied sq cm",
+              "value": "20"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["W2/2026-10-14", "waste_modifier_wrong"]
+      ]
+    },
+    {
+      "name": "invoice cost above what was paid",
+      "edits": [
+        {
+          "arg": "invoices",
+          "set": [
+            {
+              "where": ["Product", "Q4205"],
+              "column": "Cost",
+              "value": "2600"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["W3/2026-10-21", "paid_below_cost"]
+      ]
+    }
+  ]
+}

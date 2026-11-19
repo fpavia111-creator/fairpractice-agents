@@ -1,0 +1,144 @@
+{
+  "case": "totals",
+  "id": [
+    ["member_id", "month"]
+  ],
+  "planted": [
+    ["CM2003/2026-09", "not_paid"],
+    ["CM2002/2026-10", "wrong_rate"],
+    ["CM2005/2026-10", "duplicate_payment"],
+    ["CM2004/2026-09", "paid_not_eligible"],
+    ["CM2004/2026-10", "paid_not_eligible"],
+    ["CM2007/2026-09", "retro_term"],
+    ["CM2006/2026-08", "retro_add"],
+    ["CM2006/2026-09", "retro_add"]
+  ],
+  "clean": [
+    {
+      "arg": "payments",
+      "drop": [
+        [
+          ["Member ID", "CM2005"],
+          ["Coverage Month", "2026-10"]
+        ],
+        [
+          ["Member ID", "CM2007"],
+          ["Coverage Month", "2026-09"]
+        ]
+      ],
+      "set": [
+        {
+          "where": [
+            ["Member ID", "CM2002"],
+            ["Coverage Month", "2026-10"]
+          ],
+          "column": "Amount",
+          "value": "55"
+        },
+        {
+          "where": [
+            ["Member ID", "CM2006"],
+            ["Coverage Month", "2026-08"]
+          ],
+          "column": "Paid Date",
+          "value": "2026-08-05"
+        },
+        {
+          "where": [
+            ["Member ID", "CM2006"],
+            ["Coverage Month", "2026-09"]
+          ],
+          "column": "Paid Date",
+          "value": "2026-09-05"
+        }
+      ],
+      "add": [
+        {
+          "Member ID": "CM2003",
+          "Member Name": "Cleo Dunn",
+          "Coverage Month": "2026-09",
+          "Amount": "18",
+          "Paid Date": "2026-09-05"
+        },
+        {
+          "Member ID": "CM2005",
+          "Member Name": "Eve Ford",
+          "Coverage Month": "2026-10",
+          "Amount": "32",
+          "Paid Date": "2026-10-05"
+        }
+      ]
+    },
+    {
+      "arg": "roster",
+      "set": [
+        {
+          "where": ["Member ID", "CM2004"],
+          "column": "Term Date",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "paid the child rate for an adult",
+      "edits": [
+        {
+          "arg": "payments",
+          "set": [
+            {
+              "where": [
+                ["Member ID", "CM2001"],
+                ["Coverage Month", "2026-10"]
+              ],
+              "column": "Amount",
+              "value": "18"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["CM2001/2026-10", "wrong_rate"]
+      ]
+    },
+    {
+      "name": "rate category changed on the roster",
+      "edits": [
+        {
+          "arg": "roster",
+          "set": [
+            {
+              "where": ["Member ID", "CM2003"],
+              "column": "Rate Category",
+              "value": "Adult"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["CM2003/2026-08", "wrong_rate"],
+        ["CM2003/2026-09", "wrong_rate"],
+        ["CM2003/2026-10", "wrong_rate"]
+      ]
+    },
+    {
+      "name": "member termed at the end of September",
+      "edits": [
+        {
+          "arg": "roster",
+          "set": [
+            {
+              "where": ["Member ID", "CM2001"],
+              "column": "Term Date",
+              "value": "2026-09-30"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["CM2001/2026-10", "paid_not_eligible"]
+      ]
+    }
+  ]
+}

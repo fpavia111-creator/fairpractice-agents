@@ -1,0 +1,130 @@
+{
+  "case": "totals",
+  "id": [
+    ["physician", "date"],
+    ["physician", "contract_id"]
+  ],
+  "planted": [
+    ["Dr. Owen Marsh/2026-08-01", "paid_no_contract"],
+    ["Dr. Felipe Arce/2026-05-31", "signed_after_payment"],
+    ["Dr. Ingrid Vale/2026-04-01", "unsigned_contract"],
+    ["Dr. Raymond Tull/2026-05-15", "expired_contract_paid"],
+    ["Dr. Evelyn Shore/2026-10-31", "over_annual_cap"],
+    ["Dr. Evelyn Shore/2026-10-31", "rate_above_fmv"],
+    ["Dr. Evelyn Shore/2026-10-31", "no_time_log"],
+    ["Dr. Evelyn Shore/MD-01", "expiring_soon"],
+    ["Dr. Nadia Oyelaran/EM-05", "expiring_soon"]
+  ],
+  "clean": [
+    {
+      "arg": "payments",
+      "drop": [
+        ["Payee", "Dr. Owen Marsh"]
+      ],
+      "set": [
+        {
+          "where": [
+            ["Payee", "Dr. Evelyn Shore"],
+            ["Payment Date", "2026-10-31"]
+          ],
+          "column": "Amount",
+          "value": "5000"
+        },
+        {
+          "where": [
+            ["Payee", "Dr. Evelyn Shore"],
+            ["Payment Date", "2026-10-31"]
+          ],
+          "column": "Time Log",
+          "value": "attached"
+        }
+      ]
+    },
+    {
+      "arg": "contracts",
+      "set": [
+        {
+          "where": ["Contract ID", "LS-04"],
+          "column": "Signed Date",
+          "value": "2026-04-20"
+        },
+        {
+          "where": ["Contract ID", "CS-03"],
+          "column": "Signed Date",
+          "value": "2026-01-20"
+        },
+        {
+          "where": ["Contract ID", "OC-02"],
+          "column": "End Date",
+          "value": "2027-02-28"
+        },
+        {
+          "where": ["Contract ID", "MD-01"],
+          "column": "End Date",
+          "value": "2027-12-31"
+        },
+        {
+          "where": ["Contract ID", "EM-05"],
+          "column": "End Date",
+          "value": "2027-12-20"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "eight hours billed for 2,500",
+      "edits": [
+        {
+          "arg": "payments",
+          "set": [
+            {
+              "where": ["Payee", "Dr. Ingrid Vale"],
+              "column": "Hours",
+              "value": "8"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["Dr. Ingrid Vale/2026-04-01", "rate_above_fmv"]
+      ]
+    },
+    {
+      "name": "time log missing",
+      "edits": [
+        {
+          "arg": "payments",
+          "set": [
+            {
+              "where": ["Payee", "Dr. Felipe Arce"],
+              "column": "Time Log",
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["Dr. Felipe Arce/2026-05-31", "no_time_log"]
+      ]
+    },
+    {
+      "name": "agreement ended before the payment",
+      "edits": [
+        {
+          "arg": "contracts",
+          "set": [
+            {
+              "where": ["Contract ID", "EM-05"],
+              "column": "End Date",
+              "value": "2026-07-01"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["Dr. Nadia Oyelaran/2026-07-15", "expired_contract_paid"]
+      ]
+    }
+  ]
+}

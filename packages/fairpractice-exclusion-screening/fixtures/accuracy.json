@@ -1,0 +1,124 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "person_id"
+    ]
+  ],
+  "planted": [
+    ["E102", "npi_match"],
+    ["E103", "confirmed_match"],
+    ["E104", "possible_match"],
+    ["V201", "possible_match"],
+    ["E105", "near_name"],
+    ["E106", "dob_differs"],
+    ["E107", "reinstated"],
+    ["E108", "never_screened"],
+    ["E109", "screening_overdue"]
+  ],
+  "clean": [
+    {
+      "arg": "exclusions",
+      "drop": [
+        ["LASTNAME", "ASHBY"],
+        ["LASTNAME", "MERCER"],
+        ["LASTNAME", "WHITLOCK"],
+        ["LASTNAME", "PRYCE"],
+        ["LASTNAME", "OKOYE"],
+        ["LASTNAME", "LUND"]
+      ]
+    },
+    {
+      "arg": "state_list",
+      "drop": [
+        ["Name", "GULFLINE MEDICAL SUPPLY"]
+      ]
+    },
+    {
+      "arg": "people",
+      "set": [
+        {
+          "where": ["Employee ID", "E108"],
+          "column": "Last Screened",
+          "value": "2026-11-01"
+        },
+        {
+          "where": ["Employee ID", "E109"],
+          "column": "Last Screened",
+          "value": "2026-11-01"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "an employee added to the federal list",
+      "edits": [
+        {
+          "arg": "exclusions",
+          "add": [
+            {
+              "LASTNAME": "VEGA",
+              "FIRSTNAME": "MARISOL",
+              "MIDNAME": "",
+              "BUSNAME": "",
+              "GENERAL": "NURSING PROFESSION",
+              "SPECIALTY": "",
+              "UPIN": "",
+              "NPI": "0000000000",
+              "DOB": "19850312",
+              "ADDRESS": "",
+              "CITY": "",
+              "STATE": "TX",
+              "ZIP": "",
+              "EXCLTYPE": "1128a1",
+              "EXCLDATE": "20250101",
+              "REINDATE": "00000000",
+              "WAIVERDATE": "00000000",
+              "WVRSTATE": ""
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["E101", "confirmed_match"]
+      ]
+    },
+    {
+      "name": "a vendor on the state list",
+      "edits": [
+        {
+          "arg": "state_list",
+          "set": [
+            {
+              "where": ["Name", "WINSLOW TRAVERS"],
+              "column": "Name",
+              "value": "HARBORVIEW LINEN SERVICE"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["V202", "possible_match"]
+      ]
+    },
+    {
+      "name": "last screened in September",
+      "edits": [
+        {
+          "arg": "people",
+          "set": [
+            {
+              "where": ["Employee ID", "E101"],
+              "column": "Last Screened",
+              "value": "2026-09-01"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["E101", "screening_overdue"]
+      ]
+    }
+  ]
+}

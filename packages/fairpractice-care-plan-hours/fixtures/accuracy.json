@@ -1,0 +1,116 @@
+{
+  "case": "totals",
+  "id": [
+    ["client_id", "week_of"],
+    ["client_id", "date"]
+  ],
+  "planted": [
+    ["H4/2026-11-02", "not_on_plan"],
+    ["H2/2026-11-02", "over_delivered"],
+    ["H3/2026-11-09", "under_delivered"],
+    ["H1/2026-12-01", "plan_ending"]
+  ],
+  "clean": [
+    {
+      "arg": "plans",
+      "set": [
+        {
+          "where": ["Client ID", "H1"],
+          "column": "End Date",
+          "value": "2027-06-01"
+        }
+      ],
+      "add": [
+        {
+          "Client ID": "H4",
+          "Client Name": "Lou Dean",
+          "Service Code": "S5150",
+          "Weekly Hours": "4",
+          "Start Date": "2026-11-02",
+          "End Date": "2026-11-08",
+          "Auth #": "PA-505"
+        }
+      ]
+    },
+    {
+      "arg": "visits",
+      "drop": [
+        [
+          ["Client ID", "H2"],
+          ["Date", "2026-11-05"]
+        ]
+      ],
+      "set": [
+        {
+          "where": [
+            ["Client ID", "H2"],
+            ["Date", "2026-11-04"]
+          ],
+          "column": "Hours",
+          "value": "3"
+        }
+      ],
+      "add": [
+        {
+          "Client ID": "H3",
+          "Client Name": "Kim Soto",
+          "Date": "2026-11-12",
+          "Service Code": "T1019",
+          "Hours": "5"
+        },
+        {
+          "Client ID": "H3",
+          "Client Name": "Kim Soto",
+          "Date": "2026-11-13",
+          "Service Code": "T1019",
+          "Hours": "5"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "four hours more in one week",
+      "edits": [
+        {
+          "arg": "visits",
+          "set": [
+            {
+              "where": [
+                ["Client ID", "H1"],
+                ["Date", "2026-11-12"]
+              ],
+              "column": "Hours",
+              "value": "9"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["H1/2026-11-09", "over_delivered"]
+      ]
+    },
+    {
+      "name": "authorized hours raised to 20",
+      "edits": [
+        {
+          "arg": "plans",
+          "set": [
+            {
+              "where": [
+                ["Client ID", "H4"],
+                ["Service Code", "T1019"]
+              ],
+              "column": "Weekly Hours",
+              "value": "20"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["H4/2026-11-02", "under_delivered"],
+        ["H4/2026-11-09", "under_delivered"]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "case": "totals",
+  "id": [
+    ["patient_id", "date"]
+  ],
+  "planted": [
+    ["S2/2026-11-03", "noa_missing"],
+    ["S1/2026-10-01", "noa_late"],
+    ["S4/2026-11-01", "period_overlap"],
+    ["S4/2026-09-30", "visit_outside_period"],
+    ["S3/2026-09-15", "lupa"],
+    ["S5/2026-10-20", "lupa_risk"]
+  ],
+  "clean": [
+    {
+      "arg": "periods",
+      "set": [
+        {
+          "where": [
+            ["Patient ID", "S2"],
+            ["Period Start", "2026-11-03"]
+          ],
+          "column": "NOA Filed",
+          "value": "2026-11-05"
+        },
+        {
+          "where": [
+            ["Patient ID", "S1"],
+            ["Period Start", "2026-10-01"]
+          ],
+          "column": "NOA Filed",
+          "value": "2026-10-04"
+        },
+        {
+          "where": [
+            ["Patient ID", "S4"],
+            ["Period Start", "2026-11-01"]
+          ],
+          "column": "Period End",
+          "value": "2026-12-03"
+        },
+        {
+          "where": [
+            ["Patient ID", "S4"],
+            ["Period Start", "2026-11-01"]
+          ],
+          "column": "Period Start",
+          "value": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "arg": "visits",
+      "drop": [
+        [
+          ["Patient ID", "S4"],
+          ["Visit Date", "2026-09-30"]
+        ]
+      ],
+      "add": [
+        {
+          "Patient ID": "S3",
+          "Patient Name": "Quinn Adeyemi",
+          "Visit Date": "2026-09-29",
+          "Discipline": "SN"
+        },
+        {
+          "Patient ID": "S3",
+          "Patient Name": "Quinn Adeyemi",
+          "Visit Date": "2026-10-06",
+          "Discipline": "PT"
+        },
+        {
+          "Patient ID": "S5",
+          "Patient Name": "Silas Brandvold",
+          "Visit Date": "2026-11-04",
+          "Discipline": "SN"
+        },
+        {
+          "Patient ID": "S5",
+          "Patient Name": "Silas Brandvold",
+          "Visit Date": "2026-11-10",
+          "Discipline": "SN"
+        },
+        {
+          "Patient ID": "S5",
+          "Patient Name": "Silas Brandvold",
+          "Visit Date": "2026-11-14",
+          "Discipline": "SN"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "notice of admission a day late",
+      "edits": [
+        {
+          "arg": "periods",
+          "set": [
+            {
+              "where": [
+                ["Patient ID", "S1"],
+                ["Period Start", "2026-10-01"]
+              ],
+              "column": "NOA Filed",
+              "value": "2026-10-07"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["S1/2026-10-01", "noa_late"]
+      ]
+    },
+    {
+      "name": "warning window of 20 days",
+      "edits": [
+        {
+          "arg": "settings",
+          "json": {
+            "warn_days": 20
+          }
+        }
+      ],
+      "expect": [
+        ["S2/2026-11-03", "lupa_risk"],
+        ["S4/2026-11-04", "lupa_risk"]
+      ]
+    },
+    {
+      "name": "a visit moved past the period end",
+      "edits": [
+        {
+          "arg": "visits",
+          "set": [
+            {
+              "where": [
+                ["Patient ID", "S3"],
+                ["Visit Date", "2026-10-06"]
+              ],
+              "column": "Visit Date",
+              "value": "2026-10-16"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["S3/2026-10-16", "visit_outside_period"],
+        ["S3/2026-09-15", "lupa"]
+      ]
+    }
+  ]
+}

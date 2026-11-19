@@ -1,0 +1,114 @@
+{
+  "case": "totals",
+  "id": [
+    ["caregiver_id", "date"]
+  ],
+  "planted": [
+    ["G1/2026-11-02", "hours_underpaid"],
+    ["G4/2026-11-02", "hours_underpaid"],
+    ["G2/2026-11-03", "meal_break_missed"],
+    ["G4/2026-11-05", "live_in_sleep"],
+    ["G3/2026-11-04", "split_shift"],
+    ["G1/2026-11-02", "travel_time"]
+  ],
+  "clean": [
+    {
+      "arg": "shifts",
+      "drop": [
+        [
+          ["Caregiver ID", "G3"],
+          ["Client ID", "X4"]
+        ]
+      ],
+      "set": [
+        {
+          "where": ["Caregiver ID", "G2"],
+          "column": "Meal Minutes",
+          "value": "30"
+        },
+        {
+          "where": ["Caregiver ID", "G4"],
+          "column": "Sleep Minutes",
+          "value": "480"
+        }
+      ]
+    },
+    {
+      "arg": "payroll",
+      "set": [
+        {
+          "where": ["Caregiver ID", "G1"],
+          "column": "Overtime Hours",
+          "value": "6.67"
+        },
+        {
+          "where": ["Caregiver ID", "G3"],
+          "column": "Regular Hours",
+          "value": "2"
+        },
+        {
+          "where": ["Caregiver ID", "G4"],
+          "column": "Regular Hours",
+          "value": "15"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "half an hour short on payroll",
+      "edits": [
+        {
+          "arg": "payroll",
+          "set": [
+            {
+              "where": ["Caregiver ID", "G2"],
+              "column": "Regular Hours",
+              "value": "5.5"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["G2/2026-11-02", "hours_underpaid"]
+      ]
+    },
+    {
+      "name": "travel time left off payroll",
+      "edits": [
+        {
+          "arg": "payroll",
+          "set": [
+            {
+              "where": ["Caregiver ID", "G1"],
+              "column": "Overtime Hours",
+              "value": "5"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["G1/2026-11-02", "hours_underpaid"],
+        ["G1/2026-11-02", "travel_time"]
+      ]
+    },
+    {
+      "name": "a 15-minute meal break",
+      "edits": [
+        {
+          "arg": "shifts",
+          "set": [
+            {
+              "where": ["Caregiver ID", "G2"],
+              "column": "Meal Minutes",
+              "value": "15"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["G2/2026-11-03", "meal_break_missed"]
+      ]
+    }
+  ]
+}

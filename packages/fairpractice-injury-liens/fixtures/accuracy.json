@@ -1,0 +1,114 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "patient_id"
+    ]
+  ],
+  "planted": [
+    ["L1", "settled_not_paid"],
+    ["L6", "case_dropped"],
+    ["L7", "statute_passed"],
+    ["L3", "no_lop"],
+    ["L4", "reduction_over_limit"],
+    ["L2", "statute_near"],
+    ["L5", "stale_case"]
+  ],
+  "clean": [
+    {
+      "arg": "cases",
+      "drop": [
+        ["Patient ID", "L6"]
+      ],
+      "set": [
+        {
+          "where": ["Patient ID", "L1"],
+          "column": "Paid",
+          "value": "8000"
+        },
+        {
+          "where": ["Patient ID", "L7"],
+          "column": "Suit Filed",
+          "value": "Yes"
+        },
+        {
+          "where": ["Patient ID", "L3"],
+          "column": "LOP Signed",
+          "value": "2026-03-05"
+        },
+        {
+          "where": ["Patient ID", "L4"],
+          "column": "Reduction %",
+          "value": "30"
+        },
+        {
+          "where": ["Patient ID", "L4"],
+          "column": "Paid",
+          "value": "7000"
+        },
+        {
+          "where": ["Patient ID", "L2"],
+          "column": "Suit Filed",
+          "value": "Yes"
+        },
+        {
+          "where": ["Patient ID", "L5"],
+          "column": "Last Update",
+          "value": "2026-10-20"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "no update since July",
+      "edits": [
+        {
+          "arg": "cases",
+          "set": [
+            {
+              "where": ["Patient ID", "L3"],
+              "column": "Last Update",
+              "value": "2026-07-01"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["L3", "stale_case"]
+      ]
+    },
+    {
+      "name": "reduction limit of 25%",
+      "edits": [
+        {
+          "arg": "settings",
+          "json": {
+            "max_reduction_pct": 25
+          }
+        }
+      ],
+      "expect": [
+        ["L4", "reduction_over_limit"]
+      ]
+    },
+    {
+      "name": "filing window ends in 51 days",
+      "edits": [
+        {
+          "arg": "cases",
+          "set": [
+            {
+              "where": ["Patient ID", "L5"],
+              "column": "Date of Injury",
+              "value": "2025-01-05"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["L5", "statute_near"]
+      ]
+    }
+  ]
+}

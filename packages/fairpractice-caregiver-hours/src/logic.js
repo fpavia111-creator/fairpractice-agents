@@ -39,10 +39,11 @@ export function checkCaregiverHours(shifts, payroll = [], { otHours = 40, weekSt
   for (const w of weeks.values()) {
     const total = w.worked + w.travel; const ot = Math.max(0, total - otHours * 60); const rate = w.payMin ? w.pay / w.payMin : 0;
     const base = { ...b(w.k, w.raw), date: w.week, week_of: w.week, hours: h(total), travel_hours: h(w.travel) };
-    if (w.travel) items.push({ ...base, status: 'travel_time', amount: 0 });
     const p = paid.get(`${w.k}|${w.week}`);
+    const owed = (Math.min(total, otHours * 60) / 60) * rate + (ot / 60) * rate * otMultiplier; const got = p ? p.reg * rate + p.ot * rate * otMultiplier : 0;
+    // Travel between clients is listed when no payroll row shows it was paid (none for the week, or short).
+    if (w.travel && (!p || owed - got > 0.5)) items.push({ ...base, status: 'travel_time', amount: 0 });
     if (p) {
-      const owed = (Math.min(total, otHours * 60) / 60) * rate + (ot / 60) * rate * otMultiplier; const got = p.reg * rate + p.ot * rate * otMultiplier;
       if (owed - got > 0.5) items.push({ ...base, status: 'hours_underpaid', overtime_hours: h(ot), paid_regular: p.reg, paid_overtime: p.ot, rate: round2(rate), amount: round2(owed - got) });
     } else if (ot > 0) items.push({ ...base, status: 'overtime', overtime_hours: h(ot), amount: 0 });
   }

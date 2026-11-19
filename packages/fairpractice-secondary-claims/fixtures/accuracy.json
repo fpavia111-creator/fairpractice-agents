@@ -1,0 +1,87 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "claim_id"
+    ]
+  ],
+  "planted": [
+    ["C-102", "filing_missed"],
+    ["C-101", "filing_closing"],
+    ["C-104", "wrong_payer_order"],
+    ["C-103", "secondary_not_sent"],
+    ["C-105B", "sent_without_primary_eob"]
+  ],
+  "clean": [
+    {
+      "arg": "claims",
+      "set": [
+        {
+          "where": ["Claim #", "C-104"],
+          "column": "Payer",
+          "value": "Bluepeak Health"
+        },
+        {
+          "where": ["Claim #", "C-105B"],
+          "column": "Sent Date",
+          "value": "2026-10-15"
+        }
+      ],
+      "add": [
+        {
+          "Claim #": "C-101B",
+          "Patient ID": "S1",
+          "Patient Name": "Ava Price",
+          "Date of Service": "2026-09-10",
+          "Payer": "Cedar Supplement",
+          "Payer Order": "Secondary",
+          "Billed": "400",
+          "Sent Date": "2026-10-05",
+          "EOB Attached": "Yes"
+        },
+        {
+          "Claim #": "C-102B",
+          "Patient ID": "S2",
+          "Patient Name": "Ben Ruiz",
+          "Date of Service": "2026-07-15",
+          "Payer": "Cedar Supplement",
+          "Payer Order": "Secondary",
+          "Billed": "600",
+          "Sent Date": "2026-08-10",
+          "EOB Attached": "Yes"
+        },
+        {
+          "Claim #": "C-103B",
+          "Patient ID": "S3",
+          "Patient Name": "Cal Dey",
+          "Date of Service": "2026-10-20",
+          "Payer": "State Medicaid",
+          "Payer Order": "Secondary",
+          "Billed": "300",
+          "Sent Date": "2026-11-05",
+          "EOB Attached": "Yes"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "secondary sent before the primary paid",
+      "edits": [
+        {
+          "arg": "claims",
+          "set": [
+            {
+              "where": ["Claim #", "C-106B"],
+              "column": "Sent Date",
+              "value": "2026-09-30"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["C-106B", "sent_without_primary_eob"]
+      ]
+    }
+  ]
+}

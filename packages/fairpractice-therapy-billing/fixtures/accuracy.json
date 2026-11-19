@@ -1,0 +1,148 @@
+{
+  "case": "totals",
+  "id": [
+    ["patient_id", "date"]
+  ],
+  "planted": [
+    ["P4/2026-11-10", "no_plan_of_care"],
+    ["P2/2026-10-01", "cert_unsigned"],
+    ["P1/2026-11-03", "eight_minute_over"],
+    ["P2/2026-11-04", "assistant_modifier_missing"],
+    ["P2/2026-11-04", "discipline_modifier_wrong"],
+    ["P1/2026-11-03", "kx_missing"],
+    ["P3/2026-11-29", "recert_due"]
+  ],
+  "clean": [
+    {
+      "arg": "plans",
+      "set": [
+        {
+          "where": ["Patient ID", "P4"],
+          "column": "Cert End",
+          "value": "2026-12-31"
+        },
+        {
+          "where": ["Patient ID", "P2"],
+          "column": "Signed Date",
+          "value": "2026-10-15"
+        },
+        {
+          "where": ["Patient ID", "P3"],
+          "column": "Cert End",
+          "value": "2026-12-29"
+        }
+      ]
+    },
+    {
+      "arg": "visits",
+      "set": [
+        {
+          "where": [
+            ["Patient ID", "P1"],
+            ["Date of Service", "2026-11-03"],
+            ["CPT", "97110"]
+          ],
+          "column": "Units",
+          "value": "1"
+        },
+        {
+          "where": [
+            ["Patient ID", "P1"],
+            ["Date of Service", "2026-11-03"],
+            ["CPT", "97110"]
+          ],
+          "column": "Modifiers",
+          "value": "GP KX"
+        },
+        {
+          "where": [
+            ["Patient ID", "P1"],
+            ["Date of Service", "2026-11-03"],
+            ["CPT", "97140"]
+          ],
+          "column": "Modifiers",
+          "value": "GP KX"
+        },
+        {
+          "where": [
+            ["Patient ID", "P1"],
+            ["Date of Service", "2026-11-03"],
+            ["CPT", "97112"]
+          ],
+          "column": "Modifiers",
+          "value": "GP KX"
+        },
+        {
+          "where": [
+            ["Patient ID", "P2"],
+            ["CPT", "97530"]
+          ],
+          "column": "Modifiers",
+          "value": "GO CO"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "20 minutes billed as two units",
+      "edits": [
+        {
+          "arg": "visits",
+          "set": [
+            {
+              "where": [
+                ["Patient ID", "P4"],
+                ["Date of Service", "2026-10-20"]
+              ],
+              "column": "Minutes",
+              "value": "20"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["P4/2026-10-20", "eight_minute_over"]
+      ]
+    },
+    {
+      "name": "assistant modifier missing",
+      "edits": [
+        {
+          "arg": "visits",
+          "set": [
+            {
+              "where": [
+                ["Patient ID", "P2"],
+                ["CPT", "97535"]
+              ],
+              "column": "Modifiers",
+              "value": "GO"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["P2/2026-11-04", "assistant_modifier_missing"]
+      ]
+    },
+    {
+      "name": "plan of care never signed",
+      "edits": [
+        {
+          "arg": "plans",
+          "set": [
+            {
+              "where": ["Patient ID", "P3"],
+              "column": "Signed Date",
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["P3/2026-10-01", "cert_unsigned"]
+      ]
+    }
+  ]
+}

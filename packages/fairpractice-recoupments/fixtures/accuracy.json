@@ -1,0 +1,127 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "claim_id"
+    ]
+  ],
+  "ignore": [
+    "appeal_open"
+  ],
+  "planted": [
+    ["CL-202", "taken_twice"],
+    ["CL-203", "over_original"],
+    ["CL-204", "beyond_lookback"],
+    ["CL-205", "no_notice"],
+    ["CL-999", "unmatched"],
+    ["CL-207", "appeal_closing"],
+    ["CL-202", "appeal_closing"]
+  ],
+  "clean": [
+    {
+      "arg": "recoupments",
+      "drop": [
+        [
+          ["Claim #", "CL-202"],
+          ["Remit Date", "2026-10-15"]
+        ],
+        ["Claim #", "CL-204"],
+        ["Claim #", "CL-999"]
+      ],
+      "set": [
+        {
+          "where": ["Claim #", "CL-203"],
+          "column": "Amount",
+          "value": "-180"
+        }
+      ]
+    },
+    {
+      "arg": "notices",
+      "set": [
+        {
+          "where": ["Claim #", "CL-202"],
+          "column": "Notice Date",
+          "value": "2026-08-30"
+        },
+        {
+          "where": ["Claim #", "CL-207"],
+          "column": "Notice Date",
+          "value": "2026-08-20"
+        },
+        {
+          "where": ["Claim #", "CL-203"],
+          "column": "Amount",
+          "value": "180"
+        }
+      ],
+      "add": [
+        {
+          "Payer": "Bluepeak Health",
+          "Claim #": "CL-205",
+          "Notice Date": "2026-10-01",
+          "Amount": "150"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "appeal window closing in a week",
+      "edits": [
+        {
+          "arg": "notices",
+          "set": [
+            {
+              "where": ["Claim #", "CL-201"],
+              "column": "Notice Date",
+              "value": "2026-07-25"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["CL-201", "appeal_closing"]
+      ]
+    },
+    {
+      "name": "paid less than was taken back",
+      "edits": [
+        {
+          "arg": "claims",
+          "set": [
+            {
+              "where": ["Claim #", "CL-205"],
+              "column": "Paid",
+              "value": "100"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["CL-205", "over_original"]
+      ]
+    },
+    {
+      "name": "a second takeback of the same claim",
+      "edits": [
+        {
+          "arg": "recoupments",
+          "add": [
+            {
+              "Payer": "Bluepeak Health",
+              "Remit Date": "2026-11-05",
+              "Claim #": "CL-201",
+              "Amount": "-300",
+              "Reason Code": "WO",
+              "Check #": "EFT-88500"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["CL-201", "taken_twice"]
+      ]
+    }
+  ]
+}

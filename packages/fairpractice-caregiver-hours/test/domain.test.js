@@ -37,3 +37,12 @@ test('live-in: sleep over the cap or interrupted counts back as worked', () => {
   const r = checkCaregiverHours([S('A', 'X', '2026-11-02', '08:00', '08:00', { min: 1440, meal: 60, live: 'Yes', sleep: 600 }), S('B', 'X', '2026-11-02', '08:00', '08:00', { min: 1440, meal: 60, live: 'Yes', sleep: 480, int: 'Yes' }), S('D', 'X', '2026-11-02', '08:00', '08:00', { min: 1440, meal: 60, live: 'Yes', sleep: 480 })]);
   assert.deepEqual(r.items.map((i) => [i.status, i.caregiver_id, i.counted_back]), [['live_in_sleep', 'A', 2], ['live_in_sleep', 'B', 8]]);
 });
+
+test('travel between clients is listed only when payroll does not show it paid', () => {
+  const shifts = [S('A', 'X1', '2026-11-02', '08:00', '12:00', { rate: 18 }), S('A', 'X2', '2026-11-02', '12:30', '16:30', { rate: 18 })];
+  const paidIt = checkCaregiverHours(shifts, [{ caregiver_id: 'A', week_start: '2026-11-02', regular_hours: 8.5, overtime_hours: 0 }]);
+  assert.deepEqual(st(paidIt), []);
+  const short = checkCaregiverHours(shifts, [{ caregiver_id: 'A', week_start: '2026-11-02', regular_hours: 8, overtime_hours: 0 }]);
+  assert.deepEqual(st(short).sort(), ['hours_underpaid', 'travel_time']);
+  assert.deepEqual(st(checkCaregiverHours(shifts)), ['travel_time']);
+});

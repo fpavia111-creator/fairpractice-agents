@@ -1,0 +1,100 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "patient_id"
+    ],
+    [
+      "cap_year"
+    ],
+    [
+      "date"
+    ]
+  ],
+  "planted": [
+    ["H2", "noe_missing"],
+    ["H1", "noe_late"],
+    ["H3", "notr_missing"],
+    ["H4", "f2f_missing"],
+    ["2026", "cap_over"],
+    ["H5", "f2f_due"],
+    ["2026-11-15", "live_discharge_high"]
+  ],
+  "clean": [
+    {
+      "arg": "patients",
+      "set": [
+        {
+          "where": ["Patient ID", "H1"],
+          "column": "NOE Filed",
+          "value": "2026-11-05"
+        },
+        {
+          "where": ["Patient ID", "H2"],
+          "column": "NOE Filed",
+          "value": "2026-11-08"
+        },
+        {
+          "where": ["Patient ID", "H3"],
+          "column": "NOTR Filed",
+          "value": "2026-11-05"
+        },
+        {
+          "where": ["Patient ID", "H4"],
+          "column": "F2F Dates",
+          "value": "2026-07-01; 2026-08-20; 2026-11-01"
+        },
+        {
+          "where": ["Patient ID", "H4"],
+          "column": "Cap Year Paid",
+          "value": "10000"
+        }
+      ]
+    },
+    {
+      "arg": "settings",
+      "json": {
+        "warn_days": 30,
+        "live_discharge_pct": 60
+      }
+    }
+  ],
+  "mutations": [
+    {
+      "name": "notice of election filed late",
+      "edits": [
+        {
+          "arg": "patients",
+          "set": [
+            {
+              "where": ["Patient ID", "H6"],
+              "column": "NOE Filed",
+              "value": "2026-02-09"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["H6", "noe_late"]
+      ]
+    },
+    {
+      "name": "cap year payments over the cap",
+      "edits": [
+        {
+          "arg": "patients",
+          "set": [
+            {
+              "where": ["Patient ID", "H7"],
+              "column": "Cap Year Paid",
+              "value": "60000"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["2026", "cap_over"]
+      ]
+    }
+  ]
+}

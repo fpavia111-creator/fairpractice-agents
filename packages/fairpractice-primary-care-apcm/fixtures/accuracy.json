@@ -1,0 +1,105 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "patient_id"
+    ]
+  ],
+  "planted": [
+    ["N5", "not_enrolled"],
+    ["N3", "no_consent"],
+    ["N4", "billed_twice"],
+    ["N2", "conflict_code"],
+    ["N1", "wrong_tier"],
+    ["N6", "enrolled_not_billed"]
+  ],
+  "clean": [
+    {
+      "arg": "patients",
+      "set": [
+        {
+          "where": ["Patient ID", "N3"],
+          "column": "Consent Date",
+          "value": "2026-09-01"
+        }
+      ],
+      "add": [
+        {
+          "Patient ID": "N5",
+          "Patient Name": "Lena Ruiz",
+          "Chronic Conditions": "1",
+          "QMB": "No",
+          "Consent Date": "2026-06-01",
+          "Enrolled": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "arg": "claims",
+      "drop": [
+        [
+          ["Patient ID", "N4"],
+          ["Date of Service", "2026-10-15"]
+        ],
+        [
+          ["Patient ID", "N2"],
+          ["CPT", "99490"]
+        ]
+      ],
+      "set": [
+        {
+          "where": ["Patient ID", "N1"],
+          "column": "CPT",
+          "value": "G0557"
+        }
+      ],
+      "add": [
+        {
+          "Patient ID": "N6",
+          "Patient Name": "Milo Vance",
+          "Date of Service": "2026-10-31",
+          "CPT": "G0558",
+          "Units": "1"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "QMB status removed",
+      "edits": [
+        {
+          "arg": "patients",
+          "set": [
+            {
+              "where": ["Patient ID", "N7"],
+              "column": "QMB",
+              "value": "No"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["N7", "wrong_tier"]
+      ]
+    },
+    {
+      "name": "one chronic condition, billed at level 2",
+      "edits": [
+        {
+          "arg": "patients",
+          "set": [
+            {
+              "where": ["Patient ID", "N4"],
+              "column": "Chronic Conditions",
+              "value": "1"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["N4", "wrong_tier"]
+      ]
+    }
+  ]
+}

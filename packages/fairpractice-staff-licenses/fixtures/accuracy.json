@@ -1,0 +1,113 @@
+{
+  "case": "totals",
+  "id": [
+    ["employee", "credential"],
+    ["name", "credential"]
+  ],
+  "planted": [
+    ["Marcus Bell/RN License", "worked_expired"],
+    ["Ivy Tran/BLS", "expired"],
+    ["Hugo Silva/BLS", "missing_required"],
+    ["Owen Fisher/RN License", "wrong_state"],
+    ["Ivy Tran/RN License", "expiring_soon"],
+    ["Lena Park/LVN License", "never_verified"],
+    ["Grace Holloway/BLS", "verification_stale"]
+  ],
+  "clean": [
+    {
+      "arg": "credentials",
+      "set": [
+        {
+          "where": ["License #", "RN-11202"],
+          "column": "Expiration Date",
+          "value": "2028-10-31"
+        },
+        {
+          "where": ["License #", "RN-11202"],
+          "column": "Verified On",
+          "value": "2026-11-01"
+        },
+        {
+          "where": ["License #", "BLS-203"],
+          "column": "Expiration Date",
+          "value": "2028-09-30"
+        },
+        {
+          "where": ["License #", "BLS-203"],
+          "column": "Verified On",
+          "value": "2026-10-01"
+        },
+        {
+          "where": ["License #", "RN-11203"],
+          "column": "Expiration Date",
+          "value": "2028-12-20"
+        },
+        {
+          "where": ["License #", "RN-11204"],
+          "column": "State",
+          "value": "TX"
+        },
+        {
+          "where": ["License #", "LVN-501"],
+          "column": "Verified On",
+          "value": "2026-03-01"
+        },
+        {
+          "where": ["License #", "BLS-201"],
+          "column": "Verified On",
+          "value": "2026-02-01"
+        }
+      ],
+      "add": [
+        {
+          "Employee ID": "R301",
+          "Employee Name": "Hugo Silva",
+          "Job Title": "Respiratory Therapist",
+          "Department": "ICU",
+          "Credential": "BLS",
+          "License #": "BLS-301",
+          "Expiration Date": "2027-04-30",
+          "Verified On": "2026-05-01"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "license expiring in 46 days",
+      "edits": [
+        {
+          "arg": "credentials",
+          "set": [
+            {
+              "where": ["License #", "RN-11201"],
+              "column": "Expiration Date",
+              "value": "2026-12-31"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["Grace Holloway/RN License", "expiring_soon"]
+      ]
+    },
+    {
+      "name": "moved to a state outside the compact list",
+      "edits": [
+        {
+          "arg": "roster",
+          "set": [
+            {
+              "where": ["Employee ID", "N205"],
+              "column": "Work State",
+              "value": "NM"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["Lena Park/LVN License", "wrong_state"]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "claim_id"
+    ],
+    [
+      "claim_ids"
+    ]
+  ],
+  "planted": [
+    ["ER-1001", "idr_window_missed"],
+    ["ER-1002", "negotiation_window_missed"],
+    ["ER-1003", "idr_due"],
+    ["ER-1004", "negotiation_due_soon"],
+    ["ER-1005", "paid_below_qpa"],
+    ["ER-1006", "low_value"],
+    ["ER-1007, ER-1008", "batchable"]
+  ],
+  "clean": [
+    {
+      "arg": "disputes",
+      "set": [
+        {
+          "where": ["Claim #", "ER-1001"],
+          "column": "IDR Initiated",
+          "value": "2026-10-06"
+        },
+        {
+          "where": ["Claim #", "ER-1002"],
+          "column": "Open Negotiation Sent",
+          "value": "2026-10-14"
+        },
+        {
+          "where": ["Claim #", "ER-1001"],
+          "column": "Paid",
+          "value": "700"
+        },
+        {
+          "where": ["Claim #", "ER-1001"],
+          "column": "Our Offer",
+          "value": "1500"
+        },
+        {
+          "where": ["Claim #", "ER-1002"],
+          "column": "Paid",
+          "value": "520"
+        },
+        {
+          "where": ["Claim #", "ER-1002"],
+          "column": "Our Offer",
+          "value": "1200"
+        },
+        {
+          "where": ["Claim #", "ER-1005"],
+          "column": "Our Offer",
+          "value": "1500"
+        },
+        {
+          "where": ["Claim #", "ER-1003"],
+          "column": "IDR Initiated",
+          "value": "2026-11-12"
+        },
+        {
+          "where": ["Claim #", "ER-1004"],
+          "column": "Open Negotiation Sent",
+          "value": "2026-11-01"
+        },
+        {
+          "where": ["Claim #", "ER-1005"],
+          "column": "Paid",
+          "value": "900"
+        },
+        {
+          "where": ["Claim #", "ER-1006"],
+          "column": "Our Offer",
+          "value": "1200"
+        },
+        {
+          "where": ["Claim #", "ER-1008"],
+          "column": "CPT",
+          "value": "99285"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "paid far under the QPA",
+      "edits": [
+        {
+          "arg": "disputes",
+          "set": [
+            {
+              "where": ["Claim #", "ER-1007"],
+              "column": "Paid",
+              "value": "500"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["ER-1007", "paid_below_qpa"]
+      ]
+    }
+  ]
+}

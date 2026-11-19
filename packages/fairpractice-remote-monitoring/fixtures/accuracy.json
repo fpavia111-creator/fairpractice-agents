@@ -1,0 +1,135 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "patient_id"
+    ]
+  ],
+  "planted": [
+    ["T2", "setup_repeat"],
+    ["T5", "period_overlap"],
+    ["T1", "days_short"],
+    ["T6", "overlap_rtm"],
+    ["T3", "no_interactive"],
+    ["T4", "minutes_short"]
+  ],
+  "clean": [
+    {
+      "arg": "claims",
+      "drop": [
+        [
+          ["Patient ID", "T2"],
+          ["Date of Service", "2026-10-01"]
+        ],
+        [
+          ["Patient ID", "T5"],
+          ["Date of Service", "2026-10-15"]
+        ],
+        [
+          ["Patient ID", "T6"],
+          ["CPT", "98980"]
+        ]
+      ],
+      "set": [
+        {
+          "where": [
+            ["Patient ID", "T1"],
+            ["CPT", "99454"]
+          ],
+          "column": "CPT",
+          "value": "99445"
+        },
+        {
+          "where": [
+            ["Patient ID", "T4"],
+            ["CPT", "99458"]
+          ],
+          "column": "Units",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "arg": "time",
+      "set": [
+        {
+          "where": [
+            ["Patient ID", "T3"],
+            ["Date of Service", "2026-10-08"]
+          ],
+          "column": "Interactive",
+          "value": "Yes"
+        },
+        {
+          "where": [
+            ["Patient ID", "T3"],
+            ["Date of Service", "2026-10-22"]
+          ],
+          "column": "Interactive",
+          "value": "Yes"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "10 fewer minutes",
+      "edits": [
+        {
+          "arg": "time",
+          "set": [
+            {
+              "where": [
+                ["Patient ID", "T4"],
+                ["Date of Service", "2026-10-09"]
+              ],
+              "column": "Minutes",
+              "value": "15"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["T4", "minutes_short"]
+      ]
+    },
+    {
+      "name": "no interactive contact",
+      "edits": [
+        {
+          "arg": "time",
+          "set": [
+            {
+              "where": ["Patient ID", "T1"],
+              "column": "Interactive",
+              "value": "No"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["T1", "no_interactive"]
+      ]
+    },
+    {
+      "name": "remote therapeutic monitoring in the same month",
+      "edits": [
+        {
+          "arg": "claims",
+          "add": [
+            {
+              "Patient ID": "T5",
+              "Patient Name": "Eli Brandt",
+              "Date of Service": "2026-10-31",
+              "CPT": "98980",
+              "Units": "1"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["T5", "overlap_rtm"]
+      ]
+    }
+  ]
+}

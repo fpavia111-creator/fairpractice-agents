@@ -20,7 +20,8 @@
     "release:check": "node scripts/release-check.mjs",
     "release:check:offline": "node scripts/release-check.mjs --offline",
     "bench": "node scripts/bench.mjs",
-    "intl": "node scripts/intl-check.mjs"
+    "intl": "node scripts/intl-check.mjs",
+    "accuracy": "node scripts/accuracy.mjs"
   },
   "engines": {
     "node": ">=20"

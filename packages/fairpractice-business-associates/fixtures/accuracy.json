@@ -1,0 +1,133 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "vendor"
+    ]
+  ],
+  "planted": [
+    ["Brightline IT Services (fictional)", "baa_missing"],
+    ["Ledgerwise Cloud Backup (fictional)", "baa_expired"],
+    ["Northgate Transcription Inc (fictional)", "paid_not_on_list"],
+    ["Quietpage Answering (fictional)", "phi_unknown"],
+    ["Shredwell (fictional)", "never_reviewed"],
+    ["Brightline IT Services (fictional)", "review_overdue"],
+    ["Ledgerwise Cloud Backup (fictional)", "review_overdue"],
+    ["Medlink Clearinghouse (fictional)", "baa_expiring"]
+  ],
+  "clean": [
+    {
+      "arg": "vendors",
+      "set": [
+        {
+          "where": ["Vendor", "Brightline IT Services (fictional)"],
+          "column": "BAA Signed",
+          "value": "2025-01-01"
+        },
+        {
+          "where": ["Vendor", "Brightline IT Services (fictional)"],
+          "column": "BAA Expires",
+          "value": "2027-12-31"
+        },
+        {
+          "where": ["Vendor", "Brightline IT Services (fictional)"],
+          "column": "Last Security Review",
+          "value": "2026-06-01"
+        },
+        {
+          "where": ["Vendor", "Ledgerwise Cloud Backup (fictional)"],
+          "column": "BAA Expires",
+          "value": "2027-05-01"
+        },
+        {
+          "where": ["Vendor", "Ledgerwise Cloud Backup (fictional)"],
+          "column": "Last Security Review",
+          "value": "2026-04-10"
+        },
+        {
+          "where": ["Vendor", "Quietpage Answering (fictional)"],
+          "column": "Touches PHI",
+          "value": "no"
+        },
+        {
+          "where": ["Vendor", "Shredwell (fictional)"],
+          "column": "Last Security Review",
+          "value": "2026-02-01"
+        },
+        {
+          "where": ["Vendor", "Medlink Clearinghouse (fictional)"],
+          "column": "BAA Expires",
+          "value": "2027-12-31"
+        }
+      ],
+      "add": [
+        {
+          "Vendor": "Northgate Transcription Inc (fictional)",
+          "Service": "transcription",
+          "Touches PHI": "yes",
+          "BAA Signed": "2024-01-10",
+          "BAA Expires": "2027-06-30",
+          "Last Security Review": "2026-02-01",
+          "Owner": "Clinic"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "security review older than a year",
+      "edits": [
+        {
+          "arg": "vendors",
+          "set": [
+            {
+              "where": ["Vendor", "Clearpath Billing Partners (fictional)"],
+              "column": "Last Security Review",
+              "value": "2025-09-01"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["Clearpath Billing Partners (fictional)", "review_overdue"]
+      ]
+    },
+    {
+      "name": "a payment over the floor to a vendor not on the list",
+      "edits": [
+        {
+          "arg": "payments",
+          "set": [
+            {
+              "where": ["Vendor", "Recall Reminders Co (fictional)"],
+              "column": "Amount",
+              "value": "150.00"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["Recall Reminders Co (fictional)", "paid_not_on_list"]
+      ]
+    },
+    {
+      "name": "the caterer marked as touching patient data",
+      "edits": [
+        {
+          "arg": "vendors",
+          "set": [
+            {
+              "where": ["Vendor", "Sunny Day Catering (fictional)"],
+              "column": "Touches PHI",
+              "value": "yes"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["Sunny Day Catering (fictional)", "baa_missing"],
+        ["Sunny Day Catering (fictional)", "never_reviewed"]
+      ]
+    }
+  ]
+}

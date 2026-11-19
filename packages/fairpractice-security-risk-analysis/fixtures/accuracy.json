@@ -1,0 +1,147 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "risk_id"
+    ],
+    [
+      "asset"
+    ],
+    [
+      "due"
+    ]
+  ],
+  "planted": [
+    ["2026-09-30", "sra_overdue"],
+    ["R-02", "high_no_owner"],
+    ["R-03", "high_no_plan"],
+    ["R-01", "past_due"],
+    ["Billing workstation USB drives", "asset_not_assessed"],
+    ["Access review of EHR accounts", "evidence_missing"],
+    ["Policies and procedures reviewed", "evidence_missing"],
+    ["R-05", "accepted_no_signoff"],
+    ["R-04", "due_soon"]
+  ],
+  "clean": [
+    {
+      "arg": "settings",
+      "json": {
+        "last_analysis": "2026-09-30"
+      }
+    },
+    {
+      "arg": "risks",
+      "set": [
+        {
+          "where": ["Risk ID", "R-02"],
+          "column": "Owner",
+          "value": "Dana IT Lead"
+        },
+        {
+          "where": ["Risk ID", "R-03"],
+          "column": "Plan",
+          "value": "Phishing training and mail filtering"
+        },
+        {
+          "where": ["Risk ID", "R-01"],
+          "column": "Due Date",
+          "value": "2027-01-31"
+        },
+        {
+          "where": ["Risk ID", "R-05"],
+          "column": "Accepted By",
+          "value": "Practice Administrator"
+        },
+        {
+          "where": ["Risk ID", "R-04"],
+          "column": "Due Date",
+          "value": "2027-03-05"
+        }
+      ],
+      "add": [
+        {
+          "Risk ID": "R-07",
+          "System": "Billing workstation USB drives",
+          "Threat": "Lost drive",
+          "Likelihood": "2",
+          "Impact": "3",
+          "Owner": "Dana IT Lead",
+          "Plan": "Encrypt drives",
+          "Due Date": "2027-02-28",
+          "Status": "open"
+        }
+      ]
+    },
+    {
+      "arg": "evidence",
+      "set": [
+        {
+          "where": ["Item", "Access review of EHR accounts"],
+          "column": "Last Done",
+          "value": "2026-06-15"
+        },
+        {
+          "where": ["Item", "Policies and procedures reviewed"],
+          "column": "Last Done",
+          "value": "2026-05-01"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "a closed risk reopened past its date",
+      "edits": [
+        {
+          "arg": "risks",
+          "set": [
+            {
+              "where": ["Risk ID", "R-06"],
+              "column": "Status",
+              "value": "open"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["R-06", "past_due"]
+      ]
+    },
+    {
+      "name": "training records older than a year",
+      "edits": [
+        {
+          "arg": "evidence",
+          "set": [
+            {
+              "where": ["Item", "Workforce security training records"],
+              "column": "Last Done",
+              "value": "2025-09-01"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["Workforce security training records", "evidence_missing"]
+      ]
+    },
+    {
+      "name": "a system with patient data not in the register",
+      "edits": [
+        {
+          "arg": "assets",
+          "set": [
+            {
+              "where": ["System", "Break room TV"],
+              "column": "Holds PHI",
+              "value": "yes"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["Break room TV", "asset_not_assessed"]
+      ]
+    }
+  ]
+}

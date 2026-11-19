@@ -1,0 +1,109 @@
+{
+  "case": "totals",
+  "id": [
+    ["employee", "course"],
+    ["person", "course"],
+    ["name", "course"]
+  ],
+  "planted": [
+    ["June Ellery/HIPAA Privacy and Security", "new_hire_overdue"],
+    ["Yara Haddad/HIPAA Privacy and Security", "refresher_overdue"],
+    ["Ruth Abernathy/Texas HB 300 Privacy", "due_soon"],
+    ["Desmond Kole/Fraud Waste and Abuse", "due_soon"],
+    ["Desmond Kole/Texas HB 300 Privacy", "due_soon"]
+  ],
+  "clean": [
+    {
+      "arg": "completions",
+      "set": [
+        {
+          "where": [
+            ["Employee ID", "T103"],
+            ["Course Name", "HIPAA Privacy and Security"]
+          ],
+          "column": "Completion Date",
+          "value": "2026-09-01"
+        },
+        {
+          "where": [
+            ["Employee ID", "T101"],
+            ["Course Name", "Texas HB 300 Privacy"]
+          ],
+          "column": "Completion Date",
+          "value": "2025-12-01"
+        }
+      ],
+      "add": [
+        {
+          "Employee ID": "T105",
+          "Course Name": "HIPAA Privacy and Security",
+          "Completion Date": "2026-10-15"
+        },
+        {
+          "Employee ID": "T105",
+          "Course Name": "Fraud Waste and Abuse",
+          "Completion Date": "2026-10-20"
+        },
+        {
+          "Employee ID": "T105",
+          "Course Name": "Texas HB 300 Privacy",
+          "Completion Date": "2026-10-20"
+        },
+        {
+          "Employee ID": "T102",
+          "Course Name": "Fraud Waste and Abuse",
+          "Completion Date": "2026-10-01"
+        },
+        {
+          "Employee ID": "T102",
+          "Course Name": "Texas HB 300 Privacy",
+          "Completion Date": "2026-10-01"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "HIPAA refresher due in 15 days",
+      "edits": [
+        {
+          "arg": "completions",
+          "set": [
+            {
+              "where": [
+                ["Employee ID", "T104"],
+                ["Course Name", "HIPAA Privacy and Security"]
+              ],
+              "column": "Completion Date",
+              "value": "2025-11-30"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["Pavel Novak/HIPAA Privacy and Security", "due_soon"]
+      ]
+    },
+    {
+      "name": "fraud and abuse refresher a year and more ago",
+      "edits": [
+        {
+          "arg": "completions",
+          "set": [
+            {
+              "where": [
+                ["Employee ID", "T101"],
+                ["Course Name", "Fraud Waste and Abuse"]
+              ],
+              "column": "Completion Date",
+              "value": "2025-10-01"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["Ruth Abernathy/Fraud Waste and Abuse", "refresher_overdue"]
+      ]
+    }
+  ]
+}

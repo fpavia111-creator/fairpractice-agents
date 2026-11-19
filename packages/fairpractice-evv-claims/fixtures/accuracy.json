@@ -1,0 +1,146 @@
+{
+  "case": "totals",
+  "id": [
+    ["client_id", "date"],
+    [
+      "caregiver"
+    ]
+  ],
+  "planted": [
+    ["V2/2026-11-04", "no_evv"],
+    ["V1/2026-11-03", "units_over_verified"],
+    ["V3/2026-11-02", "caregiver_mismatch"],
+    ["V4/2026-11-05", "location_mismatch"],
+    ["Lia Gruber", "manual_edits_high"]
+  ],
+  "clean": [
+    {
+      "arg": "visits",
+      "set": [
+        {
+          "where": ["Client ID", "V4"],
+          "column": "Location Verified",
+          "value": "Yes"
+        },
+        {
+          "where": [
+            ["Client ID", "V5"],
+            ["Date", "2026-11-02"]
+          ],
+          "column": "Manual Edit",
+          "value": "No"
+        },
+        {
+          "where": [
+            ["Client ID", "V5"],
+            ["Date", "2026-11-04"]
+          ],
+          "column": "Manual Edit",
+          "value": "No"
+        }
+      ],
+      "add": [
+        {
+          "Client ID": "V2",
+          "Client Name": "Bruno Sato",
+          "Caregiver ID": "K1",
+          "Caregiver": "Rosa Delgado",
+          "Date": "2026-11-04",
+          "Clock In": "13:00",
+          "Clock Out": "14:30",
+          "Service": "T1019",
+          "Location Verified": "Yes",
+          "Manual Edit": "No"
+        }
+      ]
+    },
+    {
+      "arg": "claims",
+      "set": [
+        {
+          "where": [
+            ["Client ID", "V1"],
+            ["Date of Service", "2026-11-03"]
+          ],
+          "column": "Units",
+          "value": "6"
+        },
+        {
+          "where": ["Client ID", "V3"],
+          "column": "Caregiver",
+          "value": "Tom Baptiste"
+        },
+        {
+          "where": ["Client ID", "V3"],
+          "column": "Caregiver ID",
+          "value": "K2"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "one unit more than verified",
+      "edits": [
+        {
+          "arg": "claims",
+          "set": [
+            {
+              "where": [
+                ["Client ID", "V5"],
+                ["Date of Service", "2026-11-03"]
+              ],
+              "column": "Units",
+              "value": "9"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["V5/2026-11-03", "units_over_verified"]
+      ]
+    },
+    {
+      "name": "one of three visits edited by hand",
+      "edits": [
+        {
+          "arg": "visits",
+          "set": [
+            {
+              "where": [
+                ["Client ID", "V1"],
+                ["Date", "2026-11-02"]
+              ],
+              "column": "Manual Edit",
+              "value": "Yes"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["Rosa Delgado", "manual_edits_high"]
+      ]
+    },
+    {
+      "name": "location not verified",
+      "edits": [
+        {
+          "arg": "visits",
+          "set": [
+            {
+              "where": [
+                ["Client ID", "V5"],
+                ["Date", "2026-11-04"]
+              ],
+              "column": "Location Verified",
+              "value": "No"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["V5/2026-11-04", "location_mismatch"]
+      ]
+    }
+  ]
+}

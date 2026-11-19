@@ -1,0 +1,158 @@
+{
+  "case": "totals",
+  "id": [
+    ["person_id", "item"]
+  ],
+  "planted": [
+    ["H104/TB test", "new_hire_late"],
+    ["H101/Fit test", "overdue"],
+    ["H103/Flu vaccine", "overdue"],
+    ["H102/Flu vaccine", "declined_no_form"],
+    ["H103/TB test", "needs_followup"],
+    ["H104/Flu vaccine", "due_soon"],
+    ["H104/Fit test", "due_soon"],
+    ["H102/TB test", "due_soon"],
+    ["H106/TB test", "due_soon"]
+  ],
+  "clean": [
+    {
+      "arg": "records",
+      "set": [
+        {
+          "where": [
+            ["Employee ID", "H101"],
+            ["Item", "Fit test"]
+          ],
+          "column": "Date Done",
+          "value": "2026-10-01"
+        },
+        {
+          "where": [
+            ["Employee ID", "H103"],
+            ["Item", "Flu vaccine"]
+          ],
+          "column": "Date Done",
+          "value": "2026-10-15"
+        },
+        {
+          "where": [
+            ["Employee ID", "H102"],
+            ["Item", "Flu vaccine"]
+          ],
+          "column": "Form on File",
+          "value": "yes"
+        },
+        {
+          "where": [
+            ["Employee ID", "H103"],
+            ["Item", "TB test"]
+          ],
+          "column": "Follow-up Date",
+          "value": "2026-05-15"
+        },
+        {
+          "where": [
+            ["Employee ID", "H102"],
+            ["Item", "TB test"]
+          ],
+          "column": "Date Done",
+          "value": "2026-10-01"
+        }
+      ],
+      "add": [
+        {
+          "Employee ID": "H104",
+          "Employee Name": "Tobias Wren",
+          "Item": "TB test",
+          "Date Done": "2026-10-25",
+          "Result": "negative"
+        },
+        {
+          "Employee ID": "H104",
+          "Employee Name": "Tobias Wren",
+          "Item": "Flu vaccine",
+          "Date Done": "2026-11-05"
+        },
+        {
+          "Employee ID": "H104",
+          "Employee Name": "Tobias Wren",
+          "Item": "Fit test",
+          "Date Done": "2026-11-05",
+          "Result": "pass"
+        },
+        {
+          "Employee ID": "H106",
+          "Employee Name": "Kai Robbins",
+          "Item": "TB test",
+          "Date Done": "2026-11-10",
+          "Result": "negative"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "TB test due in 20 days",
+      "edits": [
+        {
+          "arg": "records",
+          "set": [
+            {
+              "where": [
+                ["Employee ID", "H105"],
+                ["Item", "TB test"]
+              ],
+              "column": "Date Done",
+              "value": "2025-12-05"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["H105/TB test", "due_soon"]
+      ]
+    },
+    {
+      "name": "last season's flu shot",
+      "edits": [
+        {
+          "arg": "records",
+          "set": [
+            {
+              "where": [
+                ["Employee ID", "H101"],
+                ["Item", "Flu vaccine"]
+              ],
+              "column": "Date Done",
+              "value": "2025-09-20"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["H101/Flu vaccine", "overdue"]
+      ]
+    },
+    {
+      "name": "TB result positive with no follow-up",
+      "edits": [
+        {
+          "arg": "records",
+          "set": [
+            {
+              "where": [
+                ["Employee ID", "H105"],
+                ["Item", "TB test"]
+              ],
+              "column": "Result",
+              "value": "positive"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["H105/TB test", "needs_followup"]
+      ]
+    }
+  ]
+}

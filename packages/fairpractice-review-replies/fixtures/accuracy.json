@@ -1,0 +1,81 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "review_id"
+    ]
+  ],
+  "planted": [
+    ["G-103", "confirms_patient"],
+    ["G-102", "confirms_patient"],
+    ["Y-105", "health_detail"],
+    ["G-102", "uses_reviewer_name"],
+    ["G-102", "visit_detail"],
+    ["G-104", "needs_reply"]
+  ],
+  "clean": [
+    {
+      "arg": "reviews",
+      "set": [
+        {
+          "where": ["Review ID", "G-102"],
+          "column": "Draft Reply",
+          "value": "Thank you for your feedback. Please call our office manager at 555-0100 so we can help."
+        },
+        {
+          "where": ["Review ID", "G-103"],
+          "column": "Draft Reply",
+          "value": "Thank you for your feedback. Please call our office manager at 555-0100 so we can help."
+        },
+        {
+          "where": ["Review ID", "G-104"],
+          "column": "Draft Reply",
+          "value": "Thank you for your feedback. Please call our office manager at 555-0100 so we can help."
+        },
+        {
+          "where": ["Review ID", "Y-105"],
+          "column": "Draft Reply",
+          "value": "Thank you for the kind words! We will share them with the team."
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "reply uses the reviewer's first name",
+      "edits": [
+        {
+          "arg": "reviews",
+          "set": [
+            {
+              "where": ["Review ID", "G-106"],
+              "column": "Draft Reply",
+              "value": "Thank you, Priya. Please call our office manager at 555-0100 so we can help."
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["G-106", "uses_reviewer_name"]
+      ]
+    },
+    {
+      "name": "reply mentions the visit",
+      "edits": [
+        {
+          "arg": "reviews",
+          "set": [
+            {
+              "where": ["Review ID", "G-101"],
+              "column": "Draft Reply",
+              "value": "Thank you! We are glad your visit went well."
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["G-101", "confirms_patient"]
+      ]
+    }
+  ]
+}
