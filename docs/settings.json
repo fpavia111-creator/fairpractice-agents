@@ -1,0 +1,797 @@
+{
+  "date": "2026-11-19",
+  "settings": [
+    {
+      "agent": "fairpractice-aba-therapy",
+      "setting": "unit_minutes",
+      "description": "Minutes in one unit; default 15",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-aba-therapy",
+      "setting": "supervision_pct",
+      "description": "Minimum supervision as a percent of technician direct time per client per month (certification and payer minimums vary); default 5",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-aba-therapy",
+      "setting": "direct_codes",
+      "description": "Codes for technician direct treatment; default 97153, 97154",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-aba-therapy",
+      "setting": "supervision_codes",
+      "description": "Codes that count as supervision when a BCBA bills them; default 97155",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-aba-therapy",
+      "setting": "qualified_only_codes",
+      "description": "Codes only a qualified professional may bill; default 97151, 97155, 97156, 97157",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-aba-therapy",
+      "setting": "rates",
+      "description": "Expected payment per unit by code, for dollar totals",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-aba-therapy",
+      "setting": "warn_days",
+      "description": "Days ahead to warn about authorizations ending; default 30",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-aba-therapy",
+      "setting": "unused_pct",
+      "description": "Percent unused at which an ending authorization is listed; default 25",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-attribution-roster",
+      "setting": "lookback_months",
+      "description": "Months of visits that make a patient active; default 24 (contracts vary)",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-attribution-roster",
+      "setting": "payer_words",
+      "description": "Words in the visit payer column that mean this contract's payer",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-attribution-roster",
+      "setting": "pmpm",
+      "description": "Monthly payment per attributed member, to price patients left out or dropped",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-behavioral-health",
+      "setting": "rates",
+      "description": "Expected payment by code, for dollar estimates",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-behavioral-health",
+      "setting": "yearly_limits",
+      "description": "Sessions a year each payer allows per patient, by payer name",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-behavioral-health",
+      "setting": "license_rules",
+      "description": "Licenses allowed to bill a code; a trailing * covers a code range. Replaces the default rules (prescriber codes and psychological testing).",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-breach-deadlines",
+      "setting": "notice_days",
+      "description": "Days from discovery to notify individuals (HIPAA outer limit: 60; notify sooner when you can)",
+      "dated": {
+        "default": "60 days",
+        "source": "HIPAA Breach Notification Rule: individuals without unreasonable delay and no later than 60 days after discovery (45 CFR 164.404(b))",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-breach-deadlines",
+      "setting": "assess_days",
+      "description": "Your target days from discovery to a finished risk assessment; default 10",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-breach-deadlines",
+      "setting": "large_threshold",
+      "description": "People affected at which HHS and media notices are due within the notice window (HIPAA: 500)",
+      "dated": {
+        "default": "500",
+        "source": "Same rule: media and HHS notice within 60 days for breaches of 500 or more (45 CFR 164.406, 164.408); smaller breaches go on the yearly HHS log within 60 days after year end",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-breach-deadlines",
+      "setting": "warn_days",
+      "description": "Days ahead to warn; default 14",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-breach-deadlines",
+      "setting": "state_rules",
+      "description": "State attorney general notice rules you follow (example values; confirm with counsel)",
+      "dated": {
+        "default": "example: TX, 250 residents, 30 days",
+        "source": "State attorney general rules (the example follows Texas Business and Commerce Code 521.053 as amended in 2023); each state differs and counsel confirms them",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-business-associates",
+      "setting": "review_days",
+      "description": "Days between vendor security reviews; default 365",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-business-associates",
+      "setting": "warn_days",
+      "description": "Days ahead to warn about a BAA ending; default 60",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-business-associates",
+      "setting": "min_paid",
+      "description": "Smallest total paid to list a vendor missing from the inventory; default 0",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-business-associates",
+      "setting": "not_business_associates",
+      "description": "Vendors you have decided are not business associates (utilities, food, janitorial with no record access)",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-business-associates",
+      "setting": "phi_service_words",
+      "description": "Words in a service description that suggest patient data (replaces the built-in list)",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-capitation",
+      "setting": "rates",
+      "description": "Expected monthly rate by rate category, when the roster has no rate column",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-capitation",
+      "setting": "tolerance",
+      "description": "Difference ignored as rounding; default 0.01",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-care-management",
+      "setting": "rates",
+      "description": "Expected payment by code, for dollar estimates",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-care-plan-hours",
+      "setting": "weeks",
+      "description": "Full weeks to check, ending with the last full week on or before as_of; default 4",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-care-plan-hours",
+      "setting": "under_pct",
+      "description": "Percent short of authorized hours that counts as under-delivery; default 20",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-care-plan-hours",
+      "setting": "warn_days",
+      "description": "Days ahead to warn about plans ending; default 30",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-care-plan-hours",
+      "setting": "rates",
+      "description": "Hourly rate by service code, for dollar estimates",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-caregiver-hours",
+      "setting": "ot_hours",
+      "description": "Weekly hours after which overtime is owed; default 40",
+      "dated": {
+        "default": "40",
+        "source": "FLSA overtime after 40 hours a week, home care workers covered since the 2015 Home Care Rule (29 CFR 552); states may add daily rules",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-caregiver-hours",
+      "setting": "week_start",
+      "description": "First day of your workweek; default monday",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-caregiver-hours",
+      "setting": "max_travel_minutes",
+      "description": "Same-day gaps between different clients up to this many minutes count as travel worked; default 60",
+      "dated": {
+        "default": "60",
+        "source": "Travel between clients during the workday is hours worked (29 CFR 785.38); the 60-minute window is an example",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-caregiver-hours",
+      "setting": "split_gap_minutes",
+      "description": "Longer unpaid gaps count as a split shift; default 60",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-caregiver-hours",
+      "setting": "split_premium",
+      "description": "Split-shift premium your state requires, per split; off when not set",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-caregiver-hours",
+      "setting": "meal_after_hours",
+      "description": "Shifts longer than this need a meal break under your state rules; off when not set",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-caregiver-hours",
+      "setting": "meal_minutes",
+      "description": "Length of the required meal break; default 30",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-caregiver-hours",
+      "setting": "sleep_cap_minutes",
+      "description": "Most live-in sleep time that may be left unpaid; default 480",
+      "dated": {
+        "default": "480",
+        "source": "Up to 8 hours of sleep may be left unpaid on a 24-hour shift when the conditions are met (29 CFR 785.22)",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-compliance-training",
+      "setting": "courses",
+      "description": "Required courses",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-compliance-training",
+      "setting": "warn_days",
+      "description": "Days ahead to remind; default 30",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-evv-claims",
+      "setting": "unit_minutes",
+      "description": "Minutes in one billing unit; default 15",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-evv-claims",
+      "setting": "rounding",
+      "description": "How partial units count under your state rules; default midpoint (8 of 15 minutes)",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-evv-claims",
+      "setting": "max_distance",
+      "description": "Distance from the client's address above which a visit is flagged, in the unit your EVV export uses",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-evv-claims",
+      "setting": "max_manual_pct",
+      "description": "Share of a caregiver's visits entered or edited by hand above which to flag; default 10",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-evv-claims",
+      "setting": "min_visits",
+      "description": "Visits a caregiver needs before the manual-edit share is judged; default 3",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-exclusion-screening",
+      "setting": "near_name_threshold",
+      "description": "Name similarity (0.8-1) at which a different spelling is shown as a near-name match; default 0.92",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-exclusion-screening",
+      "setting": "screening_interval_days",
+      "description": "Days after which a person counts as not screened recently; default 31 (monthly)",
+      "dated": {
+        "default": "31 days",
+        "source": "Monthly checks of the OIG LEIE (OIG guidance) and the state Medicaid lists many states require",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-home-health",
+      "setting": "noa_days",
+      "description": "Calendar days to file the notice of admission; default 5",
+      "dated": {
+        "default": "5 days",
+        "source": "Notice of admission within 5 calendar days from the start of care, from 2022 (42 CFR 484.205(j))",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-home-health",
+      "setting": "lupa_default",
+      "description": "Low-utilization threshold when a period has none; default 2 (thresholds run 2 to 6 by case-mix group)",
+      "dated": {
+        "default": "2",
+        "source": "Low-utilization thresholds of 2 to 6 visits by case-mix group under the home health PDGM; your periods carry their own threshold",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-home-health",
+      "setting": "per_visit_rate",
+      "description": "Average per-visit payment, to estimate the loss on a low-utilization period; default 0",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-home-health",
+      "setting": "warn_days",
+      "description": "Days before a period ends to warn about low visits; default 7",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-hospice-billing",
+      "setting": "cap_amount",
+      "description": "Per-beneficiary cap amount for the cap year (CMS publishes it each year); no cap check without it",
+      "dated": {
+        "default": "none (your cap year; fixture example 35,361.44)",
+        "source": "CMS hospice aggregate cap per beneficiary, published each year in the hospice wage index final rule",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-hospice-billing",
+      "setting": "cap_year",
+      "description": "Cap year to check, named by the year it ends (2026 = October 1 2025 to September 30 2026); default the one holding as_of",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-hospice-billing",
+      "setting": "cap_warn_pct",
+      "description": "Percent of the cap at which to warn; default 90",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-hospice-billing",
+      "setting": "daily_rate",
+      "description": "Routine home care daily rate, for dollars on late notices; default 0",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-hospice-billing",
+      "setting": "noe_days",
+      "description": "Calendar days to file the NOE; default 5",
+      "dated": {
+        "default": "5 days",
+        "source": "Notice of election within 5 calendar days after the election (42 CFR 418.24(b)(2))",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-hospice-billing",
+      "setting": "notr_days",
+      "description": "Calendar days to file the NOTR; default 5",
+      "dated": {
+        "default": "5 days",
+        "source": "Notice of termination or revocation within 5 calendar days (42 CFR 418.26(e))",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-hospice-billing",
+      "setting": "f2f_window",
+      "description": "Days before a period starts that a face-to-face may happen; default 30",
+      "dated": {
+        "default": "30 days",
+        "source": "Face-to-face encounter no more than 30 days before the third and later benefit periods (42 CFR 418.22(a)(4))",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-hospice-billing",
+      "setting": "warn_days",
+      "description": "Days ahead to list face-to-face encounters coming due; default 45",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-hospice-billing",
+      "setting": "live_discharge_pct",
+      "description": "Live discharge rate over 12 months to flag; default 20",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-injury-liens",
+      "setting": "statute_years",
+      "description": "Filing window in years by state code, plus \"default\". You set these; Fairpractice Injury Liens does not know any state's law",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-injury-liens",
+      "setting": "warn_days",
+      "description": "Days before the window ends to warn; default 60",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-injury-liens",
+      "setting": "pay_days",
+      "description": "Days after settlement to expect payment; default 30",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-injury-liens",
+      "setting": "stale_days",
+      "description": "Days without an update before a case is stale; default 90",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-injury-liens",
+      "setting": "max_reduction_pct",
+      "description": "Largest reduction your policy allows without sign-off; default 33",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-physician-contracts",
+      "setting": "fmv_hourly",
+      "description": "Your fair-market-value hourly range by arrangement type, from your valuation, e.g. {\"medical director\": {\"low\": 150, \"high\": 275}}",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-physician-contracts",
+      "setting": "warn_days",
+      "description": "Days ahead to list contracts ending; default 60",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-primary-care-apcm",
+      "setting": "rates",
+      "description": "Expected payment by code, for dollar estimates",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-primary-care-apcm",
+      "setting": "conflict_codes",
+      "description": "Codes not billed in the same month as APCM; replaces the default list (CCM, PCM, TCM)",
+      "dated": {
+        "default": "CCM, PCM, TCM codes",
+        "source": "Advanced primary care management (G0556 to G0558) from 2025, not billed in the same month as those services (CMS 2025 physician fee schedule final rule)",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-provider-pay",
+      "setting": "tiers",
+      "description": "Default pay per wRVU by marginal tier: [{ \"up_to\": 1000, \"rate\": 45 }, { \"rate\": 52 }]",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-provider-pay",
+      "setting": "providers",
+      "description": "Per-provider tiers and draws paid, by provider name",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-provider-pay",
+      "setting": "modifier_pct",
+      "description": "Percent of the work RVU credited with a modifier, when the RVU file has no row for it; replaces the default (50: 150, 51: 50, 62: 62.5, 80/82/AS: 16)",
+      "dated": {
+        "default": "50: 150, 51: 50, 62: 62.5, 80/82/AS: 16",
+        "source": "Medicare payment adjustments for bilateral, multiple, co-surgeon and assistant-at-surgery modifiers (Medicare Claims Processing Manual ch. 12)",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-records-requests",
+      "setting": "response_days",
+      "description": "Calendar days to answer (HIPAA: 30; some states are shorter)",
+      "dated": {
+        "default": "30 days",
+        "source": "HIPAA right of access: act within 30 days of the request (45 CFR 164.524(b)(2)); some states are shorter",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-records-requests",
+      "setting": "extension_days",
+      "description": "Days one extension adds (HIPAA: 30)",
+      "dated": {
+        "default": "30 days",
+        "source": "Same rule: one 30-day extension with a written notice inside the first 30 days",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-records-requests",
+      "setting": "warn_days",
+      "description": "Days ahead to warn; default 7",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-records-requests",
+      "setting": "flat_fee",
+      "description": "Flat fee you charge for electronic copies (HHS describes $6.50 as an option), or null",
+      "dated": {
+        "default": "your setting (fixture: 6.50)",
+        "source": "HHS guidance (2016) describes a flat fee of up to $6.50 for electronic copies as one option",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-records-requests",
+      "setting": "per_page",
+      "description": "Per-page fee for paper copies under your policy or state law, or null",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-records-requests",
+      "setting": "base_fee",
+      "description": "Fixed fee added to per-page fees (labor or search fee your state allows), default 0",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-records-requests",
+      "setting": "fee_cap",
+      "description": "Most you charge for one request, or null",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-recoupments",
+      "setting": "appeal_days",
+      "description": "Days to appeal from the notice (or the recoupment if no notice), by payer name, plus \"default\" (default 120). Set from your contracts.",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-recoupments",
+      "setting": "warn_days",
+      "description": "Days ahead to warn about an appeal window closing; default 21",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-recoupments",
+      "setting": "lookback_months",
+      "description": "Months after payment beyond which a recoupment is flagged (your state limit or contract); off when not set",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-recoupments",
+      "setting": "notice_lead_days",
+      "description": "Days of notice required before a recoupment; default 0 (any notice before it)",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-remote-monitoring",
+      "setting": "rates",
+      "description": "Expected payment by code, for dollar estimates",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-review-replies",
+      "setting": "practice_name",
+      "description": "Name to sign replies with",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-review-replies",
+      "setting": "contact_phone",
+      "description": "Office manager phone (or email) to move complaints offline",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-review-replies",
+      "setting": "low_rating",
+      "description": "Ratings at or below this need a reply; default 2",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-review-replies",
+      "setting": "extra_phrases",
+      "description": "More phrases that confirm a visit in your specialty",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-review-replies",
+      "setting": "extra_words",
+      "description": "More health words to flag",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-secondary-claims",
+      "setting": "filing_days",
+      "description": "Days after the prior payer's adjudication to file with the next payer, by payer name, plus \"default\" (default 90). Set from your payer contracts.",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-secondary-claims",
+      "setting": "warn_days",
+      "description": "Days ahead to warn about a filing window closing; default 21",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-security-risk-analysis",
+      "setting": "last_analysis",
+      "description": "Date the last full security risk analysis was finished",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-security-risk-analysis",
+      "setting": "interval_days",
+      "description": "Days between full risk analyses and between evidence refreshes; default 365",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-security-risk-analysis",
+      "setting": "warn_days",
+      "description": "Days ahead to show risks coming due; default 30",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-security-risk-analysis",
+      "setting": "high_score",
+      "description": "Likelihood x impact score (1-5 scales) that counts as high; default 12",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-staff-health",
+      "setting": "requirements",
+      "description": "What each role must keep current",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-staff-health",
+      "setting": "warn_days",
+      "description": "Days ahead to show items coming due; default 30",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-staff-licenses",
+      "setting": "required_by_role",
+      "description": "Credentials each role must hold, e.g. {\"RN\": [\"RN License\", \"BLS\"]}",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-staff-licenses",
+      "setting": "warn_days",
+      "description": "Days before expiry to start warning; default 60",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-staff-licenses",
+      "setting": "verify_days",
+      "description": "Days after which a primary-source verification counts as stale; default 365",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-staff-licenses",
+      "setting": "compact_states",
+      "description": "Two-letter states in the license compact you rely on (check the current member list)",
+      "dated": {
+        "default": "example list",
+        "source": "Nurse Licensure Compact member states change; the example list must be checked against the current NCSBN list",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-staff-licenses",
+      "setting": "state_licensed",
+      "description": "Credential names that are state licenses, so the work state is checked",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-surprise-billing-disputes",
+      "setting": "negotiation_days",
+      "description": "Business days for open negotiation (to start it, and its length); default 30",
+      "dated": {
+        "default": "30 business days",
+        "source": "No Surprises Act open negotiation: start within 30 business days of the initial payment or denial, and it lasts 30 business days (45 CFR 149.510(b)(1))",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-surprise-billing-disputes",
+      "setting": "idr_days",
+      "description": "Business days after negotiation ends to start IDR; default 4",
+      "dated": {
+        "default": "4 business days",
+        "source": "Same rule: federal IDR may start within 4 business days after open negotiation ends (45 CFR 149.510(b)(2))",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-surprise-billing-disputes",
+      "setting": "warn_days",
+      "description": "Business days ahead to warn about the negotiation start deadline; default 10",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-surprise-billing-disputes",
+      "setting": "admin_fee",
+      "description": "Administrative fee per party per dispute for your year (check CMS); default 115",
+      "dated": {
+        "default": "115",
+        "source": "CMS administrative fee per party per dispute ($115 for disputes from 2025); CMS sets it by year",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-surprise-billing-disputes",
+      "setting": "entity_fee",
+      "description": "Expected IDR entity fee, for judging low-value disputes; default 0",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-surprise-billing-disputes",
+      "setting": "qpa_gap_pct",
+      "description": "Percent below the QPA a payment must be to be listed; default 10",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-surprise-billing-disputes",
+      "setting": "holidays",
+      "description": "Extra non-business days (YYYY-MM-DD) beyond federal holidays",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-therapy-billing",
+      "setting": "kx_threshold",
+      "description": "Yearly KX threshold amount for your year (CMS publishes it each year; check the current figure); default 2410",
+      "dated": {
+        "default": "2410",
+        "source": "CMS KX modifier threshold for outpatient therapy; 2,410 is the 2025 figure, CMS publishes a new one each year (check the current year; not re-checked in this pass)",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-therapy-billing",
+      "setting": "kx_payers",
+      "description": "Words in payer names the KX threshold applies to; default [\"medicare\"]",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-therapy-billing",
+      "setting": "timed_codes",
+      "description": "Timed codes counted under the 8-minute rule",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-therapy-billing",
+      "setting": "rates",
+      "description": "Expected payment per unit by code, used when the file has no allowed amount",
+      "dated": null
+    },
+    {
+      "agent": "fairpractice-therapy-billing",
+      "setting": "sign_days",
+      "description": "Days after the plan start to have the certification signed; default 30",
+      "dated": {
+        "default": "30 days",
+        "source": "Plan of care certification by the physician or NPP within 30 days of the initial evaluation (Medicare Benefit Policy Manual ch. 15, 220.1.3)",
+        "checked": "18 Nov 2026 (build), re-read 19 Nov 2026 (final pass)"
+      }
+    },
+    {
+      "agent": "fairpractice-therapy-billing",
+      "setting": "warn_days",
+      "description": "Days ahead to warn about plans of care ending; default 21",
+      "dated": null
+    }
+  ]
+}

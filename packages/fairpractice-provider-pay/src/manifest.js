@@ -6,7 +6,7 @@ const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url),
 const t = (aliases, extra = {}) => ({ aliases, ...extra });
 
 export const CHARGE_FIELDS = Object.freeze({ provider: { ...PROVIDER, phi: 'name' }, dos: DOS, cpt: { ...CPT, required: true }, modifiers: MODIFIER_COL, units: UNITS, patient_id: PATIENT_ID, patient_name: PATIENT_NAME });
-export const RVU_FIELDS = Object.freeze({ code: t(['Code', 'HCPCS', 'CPT', 'CPT/HCPCS'], { translate: false, required: true }), modifier: t(['Modifier', 'Mod'], { translate: false }), work_rvu: t(['Work RVU', 'wRVU', 'Work', 'RVU'], { type: 'number', required: true }) });
+export const RVU_FIELDS = Object.freeze({ hcpcs: t(['HCPCS', 'CPT/HCPCS', 'CPT', 'Code'], { translate: false, required: true }), modifier: t(['Modifier', 'Mod'], { translate: false }), work_rvu: t(['Work RVU', 'wRVU', 'Work', 'RVU'], { type: 'number', required: true }) });
 
 const TIERS = { type: 'array', minItems: 1, maxItems: 20, items: { type: 'object', additionalProperties: false, required: ['rate'], properties: { up_to: { type: ['number', 'null'], minimum: 0 }, rate: { type: 'number', minimum: 0 } } } };
 const SETTINGS = { type: 'object', additionalProperties: false, properties: {
@@ -21,7 +21,7 @@ const args = {
   from: DATE_ARG('First date of service in the period (YYYY-MM-DD)'),
   to: DATE_ARG('Last date of service in the period (YYYY-MM-DD)'),
 };
-const run = (a, ctx) => { const s = a.settings ? ctx.readJson(a.settings, 'providerpay_settings') : {}; return checkProviderPay(ctx.records(a.charges, 'charges'), ctx.records(a.rvus, 'rvus'), { tiers: s.tiers || [{ up_to: null, rate: 0 }], providers: s.providers || {}, modifierPct: s.modifier_pct || DEFAULT_MODIFIER_PCT, from: a.from || null, to: a.to || null }); };
+const run = (a, ctx) => { const s = a.settings ? ctx.readJson(a.settings, 'providerpay_settings') : {}; return checkProviderPay(ctx.records(a.charges, 'charges'), ctx.records(a.rvus, 'rvus').map((r) => ({ ...r, code: r.hcpcs })), { tiers: s.tiers || [{ up_to: null, rate: 0 }], providers: s.providers || {}, modifierPct: s.modifier_pct || DEFAULT_MODIFIER_PCT, from: a.from || null, to: a.to || null }); };
 const summary = (o) => `${o.providers.length} provider(s), ${o.total_wrvu} wRVUs, ${o.total_earned} earned under the plan. ${o.items.length} finding(s): ${Object.entries(o.by_status).map(([k, v]) => `${k} ${v}`).join(', ') || 'none'}.`;
 
 export const manifest = medAgent({

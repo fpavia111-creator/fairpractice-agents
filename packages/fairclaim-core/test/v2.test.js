@@ -227,3 +227,9 @@ test('MCP openWorldHint follows the tool openWorld flag', async () => {
   assert.equal(tools.find((t) => t.name === 'net_read').annotations.openWorldHint, true);
   assert.equal(tools.find((t) => t.name === 'local_read').annotations.openWorldHint, false);
 });
+
+test('a repeated column name keeps the first column and numbers the later ones', async () => {
+  const { parseCsv } = await import('../src/csv.js');
+  const r = parseCsv('HCPCS,RVU,PE RVU,RVU\n99213,1.30,1.46,0.09\n');
+  assert.deepEqual(r, [{ HCPCS: '99213', RVU: '1.30', 'PE RVU': '1.46', 'RVU (2)': '0.09' }]);
+});

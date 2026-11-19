@@ -21,7 +21,11 @@
     "release:check:offline": "node scripts/release-check.mjs --offline",
     "bench": "node scripts/bench.mjs",
     "intl": "node scripts/intl-check.mjs",
-    "accuracy": "node scripts/accuracy.mjs"
+    "accuracy": "node scripts/accuracy.mjs",
+    "model-view": "node scripts/model-view.mjs",
+    "settings-list": "node scripts/settings-list.mjs",
+    "realdata": "node scripts/realdata.mjs",
+    "realdata:download": "node scripts/realdata.mjs --download"
   },
   "engines": {
     "node": ">=20"

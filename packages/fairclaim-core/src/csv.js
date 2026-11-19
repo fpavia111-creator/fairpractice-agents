@@ -27,7 +27,10 @@ export function parseCsvRows(text, { delimiter = ',' } = {}) {
 /** Rows of cells -> objects keyed by the header row (cells and headers trimmed). */
 export function rowsToRecords(rows, headerIndex = 0) {
   if (!rows.length || headerIndex >= rows.length) return [];
-  const header = rows[headerIndex].map((h) => String(h ?? '').trim());
+  // A repeated column name keeps the first column under the name and numbers the later ones ("RVU", "RVU (2)"):
+  // before, the last column silently replaced the first (the CMS RVU file has a work "RVU" and a malpractice "RVU").
+  const seen = new Map();
+  const header = rows[headerIndex].map((h) => { const n = String(h ?? '').trim(); if (!n) return n; const c = (seen.get(n) || 0) + 1; seen.set(n, c); return c === 1 ? n : `${n} (${c})`; });
   return rows.slice(headerIndex + 1).map((r) => {
     const o = {};
     header.forEach((h, idx) => { o[h] = String(r[idx] ?? '').trim(); });

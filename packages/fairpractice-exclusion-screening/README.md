@@ -17,7 +17,7 @@ npx -y fairpractice-exclusion-screening mcp --root ./practice-files
 
 Fictional data only: Bluewater Family Medicine (a made-up practice), made-up staff and vendors, and made-up list entries marked "(FICTIONAL)". Any likeness to real people or firms is chance. The real OIG and state files are public downloads; these only copy their layout.
 
-- [`people.csv`](fixtures/people.csv): staff, a provider, a contractor and vendors. Planted: an NPI on the list (E102), a name and birth-date match (E103), a name match with no birth date (E104), a near name (E105), same name but a different birth date (E106), a reinstated entry (E107), someone never screened (E108), someone last screened in August (E109) and a vendor on the state list (V201).
+- [`people.csv`](fixtures/people.csv): staff, a provider, a contractor and vendors. Planted: an NPI on the list (E102), a name and birth-date match (E103), a name match with no birth date (E104), a near name with the same birth date (E105), same name but a different birth date (E106), a reinstated entry (E107), someone never screened (E108), someone last screened in August (E109) and a vendor on the state list (V201).
 - [`leie-2026-11.csv`](fixtures/leie-2026-11.csv): OIG LEIE layout (dates as YYYYMMDD, zeros for blanks).
 - [`state-medicaid-2026-11.csv`](fixtures/state-medicaid-2026-11.csv): a state list with different column names.
 - [`settings.json`](fixtures/settings.json): near-name threshold 0.9 and a 31-day screening interval. [`settings-typo.json`](fixtures/settings-typo.json) misspells a setting and is refused.
@@ -36,7 +36,7 @@ Fairpractice Exclusion Screening demo (fictional practice, patients, staff and p
     confirmed_match    PT-e613dd62 matches exclusion list by name and birth date (excluded 2022-01-10).
     possible_match     PT-e4cd17c4 matches a name on exclusion list; no birth date to confirm.
     possible_match     PT-62992339 matches a name on state list; no birth date to confirm.
-    near_name          PT-570ce66c is close to PT-946ee91f PT-9a1643f5 on exclusion list (similarity 0.94).
+    near_name          PT-570ce66c is close to PT-946ee91f PT-9a1643f5 on exclusion list (similarity 0.94), with the same birth date.
     dob_differs        PT-a4e6eb65 has the same name as an entry on exclusion list, but the birth dates differ.
     reinstated         PT-ebf9b8ea matches exclusion list, reinstated on 2025-06-01.
     never_screened     PT-22ef4d75 has no screening date.

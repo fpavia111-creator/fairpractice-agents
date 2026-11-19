@@ -1,0 +1,136 @@
+{
+  "date": "2026-11-19",
+  "sources": {
+    "leie": {
+      "name": "OIG List of Excluded Individuals/Entities (LEIE), full file",
+      "page": "https://oig.hhs.gov/exclusions/exclusions_list.asp",
+      "url": "https://oig.hhs.gov/exclusions/downloadables/UPDATED.csv",
+      "licence": "Public data from HHS-OIG (US government work)"
+    },
+    "nv835": {
+      "name": "Nevada Medicaid sample 835 file",
+      "page": "https://www.medicaid.nv.gov/",
+      "url": "https://www.medicaid.nv.gov/Downloads/provider/Sample_835_File.pdf",
+      "licence": "Public sample published by Nevada Medicaid (state government); sample data, no real patients"
+    },
+    "rvu": {
+      "name": "CMS physician fee schedule relative value file, January 2026 (RVU26A)",
+      "page": "https://www.cms.gov/medicare/payment/fee-schedules/physician/pfs-relative-value-files",
+      "url": "https://www.cms.gov/files/zip/rvu26a.zip",
+      "licence": "Public CMS data (US government work); CPT descriptors in it are AMA copyright and are not used or copied here"
+    }
+  },
+  "results": [
+    {
+      "source": "leie",
+      "agent": "fairpractice-exclusion-screening",
+      "leie_rows": 84224,
+      "individuals_with_dob": 79818,
+      "listed_people": 500,
+      "listed_with_npi": 61,
+      "listed_found": 500,
+      "listed_by_status": {
+        "npi_match": 63,
+        "confirmed_match": 440,
+        "dob_differs": 13
+      },
+      "ms_listed": 2898,
+      "made_up_people": 1000,
+      "made_up_by_status": {
+        "possible_match": 9,
+        "near_name": 74,
+        "dob_differs": 446
+      },
+      "made_up_findings": 529,
+      "made_up_near_names_other_birth_date": 6029,
+      "ms_made_up": 3292
+    },
+    {
+      "source": "nv835",
+      "reader": "fairclaim-core readHealthcareX12 / read835",
+      "segments": 67,
+      "transactions": 3,
+      "problems": 1,
+      "payments": [
+        {
+          "amount": 0,
+          "claims": 1,
+          "plb": 0,
+          "plb_lines": 0
+        },
+        {
+          "amount": 0,
+          "claims": 2,
+          "plb": 0,
+          "plb_lines": 0
+        },
+        {
+          "amount": 1812.27,
+          "claims": 0,
+          "plb": -1812.27,
+          "plb_lines": 6
+        }
+      ],
+      "plb_only_payments": 1,
+      "plb_only_amount": 1812.27
+    },
+    {
+      "source": "rvu",
+      "agent": "fairpractice-provider-pay",
+      "rvu_file_lines": 19237,
+      "header_row": 10,
+      "mapped": {
+        "modifier": "MOD",
+        "work_rvu": "RVU"
+      },
+      "missing": [],
+      "fixture_rvus": {
+        "by_status": {
+          "no_provider": 1,
+          "no_rvu": 1,
+          "draw_over_earned": 1,
+          "true_up_owed": 2
+        },
+        "wrvu": 2544,
+        "providers": [
+          [
+            "Rhea Lin MD",
+            1160
+          ],
+          [
+            "June Park NP",
+            710
+          ],
+          [
+            "Sam Otto DO",
+            674
+          ]
+        ]
+      },
+      "real_rvus": {
+        "by_status": {
+          "no_provider": 1,
+          "draw_over_earned": 1,
+          "true_up_owed": 2
+        },
+        "wrvu": 2562.2,
+        "providers": [
+          [
+            "Rhea Lin MD",
+            1174.1
+          ],
+          [
+            "June Park NP",
+            712
+          ],
+          [
+            "Sam Otto DO",
+            676.1
+          ]
+        ],
+        "no_rvu_codes": []
+      },
+      "ms": 609
+    }
+  ]
+}

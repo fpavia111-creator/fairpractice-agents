@@ -77,3 +77,13 @@ test('a vendor is matched on a list that has one name column for people and comp
   const r = screen([P('Gulfline Medical Supply', { type: 'vendor' })], list, { asOf });
   assert.deepEqual(r.items.map((i) => [i.status, i.list]), [['possible_match', 'state list']]);
 });
+
+test('a near name with a different birth date on both sides is counted, not listed; same or missing birth date is listed', () => {
+  const list = [E('JONATHON', 'PRYCE', { dob: '1964-01-01' })];
+  const other = screen([P('Jonathan Price', { dob: '1990-05-05' })], list, { asOf });
+  assert.deepEqual(st(other), []); assert.equal(other.near_names_other_birth_date, 1);
+  const same = screen([P('Jonathan Price', { dob: '1964-01-01' })], list, { asOf });
+  assert.deepEqual(same.items.map((i) => [i.status, i.same_dob]), [['near_name', true]]);
+  const none = screen([P('Jonathan Price')], list, { asOf });
+  assert.deepEqual(none.items.map((i) => [i.status, i.same_dob]), [['near_name', false]]);
+});

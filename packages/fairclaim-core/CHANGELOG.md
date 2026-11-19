@@ -4,6 +4,7 @@
 
 Fixed:
 
+- A repeated column name no longer loses data: the first column keeps the name and later ones become "Name (2)", "Name (3)". Before, the last column replaced the first, so the CMS physician fee schedule RVU file (a work "RVU" and a malpractice "RVU") was read with malpractice RVUs as work RVUs (Fairpractice wave 1 final pass, real-data run).
 - `remedy-new-agent` takes `<product>-<what-it-does>` names (for example `fairclaim-denial-trends`; the tool prefix is the words after the product) and refuses the old `<figure>-of-<process>` names (Fairpractice wave 1 final pass, after the Fairclinic note).
 - Over-long paths (more than 1,024 characters, or a folder or file name over 255) are refused by `safePath` with a plain message. A report `out_dir` of 200,000 characters made the recursive `mkdir` never return on Windows with Node 24 (found by the Fairpractice wave 2 hostile argument pass, 18 Nov 2026).
 

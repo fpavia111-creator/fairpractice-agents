@@ -49,3 +49,16 @@ test('a provider can have their own tiers', () => {
   assert.deepEqual(r.providers.map((p) => p.earned).sort(), [200, 400]);
   assert.equal(r.total_earned, 600);
 });
+
+test('the CMS RVU file layout: title rows, a STATUS "CODE" column and two "RVU" columns read as HCPCS and work RVU', async () => {
+  const { mkdtempSync, writeFileSync, rmSync } = await import('node:fs'); const { join } = await import('node:path'); const { tmpdir } = await import('node:os');
+  const { AgentRuntime } = await import('fairclaim-core'); const { manifest } = await import('../src/index.js');
+  const dir = mkdtempSync(join(tmpdir(), 'pp-cms-'));
+  try {
+    writeFileSync(join(dir, 'rvu.csv'), [',,2026 National Physician Fee Schedule Relative Value File,,,,,', ',,,,,,,', ',,,STATUS,,WORK,NON-FAC,MP', 'HCPCS,MOD,DESCRIPTION,CODE,PAYMENT,RVU,PE RVU,RVU', '99213,,Office visit,A,,1.30,1.46,0.09', '99214,,Office visit,A,,1.92,2.00,0.14', ''].join('\n'));
+    writeFileSync(join(dir, 'charges.csv'), 'Rendering Provider,Date of Service,CPT,Modifier,Units\nAna Ruiz,2026-07-01,99213,,1\nAna Ruiz,2026-07-02,99214,,1\n');
+    writeFileSync(join(dir, 'plan.json'), JSON.stringify({ tiers: [{ rate: 50 }], providers: { 'Ana Ruiz': { draws: 161 } } }));
+    const r = await new AgentRuntime(manifest, { root: dir, stateDir: null, audit: false, phi: 'off' }).call('providerpay_check', { charges: 'charges.csv', rvus: 'rvu.csv', settings: 'plan.json', from: '2026-07-01', to: '2026-07-31' });
+    assert.equal(r.status, 'executed'); assert.equal(r.result.total_wrvu, 3.22); assert.deepEqual(r.result.items, []);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});

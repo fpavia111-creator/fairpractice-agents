@@ -56,7 +56,7 @@ const run = (a, ctx) => {
   const cleared = (p, e) => facts.some((v) => ctx.phi.same(String(p.id ?? ''), v.person_id, 'mrn') && (!v.excluded_on || v.excluded_on === e.excluded_on));
   return screen(ctx.records(a.people, 'people'), entries, { asOf: a.as_of || today(), nearThreshold: s.near_name_threshold ?? 0.92, intervalDays: s.screening_interval_days ?? 31, cleared });
 };
-const summary = (o) => `${o.people} people screened against ${o.list_entries} list entries. ${o.needs_action} need action now. ${o.items.length} finding(s): ${Object.entries(o.by_status).map(([k, v]) => `${k} ${v}`).join(', ') || 'none'}.`;
+const summary = (o) => `${o.people} people screened against ${o.list_entries} list entries. ${o.needs_action} need action now.${o.near_names_other_birth_date ? ` ${o.near_names_other_birth_date} near name(s) with a different birth date left out.` : ''} ${o.items.length} finding(s): ${Object.entries(o.by_status).map(([k, v]) => `${k} ${v}`).join(', ') || 'none'}.`;
 
 export const manifest = medAgent({
   pkg, prefix: 'exclusions', title: 'Fairpractice Exclusion Screening',

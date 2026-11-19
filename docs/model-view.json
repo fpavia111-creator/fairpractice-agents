@@ -1,0 +1,1192 @@
+{
+  "date": "2026-11-19",
+  "values_checked": 3645,
+  "calls": 362,
+  "leaks": 0,
+  "agents": [
+    {
+      "agent": "fairpractice-aba-therapy",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        },
+        {
+          "field": "provider",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "start",
+        "end",
+        "cpt",
+        "provider_role",
+        "auth_number"
+      ],
+      "business": [],
+      "dates": [
+        "date"
+      ],
+      "amounts": [
+        "minutes",
+        "units",
+        "weekly_units"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 96,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-attribution-roster",
+      "masked": [
+        {
+          "field": "member_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        },
+        {
+          "field": "dob",
+          "kind": "dob",
+          "label": "birth year"
+        },
+        {
+          "field": "provider",
+          "kind": "name",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "npi"
+      ],
+      "business": [
+        "payer"
+      ],
+      "dates": [
+        "date"
+      ],
+      "amounts": [],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 364,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-behavioral-health",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        },
+        {
+          "field": "provider",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "cpt",
+        "start",
+        "end",
+        "license"
+      ],
+      "business": [
+        "payer"
+      ],
+      "dates": [
+        "date"
+      ],
+      "amounts": [
+        "units",
+        "minutes",
+        "allowed"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 88,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-breach-deadlines",
+      "masked": [],
+      "clear": [
+        "incident_id",
+        "determination",
+        "states"
+      ],
+      "business": [],
+      "dates": [
+        "discovered",
+        "assessed_on",
+        "individuals_notified_on",
+        "media_notified_on",
+        "hhs_notified_on",
+        "ag_notified_on"
+      ],
+      "amounts": [
+        "affected"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 0,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-business-associates",
+      "masked": [],
+      "clear": [
+        "service",
+        "touches_phi",
+        "category"
+      ],
+      "business": [
+        "vendor"
+      ],
+      "dates": [
+        "baa_signed",
+        "baa_expires",
+        "last_review",
+        "date"
+      ],
+      "amounts": [
+        "amount"
+      ],
+      "free_text": [],
+      "names_as_written": [
+        "owner"
+      ],
+      "leak_check": {
+        "values": 0,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-capitation",
+      "masked": [
+        {
+          "field": "member_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "category",
+        "month"
+      ],
+      "business": [],
+      "dates": [
+        "effective",
+        "term",
+        "paid_date"
+      ],
+      "amounts": [
+        "rate",
+        "amount"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 196,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-care-management",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "program",
+        "staff_type",
+        "cpt",
+        "other_practice_months"
+      ],
+      "business": [],
+      "dates": [
+        "date",
+        "consent_date"
+      ],
+      "amounts": [
+        "minutes",
+        "units"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 98,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-care-plan-hours",
+      "masked": [
+        {
+          "field": "client_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "client_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "service",
+        "auth_number",
+        "clock_in",
+        "clock_out"
+      ],
+      "business": [],
+      "dates": [
+        "start",
+        "end",
+        "date"
+      ],
+      "amounts": [
+        "weekly_hours",
+        "hours",
+        "minutes"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 56,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-caregiver-hours",
+      "masked": [
+        {
+          "field": "caregiver_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "caregiver_name",
+          "kind": "name",
+          "label": "pseudonym"
+        },
+        {
+          "field": "client_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "clock_in",
+        "clock_out",
+        "live_in",
+        "sleep_interrupted"
+      ],
+      "business": [],
+      "dates": [
+        "date",
+        "week_start"
+      ],
+      "amounts": [
+        "minutes",
+        "meal_minutes",
+        "sleep_minutes",
+        "pay_rate",
+        "regular_hours",
+        "overtime_hours"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 56,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-code-updates",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "code",
+        "code_set",
+        "action",
+        "replacement",
+        "active",
+        "order_set",
+        "claim_id",
+        "codes",
+        "diagnoses"
+      ],
+      "business": [
+        "payer"
+      ],
+      "dates": [
+        "effective",
+        "dos"
+      ],
+      "amounts": [
+        "price",
+        "rate"
+      ],
+      "free_text": [
+        "description"
+      ],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 24,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-compliance-training",
+      "masked": [
+        {
+          "field": "person_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "course",
+        "role",
+        "work_state",
+        "status"
+      ],
+      "business": [
+        "department"
+      ],
+      "dates": [
+        "completed",
+        "hire_date"
+      ],
+      "amounts": [],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 172,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-evv-claims",
+      "masked": [
+        {
+          "field": "client_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "client_name",
+          "kind": "name",
+          "label": "pseudonym"
+        },
+        {
+          "field": "caregiver_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "caregiver_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "clock_in",
+        "clock_out",
+        "service",
+        "location_ok",
+        "manual"
+      ],
+      "business": [],
+      "dates": [
+        "date"
+      ],
+      "amounts": [
+        "minutes",
+        "distance",
+        "units",
+        "amount"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 126,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-exclusion-screening",
+      "masked": [
+        {
+          "field": "id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "name",
+          "kind": "name",
+          "label": "pseudonym"
+        },
+        {
+          "field": "dob",
+          "kind": "dob",
+          "label": "birth year"
+        },
+        {
+          "field": "last_name",
+          "kind": "name",
+          "label": "pseudonym"
+        },
+        {
+          "field": "first_name",
+          "kind": "name",
+          "label": "pseudonym"
+        },
+        {
+          "field": "middle_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "type",
+        "npi",
+        "exclusion_type",
+        "state",
+        "source"
+      ],
+      "business": [
+        "business_name"
+      ],
+      "dates": [
+        "last_screened",
+        "excluded_on",
+        "reinstated_on"
+      ],
+      "amounts": [],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 656,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-home-health",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "admission",
+        "discipline"
+      ],
+      "business": [
+        "payer"
+      ],
+      "dates": [
+        "start",
+        "end",
+        "noa_filed",
+        "date"
+      ],
+      "amounts": [
+        "lupa_threshold",
+        "payment"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 75,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-hospice-billing",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "f2f"
+      ],
+      "business": [],
+      "dates": [
+        "election",
+        "noe_filed",
+        "discharge",
+        "notr_filed"
+      ],
+      "amounts": [
+        "starting_period",
+        "cap_paid",
+        "cap_share"
+      ],
+      "free_text": [
+        "discharge_reason"
+      ],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 88,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-injury-liens",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "case_id",
+        "state",
+        "status",
+        "suit_filed"
+      ],
+      "business": [
+        "attorney"
+      ],
+      "dates": [
+        "injury_date",
+        "lop_signed",
+        "settled_date",
+        "last_update"
+      ],
+      "amounts": [
+        "charges",
+        "paid",
+        "reduction_pct"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 77,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-physician-contracts",
+      "masked": [
+        {
+          "field": "physician",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "contract_id",
+        "npi",
+        "type",
+        "time_log_required",
+        "time_log"
+      ],
+      "business": [],
+      "dates": [
+        "signed",
+        "start",
+        "end",
+        "date"
+      ],
+      "amounts": [
+        "hourly_rate",
+        "annual_cap",
+        "amount",
+        "hours"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 89,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-primary-care-apcm",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "qmb",
+        "tier",
+        "cpt"
+      ],
+      "business": [],
+      "dates": [
+        "consent_date",
+        "start",
+        "end",
+        "date"
+      ],
+      "amounts": [
+        "conditions",
+        "units"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 107,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-provider-pay",
+      "masked": [
+        {
+          "field": "provider",
+          "kind": "name",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "cpt",
+        "modifiers",
+        "hcpcs",
+        "modifier"
+      ],
+      "business": [],
+      "dates": [
+        "dos"
+      ],
+      "amounts": [
+        "units",
+        "work_rvu"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 84,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-records-requests",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "request_id",
+        "requester_type",
+        "format",
+        "extended",
+        "denied"
+      ],
+      "business": [],
+      "dates": [
+        "received",
+        "extension_notice_on",
+        "fulfilled",
+        "denied_on"
+      ],
+      "amounts": [
+        "pages",
+        "fee",
+        "postage"
+      ],
+      "free_text": [
+        "denial_reason"
+      ],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 192,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-recoupments",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "claim_ref",
+        "check",
+        "claim_id"
+      ],
+      "business": [
+        "payer"
+      ],
+      "dates": [
+        "remit_date",
+        "dos",
+        "paid_date",
+        "notice_date"
+      ],
+      "amounts": [
+        "amount",
+        "paid"
+      ],
+      "free_text": [
+        "reason"
+      ],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 78,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-remote-monitoring",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "interactive",
+        "cpt"
+      ],
+      "business": [],
+      "dates": [
+        "date",
+        "period_start",
+        "episode_start"
+      ],
+      "amounts": [
+        "minutes",
+        "units"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 84,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-review-replies",
+      "masked": [
+        {
+          "field": "reviewer",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "review_id"
+      ],
+      "business": [
+        "platform"
+      ],
+      "dates": [],
+      "amounts": [
+        "rating"
+      ],
+      "free_text": [
+        "review",
+        "reply"
+      ],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 48,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-secondary-claims",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "claim_id",
+        "order",
+        "eob_attached"
+      ],
+      "business": [
+        "payer"
+      ],
+      "dates": [
+        "dos",
+        "sent_date",
+        "adjudicated_date",
+        "effective",
+        "term"
+      ],
+      "amounts": [
+        "billed",
+        "paid",
+        "patient_resp"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 84,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-security-risk-analysis",
+      "masked": [],
+      "clear": [
+        "risk_id",
+        "asset",
+        "likelihood",
+        "impact",
+        "rating",
+        "status",
+        "holds_phi",
+        "item",
+        "required"
+      ],
+      "business": [],
+      "dates": [
+        "due",
+        "done_on"
+      ],
+      "amounts": [],
+      "free_text": [
+        "threat",
+        "plan"
+      ],
+      "names_as_written": [
+        "owner",
+        "accepted_by"
+      ],
+      "leak_check": {
+        "values": 0,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-staff-health",
+      "masked": [
+        {
+          "field": "person_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "role",
+        "item",
+        "result",
+        "declined",
+        "form_on_file",
+        "status"
+      ],
+      "business": [
+        "department"
+      ],
+      "dates": [
+        "done_on",
+        "followup_on",
+        "hire_date"
+      ],
+      "amounts": [],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 204,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-staff-licenses",
+      "masked": [
+        {
+          "field": "person_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "role",
+        "credential",
+        "number",
+        "state",
+        "compact",
+        "work_state",
+        "status"
+      ],
+      "business": [
+        "department"
+      ],
+      "dates": [
+        "expires",
+        "verified_on",
+        "date"
+      ],
+      "amounts": [],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 210,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-surprise-billing-disputes",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "claim_id",
+        "cpt"
+      ],
+      "business": [
+        "payer"
+      ],
+      "dates": [
+        "date",
+        "initial_payment_date",
+        "negotiation_sent",
+        "idr_initiated"
+      ],
+      "amounts": [
+        "paid",
+        "qpa",
+        "our_offer",
+        "award",
+        "fees_paid"
+      ],
+      "free_text": [
+        "outcome"
+      ],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 110,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-therapy-billing",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        },
+        {
+          "field": "provider",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "cpt",
+        "modifiers",
+        "provider_role",
+        "discipline"
+      ],
+      "business": [
+        "payer"
+      ],
+      "dates": [
+        "date",
+        "start",
+        "end",
+        "signed"
+      ],
+      "amounts": [
+        "units",
+        "minutes",
+        "allowed"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 108,
+        "leaks": []
+      }
+    },
+    {
+      "agent": "fairpractice-wound-products",
+      "masked": [
+        {
+          "field": "patient_id",
+          "kind": "mrn",
+          "label": "pseudonym"
+        },
+        {
+          "field": "patient_name",
+          "kind": "name",
+          "label": "pseudonym"
+        }
+      ],
+      "clear": [
+        "cpt",
+        "modifiers",
+        "product",
+        "lot",
+        "invoice"
+      ],
+      "business": [],
+      "dates": [
+        "date"
+      ],
+      "amounts": [
+        "units",
+        "paid",
+        "opened",
+        "applied",
+        "wound_area",
+        "size",
+        "cost"
+      ],
+      "free_text": [],
+      "names_as_written": [],
+      "leak_check": {
+        "values": 75,
+        "leaks": []
+      }
+    }
+  ]
+}

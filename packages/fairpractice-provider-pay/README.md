@@ -98,7 +98,7 @@ The PointClickCare, MatrixCare and American HealthTech style names were written 
 
 | Column | Type | Read from |
 |---|---|---|
-| `code` (required) | text | Code, HCPCS, CPT, CPT/HCPCS |
+| `hcpcs` (required) | text | HCPCS, CPT/HCPCS, CPT, Code |
 | `modifier` | text | Modifier, Mod |
 | `work_rvu` (required) | number | Work RVU, wRVU, Work, RVU |
 
