@@ -1,0 +1,47 @@
+{
+  "product": "Fairpractice",
+  "repo": "https://github.com/fpavia111-creator/fairpractice-agents",
+  "try_it": ["git clone https://github.com/fpavia111-creator/fairpractice-agents", "cd fairpractice-agents", "npm install", "node packages/fairpractice-exclusion-screening/bin/fairpractice-exclusion-screening.js demo"],
+  "accuracy": { "agents": 30, "planted_found": 207, "planted_total": 207, "clean_rows": 2297, "clean_false_positives": 0, "mutation_cases": 78, "mutation_caught": 78, "note": "On fictional test data, 19 Nov 2026. Every agent measured: each problem planted in its test files found and nothing else reported, no finding on the same files with the problems repaired (2,297 rows, most of them the provider pay charges and remote monitoring readings), and each one-fact change caught. The test files and changes were written by the same author as the checks, so this shows the checks do what was intended, not how they do on a real practice's files. The clean set found one wrong finding, fixed in this pass (caregiver travel time listed although payroll paid it)." },
+  "real_data": [
+    ["OIG List of Excluded Individuals/Entities (LEIE)", "https://oig.hhs.gov/exclusions/exclusions_list.asp", "19 Nov 2026", "Public HHS-OIG data (US government work)", "The full file (84,224 entries) through the exclusion screening agent: 500 of 500 listed individuals found; 1,000 made-up staff with very common names gave 6,357 findings before a fix this run led to (near names with a different birth date are now counted, not listed) and 529 after"],
+    ["CMS physician fee schedule RVU file, January 2026", "https://www.cms.gov/medicare/payment/fee-schedules/physician/pfs-relative-value-files", "19 Nov 2026", "Public CMS data (US government work)", "The CSV as published (header on row 10, a STATUS \"CODE\" column, two \"RVU\" columns) through the provider pay agent: every code came back with no work RVU, then malpractice RVUs were read as work RVUs; both fixed, and the fixture charges now price with the real 2026 work RVUs"],
+    ["Nevada Medicaid sample 835 file", "https://www.medicaid.nv.gov/Downloads/provider/Sample_835_File.pdf", "19 Nov 2026", "Public sample from Nevada Medicaid (state government), no real patients", "The shared core's 835 reader keeps the 1,812.27 check made only of provider-level adjustments; no wave-1 agent posts ERAs"]
+  ],
+  "formats": [
+    ["HHS-OIG", "LEIE downloadable file (UPDATED.csv)", "tested on a real export"],
+    ["CMS", "Physician fee schedule RVU file (PPRRVU, CSV)", "tested on a real export"],
+    ["Any payer or clearinghouse", "835 ERA files read by the shared core", "tested on a public sample"],
+    ["State Medicaid agencies", "State exclusion lists", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Practice-management and EHR systems", "Claims, visits, sessions, time logs, plans of care, open claims, chargemaster and fee schedule lists", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Hospice and home health systems", "Census with election, NOE, NOTR and face-to-face dates; 30-day periods and visits", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["EVV vendors and payroll systems", "Verified visit exports, shifts, payroll registers", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Payers", "Attribution rosters, capitation statements, recoupment notices", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["HR, credentialing and learning systems", "Staff rosters, licences and certificates, health records, course completions", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Accounts payable and spreadsheets", "Vendor inventories, payments, physician agreements and payments, incident logs, risk registers, access request logs, lien case lists, dispute logs, review exports", "written from knowledge of the export; not yet checked against documentation or a real export"]
+  ],
+  "human_review": [
+    ["Privacy clocks", "The privacy officer decides every breach determination and sends every notice, record copy and review reply; the agents only list the clocks and flag risky words."],
+    ["Provider pay", "The practice administrator checks the RVU file and the comp plan and decides every true-up; the agent does not run payroll."],
+    ["Compliance pack", "The compliance officer confirms every exclusion, licence and health finding against the source and decides what to do; nobody is suspended or terminated by an agent."],
+    ["Care management", "A person checks the time and consent records and decides what to bill; the agents never submit claims or read clinical readings."],
+    ["Therapy and ABA", "The billing lead and the clinicians decide units, modifiers and plan-of-care signatures; the agents never submit claims or read notes."],
+    ["Hospice and home health", "The billing office files every notice and decides on the cap; the agents only list dates and amounts."],
+    ["Value-based contracts", "A person raises roster and payment disputes with the payer after checking the lists; nothing is sent by the agents."],
+    ["Home care", "The agency decides payroll corrections and claim fixes after reading the lists; the agents never submit payroll or claims."],
+    ["Money recovery", "The billing team decides every dispute, appeal, secondary claim, code change and lien reduction; the agents never file, accept or send."],
+    ["Billing company partner", "Each client practice reviews its own lists and settings; every claim, payment, notice and dispute stays with a named person there."]
+  ],
+  "common_problems": [
+    "Staff, providers or vendors on the OIG exclusion list, and people not screened in the last month.",
+    "Licences and BLS cards expired, expiring or never verified, and shifts worked on an expired licence.",
+    "Breach notices, HHS reports and state attorney general notices past or close to their deadline.",
+    "Patient access requests past 30 days, extensions without a notice, and copy fees above your policy.",
+    "Therapy visits past the KX threshold without KX, units over the 8-minute rule, and plans of care unsigned.",
+    "Care management and remote monitoring billed with less time or fewer days than the code needs.",
+    "EVV visits that do not support the units billed, and caregiver hours paid short.",
+    "Surprise-billing negotiation and IDR windows closing or missed, and payments below the QPA."
+  ],
+  "reaches_the_model": "When an AI assistant calls a Fairpractice tool, the agent reads the files on the user's computer and returns a result. Before it leaves the agent, patient, client and member names and numbers, birth dates (cut to the year), phones and e-mails, and the names of providers, therapists, caregivers, employees and reviewers are replaced with stable pseudonyms or placeholders. NPIs, claim and case numbers, codes, dates, amounts and business names such as payers, vendors and law firms are sent as they are; free text such as review texts, reasons and risk plans is sent with known names and phone, e-mail and SSN patterns replaced, and risk owners in the security risk analysis are sent as written. A check of 3,645 masked values in the test files found none in a result. Results go to whatever model the user's assistant uses; for patient data use a model covered by a business associate agreement, or a local model. The reports written on the user's computer keep the real values.",
+  "rules_maintained": "Every threshold is a named setting in a settings file the customer keeps: 116 settings in 28 agents, 24 of them following a dated rule such as the 60-day HIPAA breach notice, the 30-day right of access, the No Surprises Act 30 and 4 business days, the 5-day hospice and home health notices, the KX threshold and the hospice cap, which CMS sets each year. Each dated default, its source and the date it was checked are listed in docs/settings.md. CPT and CMS time and day rules (care management minutes, remote monitoring days, the 8-minute rule, APCM tiers) are in the agents' code; Mythos Machines changes them, and any default, only in a release with a changelog line, and checking them is part of the support plan."
+}
