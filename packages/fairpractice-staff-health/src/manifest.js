@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, STAFF_ID, STAFF_NAME, ROLE, DEPARTMENT, STATUS, HIRE_DATE, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, STAFF_ID, STAFF_NAME, ROLE, DEPARTMENT, STATUS, HIRE_DATE, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkStaffHealth } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -56,7 +56,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, person_id: i.person_id, name: i.name, department: i.department || '', role: i.role || '', item: i.item, last_done: i.last_done || '', due: i.due || '', message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'name', 'department', 'item', 'last_done', 'due', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Out of compliance by department' }, rows: Object.entries(o.by_department).map(([department, count]) => ({ department, count })), columns: ['department', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'It tracks dates and paperwork only. It does not read, interpret or judge test results or decide who may work; employee health does.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'It tracks dates and paperwork only. It does not read, interpret or judge test results or decide who may work; employee health does.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'schedule_remove', category: 'production_deploy', description: 'Fairpractice Staff Health never changes the schedule or anyone\'s work status.' },

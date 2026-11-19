@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, DOS, PAYER, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, DOS, PAYER, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkHomeHealth } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -49,7 +49,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, patient_id: i.patient_id, patient_name: i.patient_name || '', date: i.date, period_end: i.period_end || '', amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'patient_name', 'date', 'period_end', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Low-utilization thresholds come from each period\'s case-mix group; give them per period or the default is used.', 'Notice deadlines are calendar days; exceptions are the MAC\'s to grant.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Low-utilization thresholds come from each period\'s case-mix group; give them per period or the default is used.', 'Notice deadlines are calendar days; exceptions are the MAC\'s to grant.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'noa_submit', category: 'binding_send', description: 'Fairpractice Home Health never files notices of admission.' },

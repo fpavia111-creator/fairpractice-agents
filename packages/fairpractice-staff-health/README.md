@@ -43,7 +43,7 @@ Fairpractice Staff Health demo (fictional practice, patients, staff and payers)
 
 ▶ Write the department list
   status: executed  decision: allow
-  Employee health compliance written: 6 staff, 3 requirement(s). 4 staff out of compliance. 9 finding(s): new_hire_late 1, overdue 2, declined_no_form 1, needs_followup 1, due_soon 4. Files: kestrel-out/staffhealth/staffhealth-staff-health.csv, kestrel-out/staffhealth/staffhealth-staff-health.html.
+  Employee health compliance written: 6 staff, 3 requirement(s). 4 staff out of compliance. 9 finding(s): new_hire_late 1, overdue 2, declined_no_form 1, needs_followup 1, due_soon 4. Files: fairpractice-out/staffhealth/staffhealth-staff-health.csv, fairpractice-out/staffhealth/staffhealth-staff-health.html.
 
 ▶ Agent tries to send health records
   status: blocked  decision: block
@@ -55,7 +55,7 @@ Fairpractice Staff Health demo (fictional practice, patients, staff and payers)
 | Tool | What it does | Policy |
 |---|---|---|
 | `staffhealth_check` | List staff overdue or missing required tests, vaccines and fit tests under your settings. | runs |
-| `staffhealth_write_report` | Write staffhealth-staff-health.csv (one row per item, with blank owner and decision columns) and staffhealth-staff-health.html into out_dir (default kestrel-out/staffhealth). | runs |
+| `staffhealth_write_report` | Write staffhealth-staff-health.csv (one row per item, with blank owner and decision columns) and staffhealth-staff-health.html into out_dir (default fairpractice-out/staffhealth). | runs |
 | `staffhealth_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `staffhealth_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `staffhealth_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

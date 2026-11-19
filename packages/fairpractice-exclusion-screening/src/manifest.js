@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, STAFF_ID, STAFF_NAME, NPI, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, STAFF_ID, STAFF_NAME, NPI, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { screen, exclusionEntry } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -72,7 +72,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, person_id: i.person_id, name: i.name, type: i.type, list: i.list || '', listed_name: i.listed_name || '', excluded_on: i.excluded_on || '', message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'name', 'type', 'list', 'listed_name', 'excluded_on', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'A name match is not proof: confirm with a second identifier on the official list site before acting. The lists are only as current as the files you downloaded.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'A name match is not proof: confirm with a second identifier on the official list site before acting. The lists are only as current as the files you downloaded.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'employment_terminate', category: 'production_deploy', description: 'Fairpractice Exclusion Screening never changes anyone\'s employment or vendor status; HR and compliance decide.' },

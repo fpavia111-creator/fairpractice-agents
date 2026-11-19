@@ -44,7 +44,7 @@ Fairpractice Secondary Claims demo (fictional practice, patients, staff and paye
 
 ▶ Write the follow-up list
   status: executed  decision: allow
-  Secondary claims check written: 8 claim(s) for 6 patient(s). 1250 at risk. 5 finding(s): filing_missed 1, filing_closing 1, wrong_payer_order 1, secondary_not_sent 1, sent_without_primary_eob 1. Files: kestrel-out/secondary/secondary-claims.csv, kestrel-out/secondary/secondary-claims.html.
+  Secondary claims check written: 8 claim(s) for 6 patient(s). 1250 at risk. 5 finding(s): filing_missed 1, filing_closing 1, wrong_payer_order 1, secondary_not_sent 1, sent_without_primary_eob 1. Files: fairpractice-out/secondary/secondary-claims.csv, fairpractice-out/secondary/secondary-claims.html.
 
 ▶ Agent tries to send a patient statement
   status: blocked  decision: block
@@ -56,7 +56,7 @@ Fairpractice Secondary Claims demo (fictional practice, patients, staff and paye
 | Tool | What it does | Policy |
 |---|---|---|
 | `secondary_check` | List missed and closing secondary filing windows, wrong payer order, secondaries not sent and secondaries sent too early. | runs |
-| `secondary_write_report` | Write secondary-claims.csv (one row per item, with blank owner and decision columns) and secondary-claims.html into out_dir (default kestrel-out/secondary). | runs |
+| `secondary_write_report` | Write secondary-claims.csv (one row per item, with blank owner and decision columns) and secondary-claims.html into out_dir (default fairpractice-out/secondary). | runs |
 | `secondary_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `secondary_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `secondary_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

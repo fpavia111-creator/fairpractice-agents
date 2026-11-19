@@ -44,7 +44,7 @@ Fairpractice Exclusion Screening demo (fictional practice, patients, staff and p
 
 ▶ Write the screening file (Spanish page)
   status: executed  decision: allow
-  Exclusion screening written: 11 people screened against 9 list entries. 4 need action now. 9 finding(s): npi_match 1, confirmed_match 1, possible_match 2, near_name 1, dob_differs 1, reinstated 1, never_screened 1, screening_overdue 1. Files: kestrel-out/exclusions/exclusions.csv, kestrel-out/exclusions/exclusions.html.
+  Exclusion screening written: 11 people screened against 9 list entries. 4 need action now. 9 finding(s): npi_match 1, confirmed_match 1, possible_match 2, near_name 1, dob_differs 1, reinstated 1, never_screened 1, screening_overdue 1. Files: fairpractice-out/exclusions/exclusions.csv, fairpractice-out/exclusions/exclusions.html.
 
 ▶ Record a near-name match the officer checked
   status: executed  decision: allow
@@ -60,7 +60,7 @@ Fairpractice Exclusion Screening demo (fictional practice, patients, staff and p
 | Tool | What it does | Policy |
 |---|---|---|
 | `exclusions_check` | Match every person and vendor against the exclusion files and list matches to act on, near names to clear and people not screened recently. | runs |
-| `exclusions_write_report` | Write exclusions.csv (one row per item, with blank owner and decision columns) and exclusions.html into out_dir (default kestrel-out/exclusions). | runs |
+| `exclusions_write_report` | Write exclusions.csv (one row per item, with blank owner and decision columns) and exclusions.html into out_dir (default fairpractice-out/exclusions). | runs |
 | `exclusions_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `exclusions_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `exclusions_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

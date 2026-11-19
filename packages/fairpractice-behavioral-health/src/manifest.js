@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, PATIENT_ID, PATIENT_NAME, CPT, UNITS, MINUTES, DOS, PROVIDER, PAYER, KESTREL_LIMITS } from 'fairpractice-core';
+import { medAgent, fileArg, PATIENT_ID, PATIENT_NAME, CPT, UNITS, MINUTES, DOS, PROVIDER, PAYER, PRACTICE_LIMITS } from 'fairpractice-core';
 import { checkBehavioral, DEFAULT_LICENSE_RULES } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -8,7 +8,7 @@ const t = (aliases, extra = {}) => ({ aliases, ...extra });
 export const SESSION_FIELDS = Object.freeze({
   patient_id: PATIENT_ID, patient_name: PATIENT_NAME, date: { ...DOS, required: true }, cpt: { ...CPT, required: true },
   units: UNITS, minutes: MINUTES, start: t(['Start', 'Start Time', 'Time In']), end: t(['End', 'End Time', 'Time Out']),
-  provider: PROVIDER, license: t(['License', 'License Type', 'Credential', 'Credentials', 'Provider Type', 'Degree']), payer: PAYER,
+  provider: { ...PROVIDER, phi: 'name' }, license: t(['License', 'License Type', 'Credential', 'Credentials', 'Provider Type', 'Degree']), payer: PAYER,
   allowed: t(['Allowed', 'Allowed Amount', 'Expected', 'Expected Payment', 'Fee Schedule'], { type: 'money' }),
 });
 
@@ -39,7 +39,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, patient_id: i.patient_id, patient_name: i.patient_name || '', date: i.date, cpt: i.cpt, minutes: i.minutes ?? '', provider: i.provider || '', amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'patient_name', 'date', 'cpt', 'minutes', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Time ranges follow the CPT psychotherapy time rules as we understand them; which licenses may bill which codes differs by state and payer, so set license_rules to yours.', 'Fairpractice Behavioral Health reads only codes, times and license types; it never reads session notes.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Time ranges follow the CPT psychotherapy time rules as we understand them; which licenses may bill which codes differs by state and payer, so set license_rules to yours.', 'Fairpractice Behavioral Health reads only codes, times and license types; it never reads session notes.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'claim_submit', category: 'binding_send', description: 'Fairpractice Behavioral Health never submits or changes claims.' },

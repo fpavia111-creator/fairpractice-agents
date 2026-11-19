@@ -23,3 +23,13 @@ export const DEPARTMENT = t(['Department', 'Dept', 'Unit', 'Location', 'Site', '
 export const ROLE = t(['Role', 'Job Title', 'Title', 'Position', 'Job', 'Discipline', 'Job Code']);
 export const HIRE_DATE = t(['Hire Date', 'Start Date', 'Date Hired', 'Hired', 'Original Hire Date'], { type: 'date' });
 export const STATUS = t(['Status', 'Employment Status', 'State', 'Current Status']);
+// ---- added in 0.2.0 for Fairpractice wave 2 (additions only; the definitions above are unchanged) ----
+export const ACCOUNT = t(['Account', 'Account #', 'Account Number', 'Patient Account', 'Acct', 'Acct #', 'Encounter #', 'HAR', 'FIN', 'Visit #'], { phi: 'account', translate: false });
+export const NDC = t(['NDC', 'NDC Code', 'National Drug Code', 'NDC 11', 'NDC11', 'Drug NDC', 'Product NDC'], { translate: false });
+export const REV_CODE = t(['Revenue Code', 'Rev Code', 'Rev', 'UB Rev Code', 'RC', 'Rev Cd'], { translate: false });
+export const ADMIT = t(['Admit Date', 'Admission Date', 'Admitted', 'Admit', 'Admit Dt'], { type: 'date', translate: false });
+export const DISCHARGE = t(['Discharge Date', 'Discharged', 'Discharge', 'Disch Date', 'Discharge Dt'], { type: 'date', translate: false });
+export const DX = t(['Diagnosis', 'Diagnoses', 'Dx', 'ICD-10', 'ICD10', 'Diagnosis Codes', 'Dx Codes', 'ICD Codes'], { translate: false });
+export const DRUG = t(['Drug', 'Drug Name', 'Medication', 'Product', 'Product Name', 'Item Description'], { translate: false });
+export const PHONE = t(['Phone', 'Phone Number', 'Mobile', 'Cell', 'Cell Phone', 'Mobile Number', 'Patient Phone'], { phi: 'phone', translate: 'phone' });
+export const ORG = t(['Organization', 'Org', 'Facility', 'Group', 'Practice', 'Entity', 'Hospital'], { translate: 'company' });

@@ -161,19 +161,33 @@ export function personSimilarity(a, b) { const x = personKey(a), y = personKey(b
  */
 export function wordVariants(key) {
   const out = new Set();
-  for (const w of String(key ?? '').split(' ')) { if (!w) continue; out.add(w); if (w.length >= 3) for (let i = 0; i < w.length; i++) out.add(w.slice(0, i) + w.slice(i + 1)); if (w.length >= 5) out.add('^' + w.slice(0, 4)); }
+  for (const w of String(key ?? '').split(' ')) {
+    if (!w) continue; out.add(w);
+    if (/^\d+$/.test(w)) continue; // numbers match exactly: "Suite 101" one digit off is another suite, and digit variants collide by the thousand
+    if (w.length >= 3) for (let i = 0; i < w.length; i++) out.add(w.slice(0, i) + w.slice(i + 1));
+    if (w.length >= 5) out.add('^' + w.slice(0, 4));
+  }
   return out;
 }
 /**
  * Index of name keys for near-name search. The returned function gives the indexed keys that share a word
  * variant with a key (and are within maxLenDiff letters of its length), in the order they were indexed.
  * Comparing every name with every other took minutes at 10,000 names; this compares only likely ones.
- * Missed by design: names where every word is two or more typos away from the other name's words.
+ * A variant shared by more than maxBucket names (a word such as "medical" or "services" in a long vendor
+ * list) is not used to find candidates when the key has a rarer one; a name made only of such words still
+ * uses its rarest. Missed by design: names where every word is two or more typos away from the other
+ * name's words, and names that share only very common words.
  */
-export function nearNameIndex(keys, { maxLenDiff = Infinity } = {}) {
+export function nearNameIndex(keys, { maxLenDiff = Infinity, maxBucket = 500 } = {}) {
   const at = new Map(); const by = new Map();
   for (const k of keys) { if (!k || at.has(k)) continue; at.set(k, at.size); for (const v of wordVariants(k)) { let b = by.get(v); if (!b) by.set(v, (b = [])); b.push(k); } }
-  return (key) => { const c = new Set(); for (const v of wordVariants(key)) for (const k of by.get(v) || []) if (Math.abs(k.length - key.length) <= maxLenDiff) c.add(k); return [...c].sort((a, b) => at.get(a) - at.get(b)); };
+  return (key) => {
+    const buckets = [...wordVariants(key)].map((v) => by.get(v)).filter(Boolean);
+    const rare = buckets.filter((b) => b.length <= maxBucket);
+    const use = rare.length ? rare : buckets.sort((a, b) => a.length - b.length).slice(0, 1);
+    const c = new Set(); for (const b of use) for (const k of b) if (Math.abs(k.length - key.length) <= maxLenDiff) c.add(k);
+    return [...c].sort((a, b) => at.get(a) - at.get(b));
+  };
 }
 /** Code normalised for comparing: upper case, no spaces or dots. */
 export const codeKey = (v) => str(v).toUpperCase().replace(/[\s.]/g, '');

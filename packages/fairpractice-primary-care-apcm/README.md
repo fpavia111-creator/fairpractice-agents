@@ -46,7 +46,7 @@ Fairpractice Primary Care APCM demo (fictional practice, patients, staff and pay
 
 ▶ Write the month-end list
   status: executed  decision: allow
-  Advanced primary care management check written: 2026-10: 7 enrolled, 6 billed. 175 at risk, 145 unbilled. 6 finding(s): not_enrolled 1, no_consent 1, billed_twice 1, conflict_code 1, wrong_tier 1, enrolled_not_billed 1. Files: kestrel-out/apcm/apcm.csv, kestrel-out/apcm/apcm.html.
+  Advanced primary care management check written: 2026-10: 7 enrolled, 6 billed. 175 at risk, 145 unbilled. 6 finding(s): not_enrolled 1, no_consent 1, billed_twice 1, conflict_code 1, wrong_tier 1, enrolled_not_billed 1. Files: fairpractice-out/apcm/apcm.csv, fairpractice-out/apcm/apcm.html.
 
 ▶ Agent tries to enroll a patient
   status: blocked  decision: block
@@ -58,7 +58,7 @@ Fairpractice Primary Care APCM demo (fictional practice, patients, staff and pay
 | Tool | What it does | Policy |
 |---|---|---|
 | `apcm_check` | List enrollment and consent problems, double billing, conflicting codes, wrong levels and enrolled patients not billed. | runs |
-| `apcm_write_report` | Write apcm.csv (one row per item, with blank owner and decision columns) and apcm.html into out_dir (default kestrel-out/apcm). | runs |
+| `apcm_write_report` | Write apcm.csv (one row per item, with blank owner and decision columns) and apcm.html into out_dir (default fairpractice-out/apcm). | runs |
 | `apcm_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `apcm_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `apcm_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

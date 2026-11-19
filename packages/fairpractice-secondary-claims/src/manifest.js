@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, DOS, PAYER, CLAIM_ID, CHARGE, PAID, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, DOS, PAYER, CLAIM_ID, CHARGE, PAID, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkSecondary } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -44,7 +44,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, claim_id: i.claim_id, patient_id: i.patient_id, patient_name: i.patient_name || '', date: i.date, payer: i.payer, due: i.due || '', amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'claim_id', 'patient_name', 'payer', 'due', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Filing windows for secondary claims come from the days you set per payer; Fairpractice Secondary Claims does not know any payer\'s rules. Crossover claims sent by Medicare automatically may not show as sent in your file.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Filing windows for secondary claims come from the days you set per payer; Fairpractice Secondary Claims does not know any payer\'s rules. Crossover claims sent by Medicare automatically may not show as sent in your file.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'claim_submit', category: 'binding_send', description: 'Fairpractice Secondary Claims never submits or changes claims.' },

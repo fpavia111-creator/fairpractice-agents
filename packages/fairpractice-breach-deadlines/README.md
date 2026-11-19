@@ -45,7 +45,7 @@ Fairpractice Breach Deadlines demo (fictional practice, patients, staff and paye
 
 ▶ Write the incident review
   status: executed  decision: allow
-  Privacy incidents and breach notices written: 7 incident(s), 4 breach(es) affecting 3052 people. 11 finding(s): notice_past_due 1, hhs_notice_missing 1, state_ag_notice_missing 2, undetermined_past_deadline 1, assessment_overdue 2, notice_late 1, notice_due_soon 1, hhs_annual_due 2. Files: kestrel-out/breach/breaches.csv, kestrel-out/breach/breaches.html.
+  Privacy incidents and breach notices written: 7 incident(s), 4 breach(es) affecting 3052 people. 11 finding(s): notice_past_due 1, hhs_notice_missing 1, state_ag_notice_missing 2, undetermined_past_deadline 1, assessment_overdue 2, notice_late 1, notice_due_soon 1, hhs_annual_due 2. Files: fairpractice-out/breach/breaches.csv, fairpractice-out/breach/breaches.html.
 
 ▶ Agent tries to send breach letters
   status: blocked  decision: block
@@ -57,7 +57,7 @@ Fairpractice Breach Deadlines demo (fictional practice, patients, staff and paye
 | Tool | What it does | Policy |
 |---|---|---|
 | `breach_check` | List incidents with notices past due or due soon, missing HHS, media or state notices, and assessments not done. | runs |
-| `breach_write_report` | Write breaches.csv (one row per item, with blank owner and decision columns) and breaches.html into out_dir (default kestrel-out/breach). | runs |
+| `breach_write_report` | Write breaches.csv (one row per item, with blank owner and decision columns) and breaches.html into out_dir (default fairpractice-out/breach). | runs |
 | `breach_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `breach_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `breach_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

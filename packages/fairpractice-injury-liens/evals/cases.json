@@ -163,7 +163,7 @@
       },
       "expect": {
         "equals": {
-          "result.attorneys.0.attorney": "Harbor Law Group",
+          "result.attorneys.0.attorney": "Quillmere Law Group",
           "result.attorneys.0.balance": 11700,
           "result.attorneys.0.cases": 2
         }

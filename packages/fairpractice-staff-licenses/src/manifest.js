@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, STAFF_ID, STAFF_NAME, ROLE, DEPARTMENT, STATUS, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, STAFF_ID, STAFF_NAME, ROLE, DEPARTMENT, STATUS, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkCredentials } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -53,7 +53,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, person_id: i.person_id, name: i.name, role: i.role || '', department: i.department || '', credential: i.credential, state: i.state || '', expires: i.expires || '', message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'name', 'role', 'department', 'credential', 'expires', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'It does not look anything up with a licensing board or Nursys; verification dates are the ones in your file. Compact membership changes: keep compact_states current.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'It does not look anything up with a licensing board or Nursys; verification dates are the ones in your file. Compact membership changes: keep compact_states current.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'schedule_remove', category: 'production_deploy', description: 'Fairpractice Staff Licenses never changes the schedule or anyone\'s status; a manager does.' },

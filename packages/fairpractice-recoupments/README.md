@@ -48,7 +48,7 @@ Fairpractice Recoupments demo (fictional practice, patients, staff and payers)
 
 ▶ Write the recovery list
   status: executed  decision: allow
-  Recoupment review written: 8 recoupment(s), 2160 taken back, 7 matched to a claim. 930 to dispute, 1050 still appealable. 8 finding(s): taken_twice 1, over_original 1, beyond_lookback 1, no_notice 1, unmatched 1, appeal_closing 2, appeal_open 1. Files: kestrel-out/recoup/recoupments.csv, kestrel-out/recoup/recoupments.html.
+  Recoupment review written: 8 recoupment(s), 2160 taken back, 7 matched to a claim. 930 to dispute, 1050 still appealable. 8 finding(s): taken_twice 1, over_original 1, beyond_lookback 1, no_notice 1, unmatched 1, appeal_closing 2, appeal_open 1. Files: fairpractice-out/recoup/recoupments.csv, fairpractice-out/recoup/recoupments.html.
 
 ▶ Agent tries to file an appeal
   status: blocked  decision: block
@@ -60,7 +60,7 @@ Fairpractice Recoupments demo (fictional practice, patients, staff and payers)
 | Tool | What it does | Policy |
 |---|---|---|
 | `recoup_check` | List duplicate takebacks, excess takebacks, late recoupments, missing notices, unmatched takebacks and open appeal windows. | runs |
-| `recoup_write_report` | Write recoupments.csv (one row per item, with blank owner and decision columns) and recoupments.html into out_dir (default kestrel-out/recoup). | runs |
+| `recoup_write_report` | Write recoupments.csv (one row per item, with blank owner and decision columns) and recoupments.html into out_dir (default fairpractice-out/recoup). | runs |
 | `recoup_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `recoup_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `recoup_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

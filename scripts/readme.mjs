@@ -12,7 +12,7 @@ import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { describeSources, ONE_CLICK_CATEGORIES } from '../packages/fairclaim-core/src/index.js';
-import { KESTREL_LIMITS } from '../packages/fairpractice-core/src/index.js';
+import { PRACTICE_LIMITS } from '../packages/fairpractice-core/src/index.js';
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), '..'); const PK = join(repo, 'packages');
 const check = process.argv.includes('--check'); const only = process.argv.slice(2).filter((a) => !a.startsWith('--'));
@@ -84,7 +84,7 @@ function readme(n, m) {
   L.push('## Install', '', 'Node 20 or newer. No other runtime dependencies besides `fairpractice-core` and `fairclaim-core`.', '', '```json', JSON.stringify({ mcpServers: { [n]: { command: 'npx', args: ['-y', n, 'mcp', '--root', '/path/to/practice-files'] } } }, null, 2), '```', '', `Claude Code: \`claude mcp add ${n} -- npx -y ${n} mcp --root .\`, or use the plugin files in this folder.`, '');
   L.push('## CLI', '', '```bash', `${n} tools                 # every tool, its policy and arguments`, `${n} sources               # the columns each input is read from`, `${n} inspect <file>        # how a file would be read (names and shapes, never values)`, check ? `${n} call ${check.name} '${JSON.stringify(Object.fromEntries((check.inputSchema.required || []).map((k) => [k, `<${k}>`])))}'` : '', `${n} eval                  # the private eval cases on the fictional fixtures`, `${n} demo`, '```', '');
   L.push('## Patient and staff data', '', 'Results go to an AI model, so identifiers are masked before they leave the agent: patient and staff names become stable pseudonyms such as `PT-3f9a1c2e`, record and account numbers become `MRN-…` or `ACCT-…`, and e-mails and phone numbers are removed, also inside free text. Report files written to disk keep real names because staff work from them: keep them in a folder only your staff can open. The shared tests check that no fictional identifier from the fixtures reaches any eval result, and the hostile-input check plants spreadsheet formulas, HTML and AI-aimed instructions in the data. This keeps PHI away from the model; it is **not** a HIPAA compliance determination. Your business associate agreements, access controls and policies still apply.', '');
-  L.push('## Limits', '', ...[KESTREL_LIMITS.files, KESTREL_LIMITS.rules, KESTREL_LIMITS.advice].map((x) => `- ${x}`), '- Every call is written to a hash-chained audit log under `.remedy/` in the root. No network calls, no telemetry, no credentials. The bundled data is fictional.', '');
+  L.push('## Limits', '', ...[PRACTICE_LIMITS.files, PRACTICE_LIMITS.rules, PRACTICE_LIMITS.advice].map((x) => `- ${x}`), '- Every call is written to a hash-chained audit log under `.remedy/` in the root. No network calls, no telemetry, no credentials. The bundled data is fictional.', '');
   return L.filter((x, i, a) => !(x === '' && a[i - 1] === '')).join('\n');
 }
 

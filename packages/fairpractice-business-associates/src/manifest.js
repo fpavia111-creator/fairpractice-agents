@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, AMOUNT, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, AMOUNT, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkAssociates, PHI_SERVICE_WORDS } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -50,7 +50,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, vendor: i.vendor, service: i.service || '', vendor_owner: i.owner || '', baa_signed: i.baa_signed || '', baa_expires: i.baa_expires || '', amount: i.amount || 0, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'vendor', 'service', 'vendor_owner', 'baa_expires', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Whether a vendor is a business associate depends on what it actually does with patient data; the service words are only a hint.', KESTREL_LIMITS.advice],
+    limits: [PRACTICE_LIMITS.files, 'Whether a vendor is a business associate depends on what it actually does with patient data; the service words are only a hint.', PRACTICE_LIMITS.advice],
   },
   refused: [
     { name: 'vendor_email_send', category: 'binding_send', description: 'Fairpractice Business Associates never contacts vendors or sends BAAs.' },

@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, MONTH_ARG, PATIENT_ID, PATIENT_NAME, CPT, UNITS, DOS, KESTREL_LIMITS } from 'fairpractice-core';
+import { medAgent, fileArg, MONTH_ARG, PATIENT_ID, PATIENT_NAME, CPT, UNITS, DOS, PRACTICE_LIMITS } from 'fairpractice-core';
 import { checkApcm, DEFAULT_CONFLICTS } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -43,7 +43,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, patient_id: i.patient_id, patient_name: i.patient_name || '', month: i.month, cpt: i.cpt || '', expected: i.expected || '', amount: i.amount, missed: i.missed ?? '', message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'patient_name', 'month', 'cpt', 'expected', 'amount', 'missed', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'APCM levels and the codes not billed with it follow the Medicare rules as we understand them for 2026; set conflict_codes if your reading differs. The condition count and QMB status come from your list; Fairpractice Primary Care APCM does not read diagnoses.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'APCM levels and the codes not billed with it follow the Medicare rules as we understand them for 2026; set conflict_codes if your reading differs. The condition count and QMB status come from your list; Fairpractice Primary Care APCM does not read diagnoses.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'claim_submit', category: 'binding_send', description: 'Fairpractice Primary Care APCM never submits or changes claims.' },

@@ -3,13 +3,15 @@
 // optional draft -> one-click pair, and refused tools listed so a host model can see them.
 import { defineManifest, MODEL_PIN, memoryTools, refusedTools, reportTool, draftPair, page, LIMITS } from 'fairclaim-core';
 
-export const KESTREL_LIMITS = Object.freeze({
+export const PRACTICE_LIMITS = Object.freeze({
   files: 'Reads only the files you give it. It does not log in to an EHR, practice-management system, payer portal, clearinghouse, state system, HR or payroll system, or bank.',
   rules: 'Payer, Medicare, Medicaid, state and federal rules are summarised from public material as of 2026, and the numbers are settings you supply; a billing, compliance or legal professional checks them before you rely on them.',
   advice: 'Not legal, billing, coding, tax, clinical or HIPAA advice. It does not diagnose or recommend care. A person decides what to bill, pay, report, file or send.',
   estimate: 'Totals and projections are arithmetic on the numbers you give it, not forecasts or appraisals.',
   phi: 'Results returned to the AI model have patient and staff names, record numbers, member ids and other direct identifiers masked. The files written here keep the real values: keep them in a secure folder.',
 });
+// Old name from 0.1.0, kept so agents built on 0.1.x keep working.
+export const KESTREL_LIMITS = PRACTICE_LIMITS;
 
 const LIMIT_ARG = { type: 'integer', minimum: 1, maximum: 5000, description: 'Most items to return to the model (the report file always has all of them)' };
 const STATUS_ARG = { type: 'string', description: 'Only items with this status' };
@@ -33,7 +35,7 @@ const STATUS_ARG = { type: 'string', description: 'Only items with this status' 
  */
 export function medAgent(cfg) {
   const { pkg, prefix } = cfg;
-  const out = `kestrel-out/${prefix}`;
+  const out = `fairpractice-out/${prefix}`;
   const MEMORY = memoryTools(prefix, cfg.memoryKinds || {});
   const refused = refusedTools(cfg.refused || []);
   const drafts = cfg.drafts ? draftPair({ prefix, outDir: out, ...cfg.drafts }) : { tools: [], rules: [] };
@@ -65,7 +67,7 @@ export function medAgent(cfg) {
           title: cfg.report.title, intro: cfg.summary(o), rows, summary: `${cfg.report.title.en || cfg.report.title} written: ${cfg.summary(o)}`,
           columns: rows.length ? Object.keys(rows[0]) : ['status', 'owner', 'decision'],
           htmlColumns: cfg.report.htmlColumns, sections: cfg.report.sections ? cfg.report.sections(o) : [],
-          limits: cfg.report.limits || [KESTREL_LIMITS.files, KESTREL_LIMITS.rules, KESTREL_LIMITS.advice],
+          limits: cfg.report.limits || [PRACTICE_LIMITS.files, PRACTICE_LIMITS.rules, PRACTICE_LIMITS.advice],
         };
       },
     }),

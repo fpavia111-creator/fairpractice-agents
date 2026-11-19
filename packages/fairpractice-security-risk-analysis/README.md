@@ -44,7 +44,7 @@ Fairpractice Security Risk Analysis demo (fictional practice, patients, staff an
 
 ▶ Write the security committee list
   status: executed  decision: allow
-  Security risk analysis tracker written: 6 risk(s), 4 open, 3 high. 7 system(s) hold patient data. Last full analysis: 2025-09-30. 9 finding(s): sra_overdue 1, high_no_owner 1, high_no_plan 1, past_due 1, asset_not_assessed 1, evidence_missing 2, accepted_no_signoff 1, due_soon 1. Files: kestrel-out/risk/risk-analysis.csv, kestrel-out/risk/risk-analysis.html.
+  Security risk analysis tracker written: 6 risk(s), 4 open, 3 high. 7 system(s) hold patient data. Last full analysis: 2025-09-30. 9 finding(s): sra_overdue 1, high_no_owner 1, high_no_plan 1, past_due 1, asset_not_assessed 1, evidence_missing 2, accepted_no_signoff 1, due_soon 1. Files: fairpractice-out/risk/risk-analysis.csv, fairpractice-out/risk/risk-analysis.html.
 
 ▶ Agent tries to accept a risk itself
   status: blocked  decision: block
@@ -56,7 +56,7 @@ Fairpractice Security Risk Analysis demo (fictional practice, patients, staff an
 | Tool | What it does | Policy |
 |---|---|---|
 | `risk_check` | List gaps in the risk analysis, register, asset coverage and evidence. | runs |
-| `risk_write_report` | Write risk-analysis.csv (one row per item, with blank owner and decision columns) and risk-analysis.html into out_dir (default kestrel-out/risk). | runs |
+| `risk_write_report` | Write risk-analysis.csv (one row per item, with blank owner and decision columns) and risk-analysis.html into out_dir (default fairpractice-out/risk). | runs |
 | `risk_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `risk_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `risk_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

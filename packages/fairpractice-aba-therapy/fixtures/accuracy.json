@@ -1,0 +1,110 @@
+{
+  "case": "totals",
+  "id": [
+    ["patient_id", "date"]
+  ],
+  "planted": [
+    ["C2/2026-11-03", "no_auth"],
+    ["C4/2026-10-19", "over_auth_total"],
+    ["C1/2026-11-05", "over_weekly"],
+    ["C1/2026-11-09", "units_over_minutes"],
+    ["C3/2026-11-03", "wrong_provider_role"],
+    ["C2/2026-11-01", "supervision_low"],
+    ["C3/2026-11-01", "supervision_low"],
+    ["C3/2026-12-10", "auth_ending_unused"]
+  ],
+  "clean": [
+    {
+      "arg": "sessions",
+      "drop": [
+        [
+          ["Client ID", "C1"],
+          ["Date of Service", "2026-11-05"]
+        ],
+        ["Client ID", "C2"]
+      ],
+      "set": [
+        {
+          "where": [
+            ["Client ID", "C1"],
+            ["Date of Service", "2026-11-09"]
+          ],
+          "column": "Units",
+          "value": "8"
+        },
+        {
+          "where": [
+            ["Client ID", "C3"],
+            ["Date of Service", "2026-11-03"]
+          ],
+          "column": "Provider Role",
+          "value": "BCBA"
+        },
+        {
+          "where": [
+            ["Client ID", "C3"],
+            ["Date of Service", "2026-11-03"]
+          ],
+          "column": "Provider",
+          "value": "Dana Analyst"
+        }
+      ]
+    },
+    {
+      "arg": "authorizations",
+      "set": [
+        {
+          "where": ["Auth #", "A-300"],
+          "column": "End Date",
+          "value": "2027-02-28"
+        },
+        {
+          "where": ["Auth #", "A-400"],
+          "column": "Authorized Units",
+          "value": "30"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "one unit more than three hours support",
+      "edits": [
+        {
+          "arg": "sessions",
+          "set": [
+            {
+              "where": [
+                ["Client ID", "C1"],
+                ["Date of Service", "2026-11-03"]
+              ],
+              "column": "Units",
+              "value": "13"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["C1/2026-11-03", "units_over_minutes"]
+      ]
+    },
+    {
+      "name": "weekly limit lowered to 30 units",
+      "edits": [
+        {
+          "arg": "authorizations",
+          "set": [
+            {
+              "where": ["Auth #", "A-100"],
+              "column": "Units per Week",
+              "value": "30"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["C1/2026-11-04", "over_weekly"]
+      ]
+    }
+  ]
+}

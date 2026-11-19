@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkAccess } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -57,7 +57,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, request_id: i.request_id, patient_id: i.patient_id, patient_name: i.patient_name, received: i.received, due: i.due, fulfilled: i.fulfilled || '', amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'request_id', 'patient_name', 'received', 'due', 'fulfilled', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Deadlines count calendar days from the received date. Requests from third parties under a patient authorization follow other rules; mark them in requester_type.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Deadlines count calendar days from the received date. Requests from third parties under a patient authorization follow other rules; mark them in requester_type.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'records_release', category: 'binding_send', description: 'Fairpractice Records Requests never sends records to anyone; your release-of-information staff do.' },

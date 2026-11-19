@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, PATIENT_ID, PATIENT_NAME, CPT, UNITS, MINUTES, DOS, KESTREL_LIMITS } from 'fairpractice-core';
+import { medAgent, fileArg, PATIENT_ID, PATIENT_NAME, CPT, UNITS, MINUTES, DOS, PRACTICE_LIMITS } from 'fairpractice-core';
 import { checkRpm } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -35,7 +35,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, patient_id: i.patient_id, patient_name: i.patient_name || '', date: i.date, cpt: i.cpt, amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'patient_name', 'date', 'cpt', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Day and minute thresholds follow the Medicare codes as we understand them for 2026, including the shorter-period codes 99445 and 99470; check your payers.', 'Fairpractice Remote Monitoring counts reading days only; it never reads or judges the readings themselves.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Day and minute thresholds follow the Medicare codes as we understand them for 2026, including the shorter-period codes 99445 and 99470; check your payers.', 'Fairpractice Remote Monitoring counts reading days only; it never reads or judges the readings themselves.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'claim_submit', category: 'binding_send', description: 'Fairpractice Remote Monitoring never submits or changes claims.' },

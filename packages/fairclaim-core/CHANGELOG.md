@@ -4,6 +4,9 @@
 
 Fixed:
 
+- `remedy-new-agent` takes `<product>-<what-it-does>` names (for example `fairclaim-denial-trends`; the tool prefix is the words after the product) and refuses the old `<figure>-of-<process>` names (Fairpractice wave 1 final pass, after the Fairclinic note).
+- Over-long paths (more than 1,024 characters, or a folder or file name over 255) are refused by `safePath` with a plain message. A report `out_dir` of 200,000 characters made the recursive `mkdir` never return on Windows with Node 24 (found by the Fairpractice wave 2 hostile argument pass, 18 Nov 2026).
+
 - Modifier conflicts: the list missed AA with QY, QK with QY, AA with QZ, 25 with 57, and NU, RR and UE together; all are now conflicts (Dill and Sage).
 - Reason code overrides: a config override given as just a category ("197": "documentation") was ignored and left the category blank; both the short and the object form now work.
 - Open Dental layout: a procedure-log query that includes ProcStatus also lists treatment-planned, existing and deleted procedures; only completed ones are read now (Anise).

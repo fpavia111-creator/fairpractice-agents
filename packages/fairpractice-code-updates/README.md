@@ -48,7 +48,7 @@ Fairpractice Code Updates demo (fictional practice, patients, staff and payers)
 
 ▶ Write the update work list
   status: executed  decision: allow
-  Code update impact written: 10 change(s) (4 deleted, 5 added, 1 revised) against 6 chargemaster code(s). 10 finding(s): deleted_on_open_claim 1, deleted_in_chargemaster 2, deleted_in_order_set 2, deleted_in_fee_schedule 1, new_code_no_fee 3, revised_code 1. Files: kestrel-out/codes/codes-code-updates.csv, kestrel-out/codes/codes-code-updates.html.
+  Code update impact written: 10 change(s) (4 deleted, 5 added, 1 revised) against 6 chargemaster code(s). 10 finding(s): deleted_on_open_claim 1, deleted_in_chargemaster 2, deleted_in_order_set 2, deleted_in_fee_schedule 1, new_code_no_fee 3, revised_code 1. Files: fairpractice-out/codes/codes-code-updates.csv, fairpractice-out/codes/codes-code-updates.html.
 
 ▶ Agent tries to change the chargemaster
   status: blocked  decision: block
@@ -60,7 +60,7 @@ Fairpractice Code Updates demo (fictional practice, patients, staff and payers)
 | Tool | What it does | Policy |
 |---|---|---|
 | `codes_check` | List deleted codes on open claims, the chargemaster, order sets and fee schedules, new codes with no price and revised codes. | runs |
-| `codes_write_report` | Write codes-code-updates.csv (one row per item, with blank owner and decision columns) and codes-code-updates.html into out_dir (default kestrel-out/codes). | runs |
+| `codes_write_report` | Write codes-code-updates.csv (one row per item, with blank owner and decision columns) and codes-code-updates.html into out_dir (default fairpractice-out/codes). | runs |
 | `codes_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `codes_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `codes_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

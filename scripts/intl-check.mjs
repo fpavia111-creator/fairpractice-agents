@@ -47,7 +47,7 @@ for (const n of agents) {
   const passedEn = new Set(base.results.filter((r) => r.pass).map((r) => r.id));
   const row = { agent: n, cases: csvCases.length, english: passedEn.size, columns: 0, translated: 0, langs: {} };
   for (const lang of LANGS) {
-    const parent = mkdtempSync(join(tmpdir(), `kestrel-intl-${lang}-`)); const root = join(parent, 'root');
+    const parent = mkdtempSync(join(tmpdir(), `fairpractice-intl-${lang}-`)); const root = join(parent, 'root');
     cpSync(join(PK, n, 'fixtures'), join(root, 'fixtures'), { recursive: true });
     const done = new Map(); const dmyKinds = new Set(); const fileOv = {};
     for (const c of csvCases) {

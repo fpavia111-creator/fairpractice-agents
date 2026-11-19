@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, CPT, DOS, PAYER, CLAIM_ID, PAID, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, CPT, DOS, PAYER, CLAIM_ID, PAID, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkDisputes } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -47,7 +47,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, claim_id: i.claim_id, patient_id: i.patient_id || '', patient_name: i.patient_name || '', payer: i.payer, cpt: i.cpt || '', date: i.date, paid: i.paid ?? '', qpa: i.qpa ?? '', amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'claim_id', 'patient_name', 'payer', 'date', 'paid', 'qpa', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Outcomes by payer' }, rows: o.by_payer, columns: ['payer', 'disputes', 'won', 'lost', 'pending', 'win_rate', 'awarded_over_paid', 'fees_paid'] }, { title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Deadlines count business days and skip weekends and federal holidays; the federal IDR rules, fees and batching rules change, and state surprise-billing laws may apply instead. Check the current federal guidance.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Deadlines count business days and skip weekends and federal holidays; the federal IDR rules, fees and batching rules change, and state surprise-billing laws may apply instead. Check the current federal guidance.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'idr_initiate', category: 'binding_send', description: 'Fairpractice Surprise Billing Disputes never files IDR or sends negotiation notices.' },

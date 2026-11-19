@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkIncidents } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -52,7 +52,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, incident_id: i.incident_id, discovered: i.discovered, affected: i.affected, determination: i.determination, due: i.due, days: i.days ?? '', message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'incident_id', 'discovered', 'affected', 'due', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Whether an incident is a breach, and which state laws apply, is a decision for your privacy officer and counsel. The 60 days is an outer limit, not a target.', KESTREL_LIMITS.advice],
+    limits: [PRACTICE_LIMITS.files, 'Whether an incident is a breach, and which state laws apply, is a decision for your privacy officer and counsel. The 60 days is an outer limit, not a target.', PRACTICE_LIMITS.advice],
   },
   refused: [
     { name: 'breach_notice_send', category: 'binding_send', description: 'Fairpractice Breach Deadlines never sends notices to patients, the media, HHS or a state.' },

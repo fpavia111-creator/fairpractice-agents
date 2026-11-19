@@ -46,7 +46,7 @@ Fairpractice Care Management demo (fictional practice, patients, staff and payer
 
 ▶ Write the month-end list
   status: executed  decision: allow
-  Care management time check written: 7 patient-month(s) for 7 patient(s). 287 at risk, 107 unbilled. 6 finding(s): no_consent 1, other_practice 1, overlap_codes 1, under_threshold 1, addon_over 1, unbilled_time 1. Files: kestrel-out/ccm/ccm-care-management.csv, kestrel-out/ccm/ccm-care-management.html.
+  Care management time check written: 7 patient-month(s) for 7 patient(s). 287 at risk, 107 unbilled. 6 finding(s): no_consent 1, other_practice 1, overlap_codes 1, under_threshold 1, addon_over 1, unbilled_time 1. Files: fairpractice-out/ccm/ccm-care-management.csv, fairpractice-out/ccm/ccm-care-management.html.
 
 ▶ Agent tries to submit the month's claims
   status: blocked  decision: block
@@ -58,7 +58,7 @@ Fairpractice Care Management demo (fictional practice, patients, staff and payer
 | Tool | What it does | Policy |
 |---|---|---|
 | `ccm_check` | List consent problems, overlaps, codes under their time, add-ons over the time, and time that was never billed. | runs |
-| `ccm_write_report` | Write ccm-care-management.csv (one row per item, with blank owner and decision columns) and ccm-care-management.html into out_dir (default kestrel-out/ccm). | runs |
+| `ccm_write_report` | Write ccm-care-management.csv (one row per item, with blank owner and decision columns) and ccm-care-management.html into out_dir (default fairpractice-out/ccm). | runs |
 | `ccm_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `ccm_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `ccm_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

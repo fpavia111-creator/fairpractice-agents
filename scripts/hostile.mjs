@@ -40,7 +40,7 @@ const IDCOL = /(^|_)id$|^sku$|number$|^ref/i;
 const CRASH = /Cannot read prop|is not a function|undefined is not|is not iterable|of undefined|of null|is not defined|Maximum call stack|Invalid array length|E(NOENT|ISDIR|ACCES|NOTDIR):|\n\s+at /;
 const walk = (d) => (existsSync(d) ? readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)])) : []);
 const load = async (n) => ({ manifest: (await import(pathToFileURL(join(PK, n, 'src', 'manifest.js')).href)).manifest, cases: (() => { const c = JSON.parse(readFileSync(join(PK, n, 'evals', 'cases.json'), 'utf8')); return c.cases || c; })() });
-const sandbox = (n) => { const parent = mkdtempSync(join(tmpdir(), 'kestrel-hostile-')); const root = join(parent, 'root'); cpSync(join(PK, n, 'fixtures'), join(root, 'fixtures'), { recursive: true }); return { parent, root }; };
+const sandbox = (n) => { const parent = mkdtempSync(join(tmpdir(), 'fairpractice-hostile-')); const root = join(parent, 'root'); cpSync(join(PK, n, 'fixtures'), join(root, 'fixtures'), { recursive: true }); return { parent, root }; };
 const runtime = (manifest, root) => new AgentRuntime(manifest, { root, stateDir: join(root, '.remedy'), mode: 'assist', caps: { maxSteps: 100000, maxSpendUsd: 1e9 } });
 const call = async (manifest, root, tool, args) => { const rt = runtime(manifest, root); let out = await rt.call(tool, args); if (out.status === 'needs_approval') { rt.approvals.approve(out.approval_id, 'Hostile Input Check'); out = await rt.call(tool, args); } return out; };
 
@@ -94,7 +94,7 @@ async function dataPass(n) {
         const warned = (out.warnings || []).some((w) => /reads like instructions/.test(w));
         if (quoted && !warned) add({ n, kind: 'INJECTION_NOT_FLAGGED', where: c.id }); if (warned) info.injectWarnings++;
       }
-      if (variant === 'clean' && (out.warnings || []).some((w) => /reads like instructions/.test(w)) && n !== 'nemesis-of-servers') add({ n, kind: 'FALSE_INJECTION_WARNING', where: c.id });
+      if (variant === 'clean' && (out.warnings || []).some((w) => /reads like instructions/.test(w))) add({ n, kind: 'FALSE_INJECTION_WARNING', where: c.id });
     }
     for (const f of walk(root)) {
       const rel = relative(root, f).split('\\').join('/'); if (rel.startsWith('fixtures/') || rel.startsWith('.remedy/')) continue;

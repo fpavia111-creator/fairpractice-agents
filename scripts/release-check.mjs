@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Pre-publish checklist for every package in this repo, run as a dry run (ported from remedy-agents, 18 Nov 2026).
 // It never publishes, never logs in, never reads or prints NPM_TOKEN, and changes
-// nothing outside kestrel-out/release-check/ (the report it writes).
+// nothing outside fairpractice-out/release-check/ (the report it writes).
 //
 //   node scripts/release-check.mjs              all checks (tests, evals, hostile data pass, pack, scans, npm names)
 //   node scripts/release-check.mjs --offline    skip the npm registry lookups (reported as skipped, not passed)
@@ -145,7 +145,7 @@ for (const p of pkgs) {
   const r = run(NPM, ['pack', '--dry-run', '--json', '--ignore-scripts'], { cwd: p.dir });
   let info; try { info = JSON.parse(r.out.slice(r.out.indexOf('['))); } catch { packProblems.push(`${p.json.name}: npm pack --dry-run failed: ${r.out.trim().split('\n').pop()}`); continue; }
   const files = info[0].files.map((f) => f.path);
-  const bad = files.filter((f) => /(^|\/)(node_modules|\.remedy|remedy-out|kestrel-out|.kestrel|test|\.github)\/|\.npmrc$|\.tgz$|(^|\/)\.env/.test(f) || (/\.(pem|key)$/.test(f) && /PRIVATE KEY/.test(readFileSync(join(p.dir, f), 'utf8'))));
+  const bad = files.filter((f) => /(^|\/)(node_modules|\.remedy|remedy-out|fairpractice-out|test|\.github)\/|\.npmrc$|\.tgz$|(^|\/)\.env/.test(f) || (/\.(pem|key)$/.test(f) && /PRIVATE KEY/.test(readFileSync(join(p.dir, f), 'utf8'))));
   if (bad.length) packProblems.push(`${p.json.name}: would publish ${bad.slice(0, 5).join(', ')}`);
   for (const need of ['package.json', 'README.md', 'LICENSE']) if (!files.includes(need)) packProblems.push(`${p.json.name}: ${need} is not in the package`);
   for (const f of files) { const abs = join(p.dir, f); if (!existsSync(abs)) continue; const txt = readFileSync(abs).toString('utf8'); for (const [label, re] of SECRET) if (re.test(txt)) packProblems.push(`${p.json.name}: ${f} looks like it holds a ${label}`); }
@@ -196,7 +196,7 @@ const manual = [
   'Tag the release in git after publishing (git tag v' + core.json.version + ').',
 ];
 const report = { created: new Date().toISOString(), node: process.version, platform: process.platform, ok: !failed.length, failed: failed.length, warnings: warned.length, skipped: skipped.length, checks, packages: packs, registry, publish_order: order.map((p) => `${p.json.name}@${p.json.version}`), publish_commands: publish, manual_steps: manual, note: 'Dry run. Nothing was published.' };
-const outDir = join(ROOT, 'kestrel-out', 'release-check'); mkdirSync(outDir, { recursive: true });
+const outDir = join(ROOT, 'fairpractice-out', 'release-check'); mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, 'release-check.json'), JSON.stringify(report, null, 2) + '\n');
 const md = [`# Release check`, '', `${report.created} · Node ${process.version} · ${process.platform}`, '', `**${report.ok ? 'Ready to publish (dry run passed)' : `Not ready: ${failed.length} check(s) failed`}**${warned.length ? `, ${warned.length} warning(s)` : ''}${skipped.length ? `, ${skipped.length} skipped` : ''}. Nothing was published.`, '', '| Check | Result | Detail |', '|---|---|---|',
   ...checks.map((c) => `| ${c.area} | ${c.status} | ${c.message.replace(/\|/g, '\\|')} |`), '',

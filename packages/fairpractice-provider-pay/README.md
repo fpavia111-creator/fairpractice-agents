@@ -36,13 +36,13 @@ Fairpractice Provider Pay demo (fictional practice, patients, staff and payers)
   3 provider(s), 2544 wRVUs, 112710 earned under the plan. 5 finding(s): no_provider 1, no_rvu 1, draw_over_earned 1, true_up_owed 2.
     no_provider             0  5 charge line(s) (6.5 wRVUs) have no rendering provider.
     no_rvu                  0  Code 99417 (10 unit(s) on 10 line(s)) has no work RVU in your RVU file.
-    draw_over_earned     2670  Sam Otto DO: 674 wRVUs earn 30330; draws paid 33000, so 2670 was paid ahead of production.
-    true_up_owed         3320  Rhea Lin MD: 1160 wRVUs earn 53320; draws paid 50000, so 3320 is owed at true-up.
-    true_up_owed         2060  June Park NP: 710 wRVUs earn 29060; draws paid 27000, so 2060 is owed at true-up.
+    draw_over_earned     2670  PT-9984ea0e: 674 wRVUs earn 30330; draws paid 33000, so 2670 was paid ahead of production.
+    true_up_owed         3320  PT-ef718e88: 1160 wRVUs earn 53320; draws paid 50000, so 3320 is owed at true-up.
+    true_up_owed         2060  PT-2b0ca866: 710 wRVUs earn 29060; draws paid 27000, so 2060 is owed at true-up.
 
 ▶ Write the true-up report
   status: executed  decision: allow
-  Provider wRVU pay and true-up written: 3 provider(s), 2544 wRVUs, 112710 earned under the plan. 5 finding(s): no_provider 1, no_rvu 1, draw_over_earned 1, true_up_owed 2. Files: kestrel-out/providerpay/providerpay-provider-pay.csv, kestrel-out/providerpay/providerpay-provider-pay.html.
+  Provider wRVU pay and true-up written: 3 provider(s), 2544 wRVUs, 112710 earned under the plan. 5 finding(s): no_provider 1, no_rvu 1, draw_over_earned 1, true_up_owed 2. Files: fairpractice-out/providerpay/providerpay-provider-pay.csv, fairpractice-out/providerpay/providerpay-provider-pay.html.
 
 ▶ Agent tries to run payroll
   status: blocked  decision: block
@@ -54,7 +54,7 @@ Fairpractice Provider Pay demo (fictional practice, patients, staff and payers)
 | Tool | What it does | Policy |
 |---|---|---|
 | `providerpay_check` | List charges with no provider, codes with no RVU, and each provider's true-up against draws. | runs |
-| `providerpay_write_report` | Write providerpay-provider-pay.csv (one row per item, with blank owner and decision columns) and providerpay-provider-pay.html into out_dir (default kestrel-out/providerpay). | runs |
+| `providerpay_write_report` | Write providerpay-provider-pay.csv (one row per item, with blank owner and decision columns) and providerpay-provider-pay.html into out_dir (default fairpractice-out/providerpay). | runs |
 | `providerpay_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `providerpay_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `providerpay_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |
@@ -86,7 +86,7 @@ The PointClickCare, MatrixCare and American HealthTech style names were written 
 
 | Column | Type | Read from |
 |---|---|---|
-| `provider` | text | Provider, Rendering Provider, Rendering, Clinician, Therapist, Physician, Doctor, Practitioner |
+| `provider` | text (masked) | Provider, Rendering Provider, Rendering, Clinician, Therapist, Physician, Doctor, Practitioner |
 | `dos` | date | Date of Service, DOS, Service Date, Visit Date, Date, From DOS, Session Date, Appointment Date |
 | `cpt` (required) | text | CPT, Code, Procedure, Procedure Code, CPT/HCPCS, HCPCS, Service Code, Proc Code |
 | `modifiers` | text | Modifiers, Modifier, Mod, Mods, Modifier 1, Mod 1 |

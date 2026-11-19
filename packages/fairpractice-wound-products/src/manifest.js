@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, PATIENT_ID, PATIENT_NAME, CPT, MODIFIER_COL, UNITS, DOS, PAID, KESTREL_LIMITS } from 'fairpractice-core';
+import { medAgent, fileArg, PATIENT_ID, PATIENT_NAME, CPT, MODIFIER_COL, UNITS, DOS, PAID, PRACTICE_LIMITS } from 'fairpractice-core';
 import { checkWound } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -41,7 +41,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, patient_id: i.patient_id, patient_name: i.patient_name || '', date: i.date, cpt: i.cpt || '', units: i.units ?? '', amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'patient_name', 'date', 'cpt', 'units', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'One billing unit is taken as one square centimetre, the usual unit for skin substitute codes; check each product\'s descriptor. Coverage rules for skin substitutes change often (local coverage determinations); Fairpractice Wound Products does not judge coverage.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'One billing unit is taken as one square centimetre, the usual unit for skin substitute codes; check each product\'s descriptor. Coverage rules for skin substitutes change often (local coverage determinations); Fairpractice Wound Products does not judge coverage.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'claim_submit', category: 'binding_send', description: 'Fairpractice Wound Products never submits or changes claims.' },

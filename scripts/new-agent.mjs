@@ -5,7 +5,7 @@
 // written by hand and never overwritten.
 //
 //   node scripts/new-agent.mjs            (all agents)
-//   node scripts/new-agent.mjs oak-of-census
+//   node scripts/new-agent.mjs fairpractice-aba-therapy
 import { mkdirSync, writeFileSync, existsSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -20,12 +20,12 @@ for (const [name, description, kw] of list) {
   if (only && only !== name) continue;
   const root = join(repo, 'packages', name);
   const write = (f, text, { keep = false } = {}) => { const p = join(root, f); if (keep && existsSync(p)) return; mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, text); };
-  const keywords = ['mcp', 'mcp-server', 'healthcare', 'medical-billing', 'revenue-cycle', 'healthcare-compliance', 'kestrel', ...kw.split(',').filter(Boolean)];
+  const keywords = ['mcp', 'mcp-server', 'healthcare', 'medical-billing', 'revenue-cycle', 'healthcare-compliance', ...kw.split(',').filter(Boolean)];
   const home = `https://github.com/fpavia111-creator/fairpractice-agents/tree/main/packages/${name}#readme`;
   write('package.json', JSON.stringify({
-    name, version: VERSION, description, type: 'module', license: 'MIT', author: 'Kurt Francisco', engines: { node: '>=20' },
+    name, version: VERSION, mcpName: `io.github.fpavia111-creator/${name}`, description, type: 'module', license: 'MIT', author: 'Kurt Francisco', engines: { node: '>=20' },
     main: 'src/index.js', exports: { '.': './src/index.js', './package.json': './package.json' }, bin: { [name]: `bin/${name}.js` },
-    files: ['src', 'bin', 'fixtures', 'evals', 'README.md', 'CHANGELOG.md', 'LICENSE'],
+    files: ['src', 'bin', 'fixtures', 'evals', 'README.md', 'CHANGELOG.md', 'LICENSE', 'server.json'],
     scripts: { test: 'node scripts/run-tests.cjs', demo: `node bin/${name}.js demo`, eval: `node bin/${name}.js eval` },
     dependencies: { 'fairpractice-core': `^${corePkg.version}` },
     repository: { type: 'git', url: 'git+https://github.com/fpavia111-creator/fairpractice-agents.git', directory: `packages/${name}` },
@@ -90,9 +90,9 @@ test('the report keeps real names in the files for staff, while the result to th
   const canaries = JSON.parse(readFileSync(new URL('../fixtures/phi-canaries.json', import.meta.url), 'utf8')).values;
   const src = fileURLToPath(new URL('../evals/' + (data.root || '.') + '/', import.meta.url));
   const root = mkdtempSync(join(tmpdir(), '${name}-report-'));
-  cpSync(src, root, { recursive: true, filter: (p) => !/[\\\\/](node_modules|kestrel-out|remedy-out|\\.remedy)([\\\\/]|$)/.test(p) });
+  cpSync(src, root, { recursive: true, filter: (p) => !/[\\\\/](node_modules|fairpractice-out|remedy-out|\\.remedy)([\\\\/]|$)/.test(p) });
   const rt = new AgentRuntime(manifest, { root, stateDir: null, audit: false });
-  const r = await rt.call(c.tool, { ...c.args, out_dir: 'kestrel-out/report-test' });
+  const r = await rt.call(c.tool, { ...c.args, out_dir: 'fairpractice-out/report-test' });
   assert.equal(r.status, 'executed', r.reason);
   const files = r.result.files.map((f) => join(root, f));
   for (const f of files) assert.ok(existsSync(f), f);

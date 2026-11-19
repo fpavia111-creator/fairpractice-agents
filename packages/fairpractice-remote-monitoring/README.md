@@ -45,7 +45,7 @@ Fairpractice Remote Monitoring demo (fictional practice, patients, staff and pay
 
 ▶ Write the month-end list
   status: executed  decision: allow
-  Remote monitoring billing check written: 17 claim line(s) for 6 patient(s), 178 reading day(s). 225 at risk. 6 finding(s): setup_repeat 1, period_overlap 1, days_short 1, overlap_rtm 1, no_interactive 1, minutes_short 1. Files: kestrel-out/rpm/rpm-remote-monitoring.csv, kestrel-out/rpm/rpm-remote-monitoring.html.
+  Remote monitoring billing check written: 17 claim line(s) for 6 patient(s), 178 reading day(s). 225 at risk. 6 finding(s): setup_repeat 1, period_overlap 1, days_short 1, overlap_rtm 1, no_interactive 1, minutes_short 1. Files: fairpractice-out/rpm/rpm-remote-monitoring.csv, fairpractice-out/rpm/rpm-remote-monitoring.html.
 
 ▶ Agent tries to interpret a reading
   status: blocked  decision: block
@@ -57,7 +57,7 @@ Fairpractice Remote Monitoring demo (fictional practice, patients, staff and pay
 | Tool | What it does | Policy |
 |---|---|---|
 | `rpm_check` | List repeat setups, overlapping periods, short reading days, RTM overlaps, months with no interactive contact and short minutes. | runs |
-| `rpm_write_report` | Write rpm-remote-monitoring.csv (one row per item, with blank owner and decision columns) and rpm-remote-monitoring.html into out_dir (default kestrel-out/rpm). | runs |
+| `rpm_write_report` | Write rpm-remote-monitoring.csv (one row per item, with blank owner and decision columns) and rpm-remote-monitoring.html into out_dir (default fairpractice-out/rpm). | runs |
 | `rpm_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `rpm_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `rpm_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

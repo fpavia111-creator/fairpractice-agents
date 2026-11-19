@@ -1,0 +1,100 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "incident_id"
+    ]
+  ],
+  "planted": [
+    ["INC-2026-03", "notice_past_due"],
+    ["INC-2026-02", "hhs_notice_missing"],
+    ["INC-2026-02", "state_ag_notice_missing"],
+    ["INC-2026-06", "state_ag_notice_missing"],
+    ["INC-2026-04", "undetermined_past_deadline"],
+    ["INC-2026-07", "assessment_overdue"],
+    ["INC-2026-04", "assessment_overdue"],
+    ["INC-2026-02", "notice_late"],
+    ["INC-2026-06", "notice_due_soon"],
+    ["INC-2026-03", "hhs_annual_due"],
+    ["INC-2026-01", "hhs_annual_due"]
+  ],
+  "clean": [
+    {
+      "arg": "incidents",
+      "drop": [
+        ["Incident #", "INC-2026-02"],
+        ["Incident #", "INC-2026-06"]
+      ],
+      "set": [
+        {
+          "where": ["Incident #", "INC-2026-01"],
+          "column": "HHS Notified",
+          "value": "2026-03-05"
+        },
+        {
+          "where": ["Incident #", "INC-2026-03"],
+          "column": "Individuals Notified",
+          "value": "2026-09-15"
+        },
+        {
+          "where": ["Incident #", "INC-2026-03"],
+          "column": "HHS Notified",
+          "value": "2026-09-15"
+        },
+        {
+          "where": ["Incident #", "INC-2026-04"],
+          "column": "Risk Assessment Date",
+          "value": "2026-09-05"
+        },
+        {
+          "where": ["Incident #", "INC-2026-04"],
+          "column": "Determination",
+          "value": "not a breach (low probability)"
+        },
+        {
+          "where": ["Incident #", "INC-2026-07"],
+          "column": "Risk Assessment Date",
+          "value": "2026-11-05"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "a small incident decided to be a breach",
+      "edits": [
+        {
+          "arg": "incidents",
+          "set": [
+            {
+              "where": ["Incident #", "INC-2026-05"],
+              "column": "Determination",
+              "value": "breach"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["INC-2026-05", "hhs_annual_due"]
+      ]
+    },
+    {
+      "name": "a Texas breach over the attorney general threshold",
+      "edits": [
+        {
+          "arg": "incidents",
+          "set": [
+            {
+              "where": ["Incident #", "INC-2026-01"],
+              "column": "People Affected",
+              "value": "300"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["INC-2026-01", "state_ag_notice_missing"]
+      ]
+    }
+  ]
+}

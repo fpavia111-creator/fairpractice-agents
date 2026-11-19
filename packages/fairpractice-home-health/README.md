@@ -44,7 +44,7 @@ Fairpractice Home Health demo (fictional practice, patients, staff and payers)
 
 ▶ Write the administrator list
   status: executed  decision: allow
-  Home health period check written: 7 period(s), 22 visit(s), 5 patient(s). 2900 at risk. 6 finding(s): noa_missing 1, noa_late 1, period_overlap 1, visit_outside_period 1, lupa 1, lupa_risk 1. Files: kestrel-out/homehealth/homehealth-home-health.csv, kestrel-out/homehealth/homehealth-home-health.html.
+  Home health period check written: 7 period(s), 22 visit(s), 5 patient(s). 2900 at risk. 6 finding(s): noa_missing 1, noa_late 1, period_overlap 1, visit_outside_period 1, lupa 1, lupa_risk 1. Files: fairpractice-out/homehealth/homehealth-home-health.csv, fairpractice-out/homehealth/homehealth-home-health.html.
 
 ▶ Agent tries to file a notice of admission
   status: blocked  decision: block
@@ -56,7 +56,7 @@ Fairpractice Home Health demo (fictional practice, patients, staff and payers)
 | Tool | What it does | Policy |
 |---|---|---|
 | `homehealth_check` | List missing or late NOAs, overlapping periods, stray visits and low-utilization periods. | runs |
-| `homehealth_write_report` | Write homehealth-home-health.csv (one row per item, with blank owner and decision columns) and homehealth-home-health.html into out_dir (default kestrel-out/homehealth). | runs |
+| `homehealth_write_report` | Write homehealth-home-health.csv (one row per item, with blank owner and decision columns) and homehealth-home-health.html into out_dir (default fairpractice-out/homehealth). | runs |
 | `homehealth_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `homehealth_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `homehealth_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

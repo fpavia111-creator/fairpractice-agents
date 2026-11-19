@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, STAFF_ID, STAFF_NAME, ROLE, DEPARTMENT, STATUS, HIRE_DATE, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, STAFF_ID, STAFF_NAME, ROLE, DEPARTMENT, STATUS, HIRE_DATE, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkTraining } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -47,7 +47,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, person_id: i.person_id, name: i.name, role: i.role || '', department: i.department || '', course: i.course, last_completed: i.last_completed || '', due: i.due || '', message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'name', 'department', 'course', 'last_completed', 'due', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Overdue by course' }, rows: Object.entries(o.by_course).map(([course, count]) => ({ course, count })), columns: ['course', 'count'] }, { title: { en: 'Overdue by department' }, rows: Object.entries(o.by_department).map(([department, count]) => ({ department, count })), columns: ['department', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Which courses a law requires, and how often, is your policy\'s call; the settings hold your answer.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Which courses a law requires, and how often, is your policy\'s call; the settings hold your answer.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'lms_assign', category: 'production_deploy', description: 'Fairpractice Compliance Training never assigns courses or changes the learning system.' },

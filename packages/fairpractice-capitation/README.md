@@ -47,7 +47,7 @@ Fairpractice Capitation demo (fictional practice, patients, staff and payers)
 
 ▶ Write the dispute list
   status: executed  decision: allow
-  Capitation reconciliation written: 2026-08 to 2026-10: 7 member(s), expected 640, paid 695. Underpaid 41 to dispute, overpaid 96 to set aside (net -55). 8 finding(s): not_paid 1, wrong_rate 1, duplicate_payment 1, paid_not_eligible 2, retro_term 1, retro_add 2. Files: kestrel-out/capitation/capitation.csv, kestrel-out/capitation/capitation.html.
+  Capitation reconciliation written: 2026-08 to 2026-10: 7 member(s), expected 640, paid 695. Underpaid 41 to dispute, overpaid 96 to set aside (net -55). 8 finding(s): not_paid 1, wrong_rate 1, duplicate_payment 1, paid_not_eligible 2, retro_term 1, retro_add 2. Files: fairpractice-out/capitation/capitation.csv, fairpractice-out/capitation/capitation.html.
 
 ▶ Agent tries to send the dispute
   status: blocked  decision: block
@@ -59,7 +59,7 @@ Fairpractice Capitation demo (fictional practice, patients, staff and payers)
 | Tool | What it does | Policy |
 |---|---|---|
 | `capitation_check` | List members not paid, wrong rates, duplicates, payments for members not eligible, and retro adds and terms, with the net to dispute. | runs |
-| `capitation_write_report` | Write capitation.csv (one row per item, with blank owner and decision columns) and capitation.html into out_dir (default kestrel-out/capitation). | runs |
+| `capitation_write_report` | Write capitation.csv (one row per item, with blank owner and decision columns) and capitation.html into out_dir (default fairpractice-out/capitation). | runs |
 | `capitation_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `capitation_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `capitation_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

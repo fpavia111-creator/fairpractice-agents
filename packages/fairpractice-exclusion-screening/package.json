@@ -33,7 +33,7 @@
     "eval": "node bin/fairpractice-exclusion-screening.js eval"
   },
   "dependencies": {
-    "fairpractice-core": "^0.1.0"
+    "fairpractice-core": "^0.2.0"
   },
   "repository": {
     "type": "git",
@@ -51,7 +51,6 @@
     "medical-billing",
     "revenue-cycle",
     "healthcare-compliance",
-    "kestrel",
     "exclusion-screening",
     "oig",
     "leie",

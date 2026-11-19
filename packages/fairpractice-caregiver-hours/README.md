@@ -43,7 +43,7 @@ Fairpractice Caregiver Hours demo (fictional practice, patients, staff and payer
 
 ▶ Write the payroll list
   status: executed  decision: allow
-  Caregiver hours and pay check written: 14 shift(s), 4 caregiver(s), 4 caregiver-week(s), 6.67 overtime hour(s). 110.5 owed or at risk. 6 finding(s): hours_underpaid 2, meal_break_missed 1, live_in_sleep 1, split_shift 1, travel_time 1. Files: kestrel-out/caregiver/caregiver-hours.csv, kestrel-out/caregiver/caregiver-hours.html.
+  Caregiver hours and pay check written: 14 shift(s), 4 caregiver(s), 4 caregiver-week(s), 6.67 overtime hour(s). 110.5 owed or at risk. 6 finding(s): hours_underpaid 2, meal_break_missed 1, live_in_sleep 1, split_shift 1, travel_time 1. Files: fairpractice-out/caregiver/caregiver-hours.csv, fairpractice-out/caregiver/caregiver-hours.html.
 
 ▶ Agent tries to change payroll
   status: blocked  decision: block
@@ -55,7 +55,7 @@ Fairpractice Caregiver Hours demo (fictional practice, patients, staff and payer
 | Tool | What it does | Policy |
 |---|---|---|
 | `caregiver_check` | List weeks paid short, missed meal breaks, live-in sleep to pay, split shifts, travel time and overtime weeks. | runs |
-| `caregiver_write_report` | Write caregiver-hours.csv (one row per item, with blank owner and decision columns) and caregiver-hours.html into out_dir (default kestrel-out/caregiver). | runs |
+| `caregiver_write_report` | Write caregiver-hours.csv (one row per item, with blank owner and decision columns) and caregiver-hours.html into out_dir (default fairpractice-out/caregiver). | runs |
 | `caregiver_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `caregiver_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `caregiver_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

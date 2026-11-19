@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, NPI, AMOUNT, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, NPI, AMOUNT, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkPhysicianPayments } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -53,7 +53,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, physician: i.physician || '', contract_id: i.contract_id || '', type: i.type || '', date: i.date || '', amount: i.amount, at_risk: i.at_risk, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'physician', 'contract_id', 'date', 'amount', 'at_risk', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Stark and anti-kickback questions turn on facts and exceptions only counsel can weigh; this checks your paperwork against itself and your FMV settings.', KESTREL_LIMITS.advice],
+    limits: [PRACTICE_LIMITS.files, 'Stark and anti-kickback questions turn on facts and exceptions only counsel can weigh; this checks your paperwork against itself and your FMV settings.', PRACTICE_LIMITS.advice],
   },
   refused: [
     { name: 'payment_release', category: 'payment', description: 'Fairpractice Physician Contracts never releases or stops a payment.' },

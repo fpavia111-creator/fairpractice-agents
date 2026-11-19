@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, CPT, MODIFIER_COL, UNITS, MINUTES, DOS, PROVIDER, PAYER, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, CPT, MODIFIER_COL, UNITS, MINUTES, DOS, PROVIDER, PAYER, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkTherapy, TIMED_CODES } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -7,7 +7,7 @@ const t = (aliases, extra = {}) => ({ aliases, ...extra });
 
 export const VISIT_FIELDS = Object.freeze({
   patient_id: PATIENT_ID, patient_name: PATIENT_NAME, date: { ...DOS, required: true }, cpt: { ...CPT, required: true },
-  modifiers: MODIFIER_COL, units: UNITS, minutes: MINUTES, provider: PROVIDER,
+  modifiers: MODIFIER_COL, units: UNITS, minutes: MINUTES, provider: { ...PROVIDER, phi: 'name' },
   provider_role: t(['Provider Role', 'Role', 'Credential', 'Discipline', 'Provider Type', 'Therapist Type']), payer: PAYER,
   allowed: t(['Allowed', 'Allowed Amount', 'Expected', 'Expected Payment', 'Fee Schedule', 'Contract Amount'], { type: 'money' }),
 });
@@ -51,7 +51,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, patient_id: i.patient_id, patient_name: i.patient_name || '', date: i.date, discipline: i.discipline || '', cpt: i.cpt || '', units: i.units ?? '', amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'patient_name', 'date', 'cpt', 'units', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'The KX threshold changes each year and the 8-minute rule here is the Medicare method (total timed minutes per day); some commercial payers count per code. Set both in settings.', 'Fairpractice Therapy Billing never decides whether therapy is medically necessary; KX is added only on your clinician\'s record.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'The KX threshold changes each year and the 8-minute rule here is the Medicare method (total timed minutes per day); some commercial payers count per code. Set both in settings.', 'Fairpractice Therapy Billing never decides whether therapy is medically necessary; KX is added only on your clinician\'s record.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'claim_submit', category: 'binding_send', description: 'Fairpractice Therapy Billing never submits or changes claims.' },

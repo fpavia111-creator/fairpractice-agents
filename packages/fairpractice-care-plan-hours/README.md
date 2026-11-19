@@ -41,7 +41,7 @@ Fairpractice Care Plan Hours demo (fictional practice, patients, staff and payer
 
 ▶ Write the coordinator list
   status: executed  decision: allow
-  Care plan hours check written: 4 plan(s) for 4 client(s), weeks 2026-11-02 to 2026-11-09. 168 at risk, 240 not delivered. 4 finding(s): not_on_plan 1, over_delivered 1, under_delivered 1, plan_ending 1. Files: kestrel-out/careplan/careplan-care-plans.csv, kestrel-out/careplan/careplan-care-plans.html.
+  Care plan hours check written: 4 plan(s) for 4 client(s), weeks 2026-11-02 to 2026-11-09. 168 at risk, 240 not delivered. 4 finding(s): not_on_plan 1, over_delivered 1, under_delivered 1, plan_ending 1. Files: fairpractice-out/careplan/careplan-care-plans.csv, fairpractice-out/careplan/careplan-care-plans.html.
 
 ▶ Agent tries to request a plan change
   status: blocked  decision: block
@@ -53,7 +53,7 @@ Fairpractice Care Plan Hours demo (fictional practice, patients, staff and payer
 | Tool | What it does | Policy |
 |---|---|---|
 | `careplan_check` | List services not on the plan, over-delivery, under-delivery and plans ending. | runs |
-| `careplan_write_report` | Write careplan-care-plans.csv (one row per item, with blank owner and decision columns) and careplan-care-plans.html into out_dir (default kestrel-out/careplan). | runs |
+| `careplan_write_report` | Write careplan-care-plans.csv (one row per item, with blank owner and decision columns) and careplan-care-plans.html into out_dir (default fairpractice-out/careplan). | runs |
 | `careplan_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `careplan_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `careplan_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

@@ -41,7 +41,7 @@ Fairpractice Records Requests demo (fictional practice, patients, staff and paye
 
 ▶ Write the privacy meeting list
   status: executed  decision: allow
-  Patient access requests written: 8 request(s): 3 open, 5 answered, 28 days on average. 8 finding(s): past_due 1, fulfilled_late 1, extension_no_notice 1, denial_no_reason 1, fee_over_limit 3, due_soon 1. Overcharged 19. Files: kestrel-out/access/access-requests.csv, kestrel-out/access/access-requests.html.
+  Patient access requests written: 8 request(s): 3 open, 5 answered, 28 days on average. 8 finding(s): past_due 1, fulfilled_late 1, extension_no_notice 1, denial_no_reason 1, fee_over_limit 3, due_soon 1. Overcharged 19. Files: fairpractice-out/access/access-requests.csv, fairpractice-out/access/access-requests.html.
 
 ▶ Agent tries to release records itself
   status: blocked  decision: block
@@ -53,7 +53,7 @@ Fairpractice Records Requests demo (fictional practice, patients, staff and paye
 | Tool | What it does | Policy |
 |---|---|---|
 | `access_check` | List access requests that are late, due soon, extended without notice, denied without a reason or overcharged. | runs |
-| `access_write_report` | Write access-requests.csv (one row per item, with blank owner and decision columns) and access-requests.html into out_dir (default kestrel-out/access). | runs |
+| `access_write_report` | Write access-requests.csv (one row per item, with blank owner and decision columns) and access-requests.html into out_dir (default fairpractice-out/access). | runs |
 | `access_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `access_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `access_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

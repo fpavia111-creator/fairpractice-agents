@@ -47,7 +47,7 @@ Fairpractice Injury Liens demo (fictional practice, patients, staff and payers)
 
 ▶ Write the case list with balances by attorney
   status: executed  decision: allow
-  Personal injury lien check written: 7 case(s), 4 open with 23600 outstanding across 3 attorney(s). 21600 at risk. 7 finding(s): settled_not_paid 1, case_dropped 1, statute_passed 1, no_lop 1, reduction_over_limit 1, statute_near 1, stale_case 1. Files: kestrel-out/liens/liens.csv, kestrel-out/liens/liens.html.
+  Personal injury lien check written: 7 case(s), 4 open with 23600 outstanding across 3 attorney(s). 21600 at risk. 7 finding(s): settled_not_paid 1, case_dropped 1, statute_passed 1, no_lop 1, reduction_over_limit 1, statute_near 1, stale_case 1. Files: fairpractice-out/liens/liens.csv, fairpractice-out/liens/liens.html.
 
 ▶ Agent tries to accept a reduction
   status: blocked  decision: block
@@ -59,7 +59,7 @@ Fairpractice Injury Liens demo (fictional practice, patients, staff and payers)
 | Tool | What it does | Policy |
 |---|---|---|
 | `liens_check` | List settled cases not paid, dropped cases, filing windows, missing letters, large reductions and stale cases, with open balances by attorney. | runs |
-| `liens_write_report` | Write liens.csv (one row per item, with blank owner and decision columns) and liens.html into out_dir (default kestrel-out/liens). | runs |
+| `liens_write_report` | Write liens.csv (one row per item, with blank owner and decision columns) and liens.html into out_dir (default fairpractice-out/liens). | runs |
 | `liens_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `liens_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `liens_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

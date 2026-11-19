@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, MINUTES, DOS, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, MINUTES, DOS, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkCarePlans } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -49,7 +49,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, client_id: i.client_id, client_name: i.client_name || '', date: i.date, service: i.service || '', authorized: i.authorized ?? '', delivered: i.delivered ?? i.hours ?? '', amount: i.amount, missed: i.missed ?? '', message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'client_name', 'date', 'service', 'authorized', 'delivered', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Weeks run Monday to Sunday and only weeks the plan covers in full are judged. Some programs authorize by month or by units; convert those to weekly hours first.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Weeks run Monday to Sunday and only weeks the plan covers in full are judged. Some programs authorize by month or by units; convert those to weekly hours first.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'plan_change_submit', category: 'binding_send', description: 'Fairpractice Care Plan Hours never requests plan or authorization changes.' },

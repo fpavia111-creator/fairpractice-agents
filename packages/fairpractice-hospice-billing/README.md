@@ -47,7 +47,7 @@ Fairpractice Hospice Billing demo (fictional practice, patients, staff and payer
 
 ▶ Write the administrator list
   status: executed  decision: allow
-  Hospice notices and cap check written: 8 patient(s). Cap year 2026: paid 205000 of 176807.2 (115.95%). Live discharge rate 50%. 31932.8 at risk. 7 finding(s): noe_missing 1, noe_late 1, notr_missing 1, f2f_missing 1, cap_over 1, f2f_due 1, live_discharge_high 1. Files: kestrel-out/hospice/hospice.csv, kestrel-out/hospice/hospice.html.
+  Hospice notices and cap check written: 8 patient(s). Cap year 2026: paid 205000 of 176807.2 (115.95%). Live discharge rate 50%. 31932.8 at risk. 7 finding(s): noe_missing 1, noe_late 1, notr_missing 1, f2f_missing 1, cap_over 1, f2f_due 1, live_discharge_high 1. Files: fairpractice-out/hospice/hospice.csv, fairpractice-out/hospice/hospice.html.
 
 ▶ Agent tries to file a notice of election
   status: blocked  decision: block
@@ -59,7 +59,7 @@ Fairpractice Hospice Billing demo (fictional practice, patients, staff and payer
 | Tool | What it does | Policy |
 |---|---|---|
 | `hospice_check` | List missing or late NOEs and NOTRs, missing or coming face-to-face encounters, the cap position and the live-discharge rate. | runs |
-| `hospice_write_report` | Write hospice.csv (one row per item, with blank owner and decision columns) and hospice.html into out_dir (default kestrel-out/hospice). | runs |
+| `hospice_write_report` | Write hospice.csv (one row per item, with blank owner and decision columns) and hospice.html into out_dir (default fairpractice-out/hospice). | runs |
 | `hospice_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `hospice_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `hospice_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

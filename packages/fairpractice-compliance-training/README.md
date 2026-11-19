@@ -39,7 +39,7 @@ Fairpractice Compliance Training demo (fictional practice, patients, staff and p
 
 ▶ Write the managers' list
   status: executed  decision: allow
-  Compliance training status written: 5 staff, 14 required course assignment(s), 85.7% current. 5 finding(s): new_hire_overdue 1, refresher_overdue 1, due_soon 3. Files: kestrel-out/training/training.csv, kestrel-out/training/training.html.
+  Compliance training status written: 5 staff, 14 required course assignment(s), 85.7% current. 5 finding(s): new_hire_overdue 1, refresher_overdue 1, due_soon 3. Files: fairpractice-out/training/training.csv, fairpractice-out/training/training.html.
 
 ▶ Agent tries to email managers
   status: blocked  decision: block
@@ -51,7 +51,7 @@ Fairpractice Compliance Training demo (fictional practice, patients, staff and p
 | Tool | What it does | Policy |
 |---|---|---|
 | `training_check` | List staff with required compliance courses overdue, never done or due soon. | runs |
-| `training_write_report` | Write training.csv (one row per item, with blank owner and decision columns) and training.html into out_dir (default kestrel-out/training). | runs |
+| `training_write_report` | Write training.csv (one row per item, with blank owner and decision columns) and training.html into out_dir (default fairpractice-out/training). | runs |
 | `training_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `training_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `training_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, PATIENT_ID, PATIENT_NAME, DOS, CLAIM_ID, PAYER, KESTREL_LIMITS } from 'fairpractice-core';
+import { medAgent, fileArg, PATIENT_ID, PATIENT_NAME, DOS, CLAIM_ID, PAYER, PRACTICE_LIMITS } from 'fairpractice-core';
 import { checkCodeUpdates } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -42,7 +42,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, code: i.code, code_set: i.code_set, effective: i.effective || '', replacement: i.replacement || '', where: i.order_set || i.payers || i.claim_id || '', patient_name: i.patient_name || '', message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'code', 'code_set', 'effective', 'replacement', 'where', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Fairpractice Code Updates ships no code lists or descriptions: CPT is licensed by the AMA, and you load the update from the official release you are licensed to use. Replacement codes are what the update file names, not a coding decision.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Fairpractice Code Updates ships no code lists or descriptions: CPT is licensed by the AMA, and you load the update from the official release you are licensed to use. Replacement codes are what the update file names, not a coding decision.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'chargemaster_update', category: 'production_deploy', description: 'Fairpractice Code Updates never changes the chargemaster or fee schedules.' },

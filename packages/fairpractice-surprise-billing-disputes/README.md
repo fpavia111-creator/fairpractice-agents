@@ -48,7 +48,7 @@ Fairpractice Surprise Billing Disputes demo (fictional practice, patients, staff
 
 ▶ Write the dispute tracker
   status: executed  decision: allow
-  Surprise billing dispute tracker written: 10 dispute(s) across 2 payer(s); 650 won above initial payments, 930 in fees paid. 7 finding(s): idr_window_missed 1, negotiation_window_missed 1, idr_due 1, negotiation_due_soon 1, paid_below_qpa 1, low_value 1, batchable 1. Files: kestrel-out/disputes/disputes.csv, kestrel-out/disputes/disputes.html.
+  Surprise billing dispute tracker written: 10 dispute(s) across 2 payer(s); 650 won above initial payments, 930 in fees paid. 7 finding(s): idr_window_missed 1, negotiation_window_missed 1, idr_due 1, negotiation_due_soon 1, paid_below_qpa 1, low_value 1, batchable 1. Files: fairpractice-out/disputes/disputes.csv, fairpractice-out/disputes/disputes.html.
 
 ▶ Agent tries to file IDR
   status: blocked  decision: block
@@ -60,7 +60,7 @@ Fairpractice Surprise Billing Disputes demo (fictional practice, patients, staff
 | Tool | What it does | Policy |
 |---|---|---|
 | `disputes_check` | List missed and coming negotiation and IDR deadlines, payments below QPA, low-value disputes and batching groups, with outcomes by payer. | runs |
-| `disputes_write_report` | Write disputes.csv (one row per item, with blank owner and decision columns) and disputes.html into out_dir (default kestrel-out/disputes). | runs |
+| `disputes_write_report` | Write disputes.csv (one row per item, with blank owner and decision columns) and disputes.html into out_dir (default fairpractice-out/disputes). | runs |
 | `disputes_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `disputes_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `disputes_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

@@ -44,7 +44,7 @@ Fairpractice Therapy Billing demo (fictional practice, patients, staff and payer
 
 ▶ Write the billing list
   status: executed  decision: allow
-  Therapy billing check written: 13 line(s) for 4 patient(s), 4 plan(s) of care. 301.25 at risk. 7 finding(s): no_plan_of_care 1, cert_unsigned 1, eight_minute_over 1, assistant_modifier_missing 1, discipline_modifier_wrong 1, kx_missing 1, recert_due 1. Files: kestrel-out/therapy/therapy.csv, kestrel-out/therapy/therapy.html.
+  Therapy billing check written: 13 line(s) for 4 patient(s), 4 plan(s) of care. 301.25 at risk. 7 finding(s): no_plan_of_care 1, cert_unsigned 1, eight_minute_over 1, assistant_modifier_missing 1, discipline_modifier_wrong 1, kx_missing 1, recert_due 1. Files: fairpractice-out/therapy/therapy.csv, fairpractice-out/therapy/therapy.html.
 
 ▶ Agent tries to add KX to a claim
   status: blocked  decision: block
@@ -56,7 +56,7 @@ Fairpractice Therapy Billing demo (fictional practice, patients, staff and payer
 | Tool | What it does | Policy |
 |---|---|---|
 | `therapy_check` | List visits with no plan of care, unsigned certifications, 8-minute rule overages, modifier problems, KX gaps and recertifications due. | runs |
-| `therapy_write_report` | Write therapy.csv (one row per item, with blank owner and decision columns) and therapy.html into out_dir (default kestrel-out/therapy). | runs |
+| `therapy_write_report` | Write therapy.csv (one row per item, with blank owner and decision columns) and therapy.html into out_dir (default fairpractice-out/therapy). | runs |
 | `therapy_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `therapy_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `therapy_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |
@@ -94,7 +94,7 @@ The PointClickCare, MatrixCare and American HealthTech style names were written 
 | `modifiers` | text | Modifiers, Modifier, Mod, Mods, Modifier 1, Mod 1 |
 | `units` | number | Units, Unit, Qty, Quantity, Days/Units, Service Units |
 | `minutes` | number | Minutes, Min, Mins, Duration, Duration (min), Time (min), Total Minutes, Treatment Minutes |
-| `provider` | text | Provider, Rendering Provider, Rendering, Clinician, Therapist, Physician, Doctor, Practitioner |
+| `provider` | text (masked) | Provider, Rendering Provider, Rendering, Clinician, Therapist, Physician, Doctor, Practitioner |
 | `provider_role` | text | Provider Role, Role, Credential, Discipline, Provider Type, Therapist Type |
 | `payer` | text | Payer, Payer Name, Primary Payer, Insurance, Insurance Name, Plan, Plan Name, Payor |
 | `allowed` | amount | Allowed, Allowed Amount, Expected, Expected Payment, Fee Schedule, Contract Amount |

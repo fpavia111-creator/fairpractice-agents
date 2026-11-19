@@ -1,0 +1,116 @@
+{
+  "case": "totals",
+  "id": [
+    ["patient_id", "date"]
+  ],
+  "planted": [
+    ["B3/2026-11-05", "license_cannot_bill"],
+    ["B2/2026-11-04", "addon_without_base"],
+    ["B1/2026-11-03", "wrong_time_code"],
+    ["B4/2026-11-09", "crisis_time"],
+    ["B5/2026-10-28", "over_yearly_limit"]
+  ],
+  "clean": [
+    {
+      "arg": "sessions",
+      "drop": [
+        [
+          ["Client ID", "B5"],
+          ["Date of Service", "2026-10-28"]
+        ]
+      ],
+      "set": [
+        {
+          "where": [
+            ["Client ID", "B3"],
+            ["Date of Service", "2026-11-05"]
+          ],
+          "column": "CPT",
+          "value": "90791"
+        },
+        {
+          "where": [
+            ["Client ID", "B2"],
+            ["Date of Service", "2026-11-04"]
+          ],
+          "column": "CPT",
+          "value": "99214"
+        },
+        {
+          "where": [
+            ["Client ID", "B1"],
+            ["Date of Service", "2026-11-03"]
+          ],
+          "column": "CPT",
+          "value": "90834"
+        },
+        {
+          "where": [
+            ["Client ID", "B4"],
+            ["CPT", "90840"]
+          ],
+          "column": "Units",
+          "value": "1"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "30 minutes billed as 90834",
+      "edits": [
+        {
+          "arg": "sessions",
+          "set": [
+            {
+              "where": [
+                ["Client ID", "B3"],
+                ["CPT", "90834"]
+              ],
+              "column": "Minutes",
+              "value": "30"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["B3/2026-11-12", "wrong_time_code"]
+      ]
+    },
+    {
+      "name": "yearly limit of 3",
+      "edits": [
+        {
+          "arg": "settings",
+          "json": {
+            "yearly_limits.Cedar Mutual": 3
+          }
+        }
+      ],
+      "expect": [
+        ["B5/2026-10-14", "over_yearly_limit"]
+      ]
+    },
+    {
+      "name": "crisis care of 60 minutes with an add-on unit",
+      "edits": [
+        {
+          "arg": "sessions",
+          "set": [
+            {
+              "where": [
+                ["Client ID", "B4"],
+                ["CPT", "90839"]
+              ],
+              "column": "Minutes",
+              "value": "60"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["B4/2026-11-09", "crisis_time"]
+      ]
+    }
+  ]
+}

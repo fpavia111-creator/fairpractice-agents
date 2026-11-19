@@ -43,7 +43,7 @@ Fairpractice Business Associates demo (fictional practice, patients, staff and p
 
 ▶ Write the compliance committee list
   status: executed  decision: allow
-  Business associate inventory check written: 7 vendor(s), 5 handle patient data, 7 payments checked. 8 finding(s): baa_missing 1, baa_expired 1, paid_not_on_list 1, phi_unknown 1, never_reviewed 1, review_overdue 2, baa_expiring 1. Files: kestrel-out/baa/baa-associates.csv, kestrel-out/baa/baa-associates.html.
+  Business associate inventory check written: 7 vendor(s), 5 handle patient data, 7 payments checked. 8 finding(s): baa_missing 1, baa_expired 1, paid_not_on_list 1, phi_unknown 1, never_reviewed 1, review_overdue 2, baa_expiring 1. Files: fairpractice-out/baa/baa-associates.csv, fairpractice-out/baa/baa-associates.html.
 
 ▶ Agent tries to email a vendor
   status: blocked  decision: block
@@ -55,7 +55,7 @@ Fairpractice Business Associates demo (fictional practice, patients, staff and p
 | Tool | What it does | Policy |
 |---|---|---|
 | `baa_check` | List BAA gaps, overdue security reviews and vendors paid but missing from the inventory. | runs |
-| `baa_write_report` | Write baa-associates.csv (one row per item, with blank owner and decision columns) and baa-associates.html into out_dir (default kestrel-out/baa). | runs |
+| `baa_write_report` | Write baa-associates.csv (one row per item, with blank owner and decision columns) and baa-associates.html into out_dir (default fairpractice-out/baa). | runs |
 | `baa_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `baa_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `baa_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

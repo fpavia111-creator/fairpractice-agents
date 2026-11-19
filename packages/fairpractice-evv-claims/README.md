@@ -43,7 +43,7 @@ Fairpractice EVV Claims demo (fictional practice, patients, staff and payers)
 
 ▶ Write the pre-billing list
   status: executed  decision: allow
-  EVV and claims check written: 7 EVV visit(s), 8 claim line(s), 4 client(s); 0 verified visit(s) not billed. 144 at risk. 5 finding(s): no_evv 1, units_over_verified 1, caregiver_mismatch 1, location_mismatch 1, manual_edits_high 1. Files: kestrel-out/evv/evv.csv, kestrel-out/evv/evv.html.
+  EVV and claims check written: 7 EVV visit(s), 8 claim line(s), 4 client(s); 0 verified visit(s) not billed. 144 at risk. 5 finding(s): no_evv 1, units_over_verified 1, caregiver_mismatch 1, location_mismatch 1, manual_edits_high 1. Files: fairpractice-out/evv/evv.csv, fairpractice-out/evv/evv.html.
 
 ▶ Agent tries to edit an EVV visit
   status: blocked  decision: block
@@ -55,7 +55,7 @@ Fairpractice EVV Claims demo (fictional practice, patients, staff and payers)
 | Tool | What it does | Policy |
 |---|---|---|
 | `evv_check` | List claim lines with no visit, units over verified time, caregiver and location mismatches, and caregivers with many manual edits. | runs |
-| `evv_write_report` | Write evv.csv (one row per item, with blank owner and decision columns) and evv.html into out_dir (default kestrel-out/evv). | runs |
+| `evv_write_report` | Write evv.csv (one row per item, with blank owner and decision columns) and evv.html into out_dir (default fairpractice-out/evv). | runs |
 | `evv_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `evv_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `evv_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

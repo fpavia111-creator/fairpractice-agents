@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, KESTREL_LIMITS, str, num } from 'fairpractice-core';
+import { medAgent, fileArg, PRACTICE_LIMITS, str, num } from 'fairpractice-core';
 import { checkReplies, safeReply, replyProblems } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -44,7 +44,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, review_id: i.review_id, platform: i.platform || '', reviewer: i.reviewer || '', rating: i.rating ?? '', hits: (i.hits || []).join('; '), message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'review_id', 'platform', 'rating', 'hits', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Word lists catch the usual mistakes, not every one: a person reads each reply before it is posted.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Word lists catch the usual mistakes, not every one: a person reads each reply before it is posted.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   drafts: {
     noun: 'review_reply', verb: 'post', category: 'public_post', actor: 'the person who posts replies',

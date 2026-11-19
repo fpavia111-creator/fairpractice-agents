@@ -199,10 +199,16 @@
       },
       "expect": {
         "equals": {
-          "result.items.0.seen_by": "Rhea Lin MD",
           "result.items.0.visits": 3
-        }
-      }
+        },
+        "matches": [
+          "\"seen_by\":\"PT-[0-9a-f]{8}\""
+        ],
+        "not_contains": [
+          "Rhea Lin MD"
+        ]
+      },
+      "note": "Provider names reach the model as pseudonyms; the report file keeps the real name."
     },
     {
       "id": "no-prior-no-adds",

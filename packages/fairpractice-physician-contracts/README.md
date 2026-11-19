@@ -42,7 +42,7 @@ Fairpractice Physician Contracts demo (fictional practice, patients, staff and p
 
 ▶ Write the compliance committee list
   status: executed  decision: allow
-  Physician arrangement payments written: 5 agreement(s), 9 payment(s) totaling 41100. 21025 in flagged payments. 9 finding(s): paid_no_contract 1, signed_after_payment 1, unsigned_contract 1, expired_contract_paid 1, over_annual_cap 1, rate_above_fmv 1, no_time_log 1, expiring_soon 2. Files: kestrel-out/physician/physician-payments.csv, kestrel-out/physician/physician-payments.html.
+  Physician arrangement payments written: 5 agreement(s), 9 payment(s) totaling 41100. 21025 in flagged payments. 9 finding(s): paid_no_contract 1, signed_after_payment 1, unsigned_contract 1, expired_contract_paid 1, over_annual_cap 1, rate_above_fmv 1, no_time_log 1, expiring_soon 2. Files: fairpractice-out/physician/physician-payments.csv, fairpractice-out/physician/physician-payments.html.
 
 ▶ Agent tries to release a payment
   status: blocked  decision: block
@@ -54,7 +54,7 @@ Fairpractice Physician Contracts demo (fictional practice, patients, staff and p
 | Tool | What it does | Policy |
 |---|---|---|
 | `physician_check` | List payments to physicians that lack a current signed agreement, exceed caps or rates, or lack time logs. | runs |
-| `physician_write_report` | Write physician-payments.csv (one row per item, with blank owner and decision columns) and physician-payments.html into out_dir (default kestrel-out/physician). | runs |
+| `physician_write_report` | Write physician-payments.csv (one row per item, with blank owner and decision columns) and physician-payments.html into out_dir (default fairpractice-out/physician). | runs |
 | `physician_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `physician_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `physician_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

@@ -41,7 +41,7 @@ Fairpractice ABA Therapy demo (fictional practice, patients, staff and payers)
 
 ▶ Write the billing list
   status: executed  decision: allow
-  ABA authorization and unit check written: 13 session line(s) for 4 client(s), 6 authorization(s). 355 at risk. 8 finding(s): no_auth 1, over_auth_total 1, over_weekly 1, units_over_minutes 1, wrong_provider_role 1, supervision_low 2, auth_ending_unused 1. Files: kestrel-out/aba/aba.csv, kestrel-out/aba/aba.html.
+  ABA authorization and unit check written: 13 session line(s) for 4 client(s), 6 authorization(s). 355 at risk. 8 finding(s): no_auth 1, over_auth_total 1, over_weekly 1, units_over_minutes 1, wrong_provider_role 1, supervision_low 2, auth_ending_unused 1. Files: fairpractice-out/aba/aba.csv, fairpractice-out/aba/aba.html.
 
 ▶ Agent tries to submit a claim
   status: blocked  decision: block
@@ -53,7 +53,7 @@ Fairpractice ABA Therapy demo (fictional practice, patients, staff and payers)
 | Tool | What it does | Policy |
 |---|---|---|
 | `aba_check` | List sessions with no or exhausted authorization, unit and role problems, low supervision and authorizations ending unused. | runs |
-| `aba_write_report` | Write aba.csv (one row per item, with blank owner and decision columns) and aba.html into out_dir (default kestrel-out/aba). | runs |
+| `aba_write_report` | Write aba.csv (one row per item, with blank owner and decision columns) and aba.html into out_dir (default fairpractice-out/aba). | runs |
 | `aba_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `aba_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `aba_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |
@@ -92,7 +92,7 @@ The PointClickCare, MatrixCare and American HealthTech style names were written 
 | `minutes` | number | Minutes, Min, Mins, Duration, Duration (min), Time (min), Total Minutes, Treatment Minutes |
 | `cpt` (required) | text | CPT, Code, Procedure, Procedure Code, CPT/HCPCS, HCPCS, Service Code, Proc Code |
 | `units` | number | Units, Unit, Qty, Quantity, Days/Units, Service Units |
-| `provider` | text | Provider, Rendering Provider, Rendering, Clinician, Therapist, Physician, Doctor, Practitioner |
+| `provider` | text (masked) | Provider, Rendering Provider, Rendering, Clinician, Therapist, Physician, Doctor, Practitioner |
 | `provider_role` | text | Provider Role, Role, Credential, Provider Credential, Staff Type |
 | `auth_number` | text | Auth #, Auth Number, Authorization, Authorization #, Auth ID, PA # |
 

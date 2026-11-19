@@ -49,9 +49,9 @@ test('the report keeps real names in the files for staff, while the result to th
   const canaries = JSON.parse(readFileSync(new URL('../fixtures/phi-canaries.json', import.meta.url), 'utf8')).values;
   const src = fileURLToPath(new URL('../evals/' + (data.root || '.') + '/', import.meta.url));
   const root = mkdtempSync(join(tmpdir(), 'fairpractice-caregiver-hours-report-'));
-  cpSync(src, root, { recursive: true, filter: (p) => !/[\\/](node_modules|kestrel-out|remedy-out|\.remedy)([\\/]|$)/.test(p) });
+  cpSync(src, root, { recursive: true, filter: (p) => !/[\\/](node_modules|fairpractice-out|remedy-out|\.remedy)([\\/]|$)/.test(p) });
   const rt = new AgentRuntime(manifest, { root, stateDir: null, audit: false });
-  const r = await rt.call(c.tool, { ...c.args, out_dir: 'kestrel-out/report-test' });
+  const r = await rt.call(c.tool, { ...c.args, out_dir: 'fairpractice-out/report-test' });
   assert.equal(r.status, 'executed', r.reason);
   const files = r.result.files.map((f) => join(root, f));
   for (const f of files) assert.ok(existsSync(f), f);

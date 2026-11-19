@@ -1,11 +1,11 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, DATE_ARG, PATIENT_ID, PATIENT_NAME, PROVIDER, CPT, MODIFIER_COL, UNITS, DOS, KESTREL_LIMITS } from 'fairpractice-core';
+import { medAgent, fileArg, DATE_ARG, PATIENT_ID, PATIENT_NAME, PROVIDER, CPT, MODIFIER_COL, UNITS, DOS, PRACTICE_LIMITS } from 'fairpractice-core';
 import { checkProviderPay, DEFAULT_MODIFIER_PCT } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 const t = (aliases, extra = {}) => ({ aliases, ...extra });
 
-export const CHARGE_FIELDS = Object.freeze({ provider: PROVIDER, dos: DOS, cpt: { ...CPT, required: true }, modifiers: MODIFIER_COL, units: UNITS, patient_id: PATIENT_ID, patient_name: PATIENT_NAME });
+export const CHARGE_FIELDS = Object.freeze({ provider: { ...PROVIDER, phi: 'name' }, dos: DOS, cpt: { ...CPT, required: true }, modifiers: MODIFIER_COL, units: UNITS, patient_id: PATIENT_ID, patient_name: PATIENT_NAME });
 export const RVU_FIELDS = Object.freeze({ code: t(['Code', 'HCPCS', 'CPT', 'CPT/HCPCS'], { translate: false, required: true }), modifier: t(['Modifier', 'Mod'], { translate: false }), work_rvu: t(['Work RVU', 'wRVU', 'Work', 'RVU'], { type: 'number', required: true }) });
 
 const TIERS = { type: 'array', minItems: 1, maxItems: 20, items: { type: 'object', additionalProperties: false, required: ['rate'], properties: { up_to: { type: ['number', 'null'], minimum: 0 }, rate: { type: 'number', minimum: 0 } } } };
@@ -38,7 +38,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, provider: i.provider || '', code: i.code || '', wrvu: i.wrvu ?? '', earned: i.earned ?? '', draws: i.draws ?? '', amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'provider', 'code', 'wrvu', 'earned', 'draws', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Pay by provider' }, rows: o.providers, columns: ['provider', 'lines', 'wrvu', 'earned', 'draws', 'true_up'] }, { title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Work RVUs come from the RVU file you load; modifier adjustments follow your settings. Comp plans differ (quality bonuses, panel adjustments, minimums); Fairpractice Provider Pay covers tiered wRVU pay and draws only.', 'Paying physicians by wRVU touches Stark and anti-kickback rules; have counsel review the plan itself.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Work RVUs come from the RVU file you load; modifier adjustments follow your settings. Comp plans differ (quality bonuses, panel adjustments, minimums); Fairpractice Provider Pay covers tiered wRVU pay and draws only.', 'Paying physicians by wRVU touches Stark and anti-kickback rules; have counsel review the plan itself.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'payroll_submit', category: 'payment', description: 'Fairpractice Provider Pay never runs payroll or pays providers.' },

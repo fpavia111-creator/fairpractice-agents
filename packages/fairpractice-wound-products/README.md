@@ -42,7 +42,7 @@ Fairpractice Wound Products demo (fictional practice, patients, staff and payers
 
 ▶ Write the billing list
   status: executed  decision: allow
-  Wound product billing check written: 11 claim line(s), 6 product line(s), 5 patient(s). 1416.67 at risk. 5 finding(s): no_invoice 1, units_over_opened 1, waste_modifier_wrong 1, application_mismatch 1, paid_below_cost 1. Files: kestrel-out/wound/wound-products.csv, kestrel-out/wound/wound-products.html.
+  Wound product billing check written: 11 claim line(s), 6 product line(s), 5 patient(s). 1416.67 at risk. 5 finding(s): no_invoice 1, units_over_opened 1, waste_modifier_wrong 1, application_mismatch 1, paid_below_cost 1. Files: fairpractice-out/wound/wound-products.csv, fairpractice-out/wound/wound-products.html.
 
 ▶ Agent tries to order more product
   status: blocked  decision: block
@@ -54,7 +54,7 @@ Fairpractice Wound Products demo (fictional practice, patients, staff and payers
 | Tool | What it does | Policy |
 |---|---|---|
 | `wound_check` | List products with no invoice, unit and waste modifier problems, application code mismatches and products paid below cost. | runs |
-| `wound_write_report` | Write wound-products.csv (one row per item, with blank owner and decision columns) and wound-products.html into out_dir (default kestrel-out/wound). | runs |
+| `wound_write_report` | Write wound-products.csv (one row per item, with blank owner and decision columns) and wound-products.html into out_dir (default fairpractice-out/wound). | runs |
 | `wound_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `wound_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `wound_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

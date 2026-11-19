@@ -38,14 +38,14 @@ Fairpractice Attribution Roster demo (fictional practice, patients, staff and pa
   5 attributed (5 last month), 5 active patient(s) with this payer. 80 a month at risk. 6 finding(s): left_out 1, dropped 1, wrong_provider 1, not_seen 2, added 1.
     left_out           40  Active patient (2 visit(s), last 2026-07-29) with this payer is not on the attribution roster.
     dropped            40  On last month's roster but not this month's; still seen here (last visit 2026-09-22).
-    wrong_provider      0  Attributed to Sam Otto DO but seen 3 time(s) by Rhea Lin MD and never by the attributed provider.
+    wrong_provider      0  Attributed to PT-9984ea0e but seen 3 time(s) by PT-ef718e88 and never by the attributed provider.
     not_seen            0  Attributed to you; last visit 2024-03-05, outside the lookback.
     not_seen            0  Attributed to you but never seen here.
     added               0  New on this month's roster.
 
 ▶ Write the reconciliation
   status: executed  decision: allow
-  Attribution reconciliation written: 5 attributed (5 last month), 5 active patient(s) with this payer. 80 a month at risk. 6 finding(s): left_out 1, dropped 1, wrong_provider 1, not_seen 2, added 1. Files: kestrel-out/attribution/attribution.csv, kestrel-out/attribution/attribution.html.
+  Attribution reconciliation written: 5 attributed (5 last month), 5 active patient(s) with this payer. 80 a month at risk. 6 finding(s): left_out 1, dropped 1, wrong_provider 1, not_seen 2, added 1. Files: fairpractice-out/attribution/attribution.csv, fairpractice-out/attribution/attribution.html.
 
 ▶ Agent tries to send a dispute to the payer
   status: blocked  decision: block
@@ -57,7 +57,7 @@ Fairpractice Attribution Roster demo (fictional practice, patients, staff and pa
 | Tool | What it does | Policy |
 |---|---|---|
 | `attribution_check` | List patients left out, dropped, attributed to the wrong provider, not seen and newly added. | runs |
-| `attribution_write_report` | Write attribution.csv (one row per item, with blank owner and decision columns) and attribution.html into out_dir (default kestrel-out/attribution). | runs |
+| `attribution_write_report` | Write attribution.csv (one row per item, with blank owner and decision columns) and attribution.html into out_dir (default fairpractice-out/attribution). | runs |
 | `attribution_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `attribution_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `attribution_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |
@@ -92,7 +92,7 @@ The PointClickCare, MatrixCare and American HealthTech style names were written 
 | `member_id` | text (masked) | Member ID, Member #, Subscriber ID, Insurance ID, MBI, Beneficiary ID, Policy # |
 | `patient_name` | text (masked) | Patient, Patient Name, Name, Client, Client Name, Member, Member Name, Beneficiary |
 | `dob` | date (masked) | DOB, Date of Birth, Birth Date, Birthdate |
-| `provider` | text | Attributed Provider, PCP, Provider, Assigned Provider, PCP Name |
+| `provider` | text (masked) | Attributed Provider, PCP, Provider, Assigned Provider, PCP Name |
 | `npi` | text | PCP NPI, Attributed NPI, NPI, Provider NPI |
 
 ### Last month's roster (`prior`)
@@ -102,7 +102,7 @@ The PointClickCare, MatrixCare and American HealthTech style names were written 
 | `member_id` | text (masked) | Member ID, Member #, Subscriber ID, Insurance ID, MBI, Beneficiary ID, Policy # |
 | `patient_name` | text (masked) | Patient, Patient Name, Name, Client, Client Name, Member, Member Name, Beneficiary |
 | `dob` | date (masked) | DOB, Date of Birth, Birth Date, Birthdate |
-| `provider` | text | Attributed Provider, PCP, Provider, Assigned Provider, PCP Name |
+| `provider` | text (masked) | Attributed Provider, PCP, Provider, Assigned Provider, PCP Name |
 | `npi` | text | PCP NPI, Attributed NPI, NPI, Provider NPI |
 
 ### Visits (`visits`)
@@ -114,7 +114,7 @@ The PointClickCare, MatrixCare and American HealthTech style names were written 
 | `patient_name` | text (masked) | Patient, Patient Name, Name, Client, Client Name, Member, Member Name, Beneficiary |
 | `dob` | date (masked) | DOB, Date of Birth, Birth Date, Birthdate |
 | `date` (required) | date | Date of Service, DOS, Service Date, Visit Date, Date, From DOS, Session Date, Appointment Date |
-| `provider` | text | Provider, Rendering Provider, Rendering, Clinician, Therapist, Physician, Doctor, Practitioner |
+| `provider` | text (masked) | Provider, Rendering Provider, Rendering, Clinician, Therapist, Physician, Doctor, Practitioner |
 | `npi` | text | NPI, Provider NPI, Rendering NPI, Individual NPI |
 | `payer` | text | Payer, Payer Name, Primary Payer, Insurance, Insurance Name, Plan, Plan Name, Payor |
 

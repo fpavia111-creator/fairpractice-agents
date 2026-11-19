@@ -1,8 +1,8 @@
 Patient ID,Patient Name,Case #,Attorney,Date of Injury,State,LOP Signed,Charges,Paid,Reduction %,Status,Settled Date,Last Update,Suit Filed
-L1,Ella Brightwater,PI-201,Harbor Law Group,2025-06-10,CA,2025-06-20,8000,0,,Settled,2026-09-20,2026-09-20,Yes
-L2,Finn Galloway,PI-202,Northgate Injury Law,2024-12-01,TX,2024-12-10,6500,0,,Open,,2026-10-30,No
-L3,Gia Marchetti,PI-203,Harbor Law Group,2026-03-01,CA,,4500,0,,Open,,2026-10-15,No
-L4,Hank Osei,PI-204,Northgate Injury Law,2025-04-15,TX,2025-04-20,10000,6000,40,Settled,2026-11-01,2026-11-01,Yes
-L5,Iris Fenwick,PI-205,Harbor Law Group,2025-08-01,CA,2025-08-05,7200,0,,Open,,2026-06-01,No
+L1,Ella Brightwater,PI-201,Quillmere Law Group,2025-06-10,CA,2025-06-20,8000,0,,Settled,2026-09-20,2026-09-20,Yes
+L2,Finn Galloway,PI-202,Wrenhaven Injury Law,2024-12-01,TX,2024-12-10,6500,0,,Open,,2026-10-30,No
+L3,Gia Marchetti,PI-203,Quillmere Law Group,2026-03-01,CA,,4500,0,,Open,,2026-10-15,No
+L4,Hank Osei,PI-204,Wrenhaven Injury Law,2025-04-15,TX,2025-04-20,10000,6000,40,Settled,2026-11-01,2026-11-01,Yes
+L5,Iris Fenwick,PI-205,Quillmere Law Group,2025-08-01,CA,2025-08-05,7200,0,,Open,,2026-06-01,No
 L6,Jonah Pryce,PI-206,Calder & Price,2025-09-12,TX,2025-09-15,3000,0,,Dropped,2026-10-10,2026-10-10,No
 L7,Kara Voss,PI-207,Calder & Price,2023-05-01,NY,2023-05-10,5400,0,,Open,,2026-11-02,No

@@ -203,7 +203,7 @@
       "id": "post-needs-a-click",
       "tool": "reviews_request_post",
       "args": {
-        "draft": "kestrel-out/reviews/drafts/x.md",
+        "draft": "fairpractice-out/reviews/drafts/x.md",
         "draft_sha256": "0"
       },
       "expect": {

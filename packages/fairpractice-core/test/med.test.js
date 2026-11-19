@@ -92,3 +92,12 @@ test('near-name index: one typo in any word finds the name, in indexing order, w
   assert.deepEqual(near('mary brown'), []);
   assert.deepEqual(nearNameIndex(['al bo', 'albert bo long name here'], { maxLenDiff: 4 })('al bo'), ['al bo']);
 });
+
+test('near-name index: numbers match exactly, and very common words do not pull in every name', () => {
+  assert.ok(!wordVariants('suite 101').has('11'), 'no typo variants of a number');
+  const keys = Array.from({ length: 600 }, (_, i) => `vendor medical ${i}`).concat(['northwind billing', 'acme medical']);
+  const near = nearNameIndex(keys);
+  assert.deepEqual(near('northwind biling'), ['northwind billing']);
+  assert.ok(near('acme medical').includes('acme medical') && near('acme medical').length < 10, 'the rare word finds it; "medical" alone is too common');
+  assert.ok(near('medical').length >= 1, 'a name made only of common words still gets candidates');
+});

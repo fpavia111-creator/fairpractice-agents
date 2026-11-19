@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, STAFF_ID, STAFF_NAME, MINUTES, DOS, KESTREL_LIMITS } from 'fairpractice-core';
+import { medAgent, fileArg, STAFF_ID, STAFF_NAME, MINUTES, DOS, PRACTICE_LIMITS } from 'fairpractice-core';
 import { checkCaregiverHours } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -50,7 +50,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, caregiver_id: i.caregiver_id, caregiver_name: i.caregiver_name || '', date: i.date, hours: i.hours ?? '', overtime_hours: i.overtime_hours ?? '', amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'caregiver_name', 'date', 'hours', 'overtime_hours', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Overtime follows the federal 40-hour week by default; daily overtime, meal and split-shift rules are state law and are only checked when you set them. Fairpractice Caregiver Hours does not know your state\'s rules.', 'Travel is inferred from same-day gaps between different clients; record actual travel where you have it.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Overtime follows the federal 40-hour week by default; daily overtime, meal and split-shift rules are state law and are only checked when you set them. Fairpractice Caregiver Hours does not know your state\'s rules.', 'Travel is inferred from same-day gaps between different clients; record actual travel where you have it.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'payroll_submit', category: 'payment', description: 'Fairpractice Caregiver Hours never runs or changes payroll.' },

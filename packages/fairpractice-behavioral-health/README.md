@@ -43,7 +43,7 @@ Fairpractice Behavioral Health demo (fictional practice, patients, staff and pay
 
 ▶ Write the billing list
   status: executed  decision: allow
-  Behavioral health billing check written: 15 line(s) for 5 client(s). 480 at risk. 5 finding(s): license_cannot_bill 1, addon_without_base 1, wrong_time_code 1, crisis_time 1, over_yearly_limit 1. Files: kestrel-out/bh/bh-behavioral-health.csv, kestrel-out/bh/bh-behavioral-health.html.
+  Behavioral health billing check written: 15 line(s) for 5 client(s). 480 at risk. 5 finding(s): license_cannot_bill 1, addon_without_base 1, wrong_time_code 1, crisis_time 1, over_yearly_limit 1. Files: fairpractice-out/bh/bh-behavioral-health.csv, fairpractice-out/bh/bh-behavioral-health.html.
 
 ▶ Agent tries to read a session note
   status: blocked  decision: block
@@ -55,7 +55,7 @@ Fairpractice Behavioral Health demo (fictional practice, patients, staff and pay
 | Tool | What it does | Policy |
 |---|---|---|
 | `bh_check` | List license problems, add-ons without a base code, time code mismatches, crisis time problems and sessions over yearly limits. | runs |
-| `bh_write_report` | Write bh-behavioral-health.csv (one row per item, with blank owner and decision columns) and bh-behavioral-health.html into out_dir (default kestrel-out/bh). | runs |
+| `bh_write_report` | Write bh-behavioral-health.csv (one row per item, with blank owner and decision columns) and bh-behavioral-health.html into out_dir (default fairpractice-out/bh). | runs |
 | `bh_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `bh_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `bh_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |
@@ -92,7 +92,7 @@ The PointClickCare, MatrixCare and American HealthTech style names were written 
 | `minutes` | number | Minutes, Min, Mins, Duration, Duration (min), Time (min), Total Minutes, Treatment Minutes |
 | `start` | text | Start, Start Time, Time In |
 | `end` | text | End, End Time, Time Out |
-| `provider` | text | Provider, Rendering Provider, Rendering, Clinician, Therapist, Physician, Doctor, Practitioner |
+| `provider` | text (masked) | Provider, Rendering Provider, Rendering, Clinician, Therapist, Physician, Doctor, Practitioner |
 | `license` | text | License, License Type, Credential, Credentials, Provider Type, Degree |
 | `payer` | text | Payer, Payer Name, Primary Payer, Insurance, Insurance Name, Plan, Plan Name, Payor |
 | `allowed` | amount | Allowed, Allowed Amount, Expected, Expected Payment, Fee Schedule |

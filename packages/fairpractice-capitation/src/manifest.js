@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, MONTH_ARG, PATIENT_NAME, KESTREL_LIMITS } from 'fairpractice-core';
+import { medAgent, fileArg, MONTH_ARG, PATIENT_NAME, PRACTICE_LIMITS } from 'fairpractice-core';
 import { checkCapitation } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -47,7 +47,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, member_id: i.member_id, patient_name: i.patient_name || '', month: i.month, expected: i.expected ?? '', paid: i.paid ?? '', amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'patient_name', 'month', 'expected', 'paid', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'A member counts as eligible for a month when the roster dates cover the first of the month; contracts that prorate or use another rule will differ. Rates come from your roster or settings.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'A member counts as eligible for a month when the roster dates cover the first of the month; contracts that prorate or use another rule will differ. Rates come from your roster or settings.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'dispute_submit', category: 'binding_send', description: 'Fairpractice Capitation never sends disputes to a plan.' },

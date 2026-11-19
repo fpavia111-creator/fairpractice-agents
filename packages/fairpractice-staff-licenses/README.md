@@ -42,7 +42,7 @@ Fairpractice Staff Licenses demo (fictional practice, patients, staff and payers
 
 ▶ Write the managers' list
   status: executed  decision: allow
-  Staff license and certification check written: 6 staff, 13 credential rows, 6 shifts. 7 finding(s): worked_expired 1, expired 1, missing_required 1, wrong_state 1, expiring_soon 1, never_verified 1, verification_stale 1. Files: kestrel-out/licenses/licenses.csv, kestrel-out/licenses/licenses.html.
+  Staff license and certification check written: 6 staff, 13 credential rows, 6 shifts. 7 finding(s): worked_expired 1, expired 1, missing_required 1, wrong_state 1, expiring_soon 1, never_verified 1, verification_stale 1. Files: fairpractice-out/licenses/licenses.csv, fairpractice-out/licenses/licenses.html.
 
 ▶ Agent tries to take someone off the schedule
   status: blocked  decision: block
@@ -54,7 +54,7 @@ Fairpractice Staff Licenses demo (fictional practice, patients, staff and payers
 | Tool | What it does | Policy |
 |---|---|---|
 | `licenses_check` | List expired, missing, unverified and wrong-state credentials, and shifts worked on an expired one. | runs |
-| `licenses_write_report` | Write licenses.csv (one row per item, with blank owner and decision columns) and licenses.html into out_dir (default kestrel-out/licenses). | runs |
+| `licenses_write_report` | Write licenses.csv (one row per item, with blank owner and decision columns) and licenses.html into out_dir (default fairpractice-out/licenses). | runs |
 | `licenses_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `licenses_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
 | `licenses_accept_learning` | A named person accepts or rejects a fact waiting in this agent's memory. | one named click, even in Auto (`accept_learning`) |

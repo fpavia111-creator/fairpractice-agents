@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, STAFF_ID, STAFF_NAME, UNITS, MINUTES, DOS, AMOUNT, KESTREL_LIMITS } from 'fairpractice-core';
+import { medAgent, fileArg, STAFF_ID, STAFF_NAME, UNITS, MINUTES, DOS, AMOUNT, PRACTICE_LIMITS } from 'fairpractice-core';
 import { checkEvv } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -49,7 +49,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, client_id: i.client_id || '', client_name: i.client_name || '', caregiver: i.caregiver || i.billed_caregiver || '', date: i.date || '', service: i.service || '', units: i.units ?? '', amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'client_name', 'caregiver', 'date', 'service', 'units', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Each state runs EVV its own way (aggregator, rounding, exception codes); set unit_minutes and rounding to your state\'s rules.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Each state runs EVV its own way (aggregator, rounding, exception codes); set unit_minutes and rounding to your state\'s rules.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'claim_submit', category: 'binding_send', description: 'Fairpractice EVV Claims never submits or changes claims.' },

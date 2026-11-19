@@ -1,0 +1,159 @@
+{
+  "case": "totals",
+  "id": [
+    [
+      "member_id"
+    ]
+  ],
+  "planted": [
+    ["BP100006", "left_out"],
+    ["BP100004", "dropped"],
+    ["BP100003", "wrong_provider"],
+    ["BP100007", "not_seen"],
+    ["BP100002", "not_seen"],
+    ["BP100005", "added"]
+  ],
+  "clean": [
+    {
+      "arg": "roster",
+      "set": [
+        {
+          "where": ["Member ID", "BP100003"],
+          "column": "PCP Name",
+          "value": "Rhea Lin MD"
+        },
+        {
+          "where": ["Member ID", "BP100003"],
+          "column": "PCP NPI",
+          "value": "1234567893"
+        }
+      ],
+      "add": [
+        {
+          "Member ID": "BP100006",
+          "Member Name": "Tara Wu",
+          "DOB": "1949-11-04",
+          "PCP Name": "Rhea Lin MD",
+          "PCP NPI": "1234567893"
+        },
+        {
+          "Member ID": "BP100004",
+          "Member Name": "Ruth Banks",
+          "DOB": "1953-05-21",
+          "PCP Name": "Sam Otto DO",
+          "PCP NPI": "1000000178"
+        }
+      ]
+    },
+    {
+      "arg": "prior",
+      "set": [
+        {
+          "where": ["Member ID", "BP100003"],
+          "column": "PCP Name",
+          "value": "Rhea Lin MD"
+        },
+        {
+          "where": ["Member ID", "BP100003"],
+          "column": "PCP NPI",
+          "value": "1234567893"
+        }
+      ],
+      "add": [
+        {
+          "Member ID": "BP100006",
+          "Member Name": "Tara Wu",
+          "DOB": "1949-11-04",
+          "PCP Name": "Rhea Lin MD",
+          "PCP NPI": "1234567893"
+        },
+        {
+          "Member ID": "BP100005",
+          "Member Name": "Sven Holt",
+          "DOB": "1950-12-30",
+          "PCP Name": "Sam Otto DO",
+          "PCP NPI": "1000000178"
+        }
+      ]
+    },
+    {
+      "arg": "visits",
+      "set": [
+        {
+          "where": ["Patient ID", "A7"],
+          "column": "Date of Service",
+          "value": "2026-03-05"
+        }
+      ],
+      "add": [
+        {
+          "Patient ID": "A2",
+          "Member ID": "BP100002",
+          "Patient Name": "Paulo Grant",
+          "DOB": "1948-07-19",
+          "Date of Service": "2026-06-10",
+          "Provider": "Rhea Lin MD",
+          "NPI": "1234567893",
+          "Payer": "Bluepeak Advantage"
+        }
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "name": "PCP changed to a doctor who never saw the patient",
+      "edits": [
+        {
+          "arg": "roster",
+          "set": [
+            {
+              "where": ["Member ID", "BP100001"],
+              "column": "PCP Name",
+              "value": "Sam Otto DO"
+            },
+            {
+              "where": ["Member ID", "BP100001"],
+              "column": "PCP NPI",
+              "value": "1000000178"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["BP100001", "wrong_provider"]
+      ]
+    },
+    {
+      "name": "last visit outside the 24-month look-back",
+      "edits": [
+        {
+          "arg": "visits",
+          "set": [
+            {
+              "where": ["Patient ID", "A7"],
+              "column": "Date of Service",
+              "value": "2024-06-01"
+            }
+          ]
+        }
+      ],
+      "expect": [
+        ["BP100007", "not_seen"]
+      ]
+    },
+    {
+      "name": "look-back of 6 months",
+      "edits": [
+        {
+          "arg": "settings",
+          "json": {
+            "lookback_months": 6
+          }
+        }
+      ],
+      "expect": [
+        ["BP100007", "not_seen"]
+      ]
+    }
+  ]
+}

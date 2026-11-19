@@ -43,7 +43,7 @@ Fairpractice Review Replies demo (fictional practice, patients, staff and payers
 
 ▶ Write the review list
   status: executed  decision: allow
-  Review reply privacy check written: 6 review(s), 5 draft repl(ies) checked, 3 risky. 6 finding(s): confirms_patient 2, health_detail 1, uses_reviewer_name 1, visit_detail 1, needs_reply 1. Files: kestrel-out/reviews/reviews.csv, kestrel-out/reviews/reviews.html.
+  Review reply privacy check written: 6 review(s), 5 draft repl(ies) checked, 3 risky. 6 finding(s): confirms_patient 2, health_detail 1, uses_reviewer_name 1, visit_detail 1, needs_reply 1. Files: fairpractice-out/reviews/reviews.csv, fairpractice-out/reviews/reviews.html.
 
 ▶ Agent tries to post a reply itself
   status: blocked  decision: block
@@ -55,7 +55,7 @@ Fairpractice Review Replies demo (fictional practice, patients, staff and payers
 | Tool | What it does | Policy |
 |---|---|---|
 | `reviews_check` | List draft replies that confirm a patient relationship or give health details, and low-rated reviews with no reply. | runs |
-| `reviews_write_report` | Write reviews.csv (one row per item, with blank owner and decision columns) and reviews.html into out_dir (default kestrel-out/reviews). | runs |
+| `reviews_write_report` | Write reviews.csv (one row per item, with blank owner and decision columns) and reviews.html into out_dir (default fairpractice-out/reviews). | runs |
 | `reviews_draft_review_reply` | Write a short reply for one review that never confirms the reviewer was a patient and moves complaints offline. | asks first |
 | `reviews_request_post` | After one named human click (even in Auto), record that the reviewed review reply draft is approved in review_reply-requests.csv. | asks first |
 | `reviews_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |

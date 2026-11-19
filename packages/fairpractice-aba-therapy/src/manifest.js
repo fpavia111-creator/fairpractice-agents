@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, CPT, UNITS, MINUTES, DOS, PROVIDER, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, CPT, UNITS, MINUTES, DOS, PROVIDER, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkAba } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -9,7 +9,7 @@ const AUTH_NO = t(['Auth #', 'Auth Number', 'Authorization', 'Authorization #', 
 export const SESSION_FIELDS = Object.freeze({
   patient_id: PATIENT_ID, patient_name: PATIENT_NAME, date: { ...DOS, required: true },
   start: t(['Start', 'Start Time', 'Time In', 'From Time']), end: t(['End', 'End Time', 'Time Out', 'To Time']),
-  minutes: MINUTES, cpt: { ...CPT, required: true }, units: UNITS, provider: PROVIDER,
+  minutes: MINUTES, cpt: { ...CPT, required: true }, units: UNITS, provider: { ...PROVIDER, phi: 'name' },
   provider_role: t(['Provider Role', 'Role', 'Credential', 'Provider Credential', 'Staff Type']), auth_number: AUTH_NO,
 });
 export const AUTH_FIELDS = Object.freeze({
@@ -55,7 +55,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, patient_id: i.patient_id, patient_name: i.patient_name || '', date: i.date, cpt: i.cpt || '', units: i.units ?? '', provider: i.provider || '', amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'patient_name', 'date', 'cpt', 'units', 'amount', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Payer rules for ABA (units, supervision share, who may bill which code) differ by plan and state; the settings hold yours.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Payer rules for ABA (units, supervision share, who may bill which code) differ by plan and state; the settings hold yours.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'claim_submit', category: 'binding_send', description: 'Fairpractice ABA Therapy never submits or changes claims.' },

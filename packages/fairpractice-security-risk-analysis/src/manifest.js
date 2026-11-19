@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkRisks } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -53,7 +53,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, risk_id: i.risk_id || '', asset: i.asset || '', level: i.level ?? '', risk_owner: i.owner || '', due: i.due || '', days: i.days ?? '', message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'risk_id', 'asset', 'level', 'risk_owner', 'due', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'It tracks the register you keep; it does not test systems, find vulnerabilities or certify compliance.', KESTREL_LIMITS.advice],
+    limits: [PRACTICE_LIMITS.files, 'It tracks the register you keep; it does not test systems, find vulnerabilities or certify compliance.', PRACTICE_LIMITS.advice],
   },
   refused: [
     { name: 'system_scan', category: 'production_deploy', description: 'Fairpractice Security Risk Analysis never scans, probes or changes systems.' },

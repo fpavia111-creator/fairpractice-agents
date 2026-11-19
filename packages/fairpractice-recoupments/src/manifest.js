@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, DOS, PAYER, CLAIM_ID, PAID, AMOUNT, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, DOS, PAYER, CLAIM_ID, PAID, AMOUNT, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkRecoupments } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -44,7 +44,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, claim_id: i.claim_id, patient_id: i.patient_id || '', patient_name: i.patient_name || '', payer: i.payer, date: i.date, recouped: i.recouped, appeal_due: i.appeal_due, amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'claim_id', 'patient_name', 'payer', 'date', 'recouped', 'appeal_due', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Appeal windows, notice rules and lookback limits come only from your settings; state prompt-pay and recoupment laws differ and Fairpractice Recoupments does not know them.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Appeal windows, notice rules and lookback limits come only from your settings; state prompt-pay and recoupment laws differ and Fairpractice Recoupments does not know them.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'appeal_submit', category: 'binding_send', description: 'Fairpractice Recoupments never files appeals or disputes.' },

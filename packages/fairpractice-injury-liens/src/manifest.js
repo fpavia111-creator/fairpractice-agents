@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, KESTREL_LIMITS, today } from 'fairpractice-core';
+import { medAgent, fileArg, AS_OF_ARG, PATIENT_ID, PATIENT_NAME, PRACTICE_LIMITS, today } from 'fairpractice-core';
 import { checkLiens } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -51,7 +51,7 @@ export const manifest = medAgent({
     rows: (o) => o.items.map((i) => ({ status: i.status, patient_id: i.patient_id, patient_name: i.patient_name || '', case_id: i.case_id || '', attorney: i.attorney, date: i.date, balance: i.balance, amount: i.amount, message: i.message, fix: i.fix })),
     htmlColumns: ['status', 'patient_name', 'attorney', 'date', 'balance', 'message', 'fix'],
     sections: (o) => [{ title: { en: 'Open balances by attorney' }, rows: o.attorneys, columns: ['attorney', 'cases', 'balance'] }, { title: { en: 'Findings by type' }, rows: Object.entries(o.by_status).map(([status, count]) => ({ status, count })), columns: ['status', 'count'] }],
-    limits: [KESTREL_LIMITS.files, 'Filing windows come only from the years you set per state; Fairpractice Injury Liens does not know any state\'s statute of limitations, tolling or exceptions. Ask your lawyer.', KESTREL_LIMITS.advice, KESTREL_LIMITS.phi],
+    limits: [PRACTICE_LIMITS.files, 'Filing windows come only from the years you set per state; Fairpractice Injury Liens does not know any state\'s statute of limitations, tolling or exceptions. Ask your lawyer.', PRACTICE_LIMITS.advice, PRACTICE_LIMITS.phi],
   },
   refused: [
     { name: 'attorney_email_send', category: 'binding_send', description: 'Fairpractice Injury Liens never contacts attorneys.' },
